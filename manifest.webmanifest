@@ -1,0 +1,11 @@
+{
+  "name": "みちのり — 散歩の記録",
+  "short_name": "みちのり",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0e1014",
+  "theme_color": "#0e1014",
+  "lang": "ja",
+  "icons": [{ "src": "icon.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }]
+}
