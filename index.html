@@ -17,17 +17,17 @@
 :root{
   --bg:#0e1014;--surface:#171a20;--surface2:#1f232b;--line:#2a2f38;--text:#f1efe9;--mute:#9097a3;
   --accent:#ff8a3d;--accent-ink:#1d0f04;--accent-text:#ff9a55;--bar:#e06a20;--good:#4fd18b;--warn:#f2c94c;--danger:#ff6b5e;
-  --land:#3b4250;--ease:cubic-bezier(.2,.8,.2,1);--r:22px;
+  --land:#3b4250;--paper:#1b1e25;--paperline:#262a33;--ease:cubic-bezier(.2,.8,.2,1);--r:22px;
   --font:"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic UI","Noto Sans JP",system-ui,-apple-system,sans-serif;
   color-scheme:dark;
 }
 :root[data-theme="light"]{
   --bg:#f5f2ec;--surface:#fff;--surface2:#f9f7f3;--line:#e4dfd5;--text:#17181c;--mute:#686d76;
-  --accent-text:#b84a0e;--bar:#d9631c;--good:#1f8a52;--warn:#9a6b00;--danger:#d63a2c;--land:#cfc8ba;color-scheme:light;
+  --accent-text:#b84a0e;--bar:#d9631c;--good:#1f8a52;--warn:#9a6b00;--danger:#d63a2c;--land:#cfc8ba;--paper:#f4efe4;--paperline:#e6dfcf;color-scheme:light;
 }
 @media (prefers-color-scheme:light){:root:not([data-theme="dark"]){
   --bg:#f5f2ec;--surface:#fff;--surface2:#f9f7f3;--line:#e4dfd5;--text:#17181c;--mute:#686d76;
-  --accent-text:#b84a0e;--bar:#d9631c;--good:#1f8a52;--warn:#9a6b00;--danger:#d63a2c;--land:#cfc8ba;color-scheme:light;
+  --accent-text:#b84a0e;--bar:#d9631c;--good:#1f8a52;--warn:#9a6b00;--danger:#d63a2c;--land:#cfc8ba;--paper:#f4efe4;--paperline:#e6dfcf;color-scheme:light;
 }}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html{-webkit-text-size-adjust:100%}
@@ -84,8 +84,31 @@ h2{margin:0 0 8px;font-size:13px;font-weight:700;color:var(--mute);letter-spacin
 .wkm b{font-size:22px;color:var(--text);letter-spacing:-.02em}
 .pbar{height:6px;border-radius:9px;background:var(--surface2);margin:10px 0;overflow:hidden}
 .pbar i{display:block;height:100%;width:0;border-radius:9px;background:var(--accent);transition:width .9s var(--ease)}
-.wnext{font-size:14px}
+.wnext{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;text-align:left;font-size:14px;padding:10px 12px;margin:0 -4px;border-radius:14px;background:var(--surface2);transition:transform .2s var(--ease)}
+.wnext:active{transform:scale(.98)}
 .wnext b{color:var(--accent-text)}
+.wnext small{display:block;font-size:12px;color:var(--mute);margin-top:1px}
+.wnext svg{flex:none;color:var(--mute)}
+.weta{margin-top:8px!important}
+.wlist{width:100%;margin-top:10px}
+.cphit{fill:transparent;cursor:pointer}
+#wDot,.wview text{pointer-events:none}
+.info-k{display:inline-block;font-size:12px;font-weight:800;padding:3px 10px;border-radius:99px;background:var(--surface2);color:var(--mute)}
+.info-k.done{background:var(--accent);color:var(--accent-ink)}
+.info-k.pass{animation:pop .6s var(--ease)}
+@keyframes pop{0%{transform:scale(.6)}60%{transform:scale(1.15)}}
+.info-name{margin:6px 0 0;font-size:24px;line-height:1.25;letter-spacing:-.02em}
+.info-area{margin:2px 0 0;color:var(--mute);font-size:13.5px}
+.trivia{position:relative;padding:14px 14px 14px 44px;border-radius:16px;background:var(--surface2);font-size:15px;line-height:1.75}
+.trivia::before{content:"豆";position:absolute;left:12px;top:14px;width:22px;height:22px;border-radius:7px;display:grid;place-items:center;font-size:12px;font-weight:800;background:var(--accent);color:var(--accent-ink)}
+.cplist{list-style:none;margin:0;padding:0;max-height:60dvh;overflow:auto;display:grid;gap:6px}
+.cplist button{display:flex;gap:12px;align-items:center;width:100%;text-align:left;padding:10px 12px;border-radius:14px;background:var(--surface2)}
+.cplist .mk{flex:none;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:800;border:2px solid var(--line);color:var(--mute)}
+.cplist .done .mk{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.cplist .nx .mk{border-color:var(--accent)}
+.cplist b{font-size:14.5px}
+.cplist small{display:block;font-size:12px;color:var(--mute)}
+.cplist .km{margin-left:auto;font-size:12px;color:var(--mute);white-space:nowrap}
 .weta{font-size:12.5px;color:var(--mute);margin-top:2px}
 
 /* 集計 */
@@ -162,6 +185,56 @@ label input:focus,label select:focus{outline:0;border-color:var(--accent-text)}
 .stats3 span{display:block;font-size:11.5px;color:var(--mute)}
 .stats3 b{font-size:18px}
 
+/* 足あとマップ */
+.mapcard{display:flex;align-items:center;gap:14px;animation-delay:.05s}
+.mapcard .mi{flex:none;width:52px;height:52px;border-radius:16px;display:grid;place-items:center;background:var(--paper);color:var(--accent-text);overflow:hidden}
+.mapcard .mi svg{width:100%;height:100%}
+.mapcard h2{margin:0;color:var(--text);font-size:15px}
+.mapcard p{margin:2px 0 0;font-size:12.5px;color:var(--mute)}
+.mapcard .btn{margin-left:auto;flex:none}
+.mapv{position:fixed;inset:0;z-index:40;background:var(--paper);animation:sheet .4s var(--ease)}
+#mapEl{position:absolute;inset:0;background:var(--paper)}
+#mapEl .fog{position:absolute;left:0;top:0;z-index:450;pointer-events:none;transition:opacity .15s}
+.mbar{position:absolute;left:0;right:0;top:0;z-index:1100;display:flex;gap:8px;align-items:center;padding:calc(env(safe-area-inset-top) + 10px) 12px 10px;pointer-events:none}
+.mbar>*{pointer-events:auto}
+.mseg{flex:1;display:flex;padding:4px;border-radius:99px;background:color-mix(in srgb,var(--surface) 88%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--line);box-shadow:0 8px 24px rgba(0,0,0,.18)}
+.mseg button{flex:1;height:36px;border-radius:99px;font-size:12.5px;font-weight:800;color:var(--mute);white-space:nowrap;transition:all .25s}
+.mseg button.on{background:var(--accent);color:var(--accent-ink)}
+.mfab{position:absolute;right:12px;bottom:calc(env(safe-area-inset-bottom) + 92px);z-index:1100;display:grid;gap:8px}
+.mfab .ib,.mbar .ib{background:color-mix(in srgb,var(--surface) 90%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:var(--text);box-shadow:0 8px 24px rgba(0,0,0,.18)}
+.minfo{position:absolute;left:12px;right:12px;bottom:calc(env(safe-area-inset-bottom) + 28px);z-index:1100;padding:10px 14px;border-radius:16px;background:color-mix(in srgb,var(--surface) 92%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--line);font-size:13px;box-shadow:0 8px 24px rgba(0,0,0,.18)}
+.minfo b{color:var(--accent-text)}
+.minfo small{display:block;color:var(--mute);font-size:12px}
+.mapv .leaflet-control-attribution{font-size:10px;background:color-mix(in srgb,var(--surface) 80%,transparent);color:var(--mute);margin-bottom:calc(env(safe-area-inset-bottom) + 2px)!important}
+.mapv .leaflet-control-attribution a{color:var(--accent-text)}
+.mapv .leaflet-container{font-family:var(--font)}
+
+.bgcard{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;text-align:left;color:var(--text)}
+.bgcard h2{margin:0 0 4px}
+.bgcard svg{flex:none;color:var(--mute)}
+.bgrow{display:flex;gap:6px;font-size:22px;flex-wrap:wrap}
+.bgrow small{font-size:12.5px;color:var(--mute)}
+.bggrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-height:60dvh;overflow:auto}
+.bg{display:grid;justify-items:center;gap:2px;padding:12px 6px;border-radius:16px;background:var(--surface2);text-align:center}
+.bg span{font-size:30px;line-height:1.1;transition:transform .3s var(--ease)}
+.bg:active span{transform:scale(1.2) rotate(-8deg)}
+.bg b{font-size:12px;line-height:1.3}
+.bg small{font-size:10.5px;color:var(--mute);line-height:1.35}
+.bg.off span{filter:grayscale(1);opacity:.35}
+.bg.off b{color:var(--mute)}
+.bgbig{font-size:64px;line-height:1;margin:6px 0 10px;animation:pop .7s var(--ease)}
+.bgbig.off{filter:grayscale(1);opacity:.4}
+.ptype{display:flex;flex-wrap:wrap;gap:6px}
+.ptype button{height:36px;padding:0 12px;border-radius:99px;background:var(--surface2);font-size:13px;font-weight:700;color:var(--mute);border:1.5px solid transparent;transition:all .2s}
+.ptype button.on{border-color:var(--accent);color:var(--text)}
+.lnew{display:inline-flex;align-items:center;gap:6px;margin:0 auto 6px;padding:4px 12px;border-radius:99px;background:var(--surface);border:1px solid var(--line);font-size:12.5px;color:var(--mute)}
+.lnew b{color:var(--accent-text)}
+.pinmk{width:34px;height:34px;border-radius:50% 50% 50% 4px;transform:rotate(-45deg);display:grid;place-items:center;background:var(--surface);border:2px solid var(--accent);box-shadow:0 4px 12px rgba(0,0,0,.3)}
+.pinmk span{transform:rotate(45deg);font-size:16px;line-height:1}
+.mcross{position:absolute;left:50%;top:50%;z-index:1050;width:44px;height:44px;margin:-44px 0 0 -22px;pointer-events:none;display:grid;place-items:center;font-size:30px;filter:drop-shadow(0 4px 6px rgba(0,0,0,.35))}
+.mpick{position:absolute;left:12px;right:12px;bottom:calc(env(safe-area-inset-bottom) + 28px);z-index:1150;display:flex;gap:8px}
+.mpick .btn{flex:1}
+
 /* 計測中 */
 .live{position:fixed;inset:0;z-index:50;background:var(--bg);display:flex;flex-direction:column;padding:calc(env(safe-area-inset-top) + 16px) 16px calc(env(safe-area-inset-bottom) + 16px);animation:sheet .45s var(--ease)}
 .live .top{display:flex;justify-content:space-between;align-items:center}
@@ -208,12 +281,24 @@ label input:focus,label select:focus{outline:0;border-color:var(--accent-text)}
     <div class="winfo">
       <div class="wrow"><span class="lap" id="wLap"></span><span class="wkm num"><b id="wKm">0</b> / <span id="wLen"></span> km</span></div>
       <div class="pbar"><i id="wBar"></i></div>
-      <div class="wnext" id="wNext"></div>
+      <button class="wnext" id="wNext" data-act="info"></button>
       <div class="weta" id="wEta"></div>
+      <button class="btn sm wlist" data-act="list"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 4h9M5 8h9M5 12h9"/><circle cx="2" cy="4" r=".6"/><circle cx="2" cy="8" r=".6"/><circle cx="2" cy="12" r=".6"/></svg>地点の一覧と豆知識</button>
     </div>
   </section>
 
+  <section class="card mapcard">
+    <span class="mi" id="mapThumb"></span>
+    <div><h2>足あとマップ</h2><p id="mapSum"></p></div>
+    <button class="btn sm primary" data-act="map">開く</button>
+  </section>
+
   <section class="bento" id="bento"></section>
+
+  <button class="card bgcard" data-act="badges">
+    <span><h2>バッジ <span class="num" id="bgCount"></span></h2><span class="bgrow" id="bgRecent"></span></span>
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3l5 5-5 5"/></svg>
+  </button>
 
   <section class="card" style="animation-delay:.1s">
     <h2>直近14日の距離</h2>
@@ -242,11 +327,32 @@ label input:focus,label select:focus{outline:0;border-color:var(--accent-text)}
     <div><span>消費</span><b class="num" id="lKcal">0</b><small> kcal</small></div>
   </div>
   <div class="ltrail" id="lTrail"></div>
+  <div style="display:flex;justify-content:center;gap:8px;margin-top:10px"><span class="lnew">開拓 <b class="num" id="lNew">0.00</b> km<small>（初めての道）</small></span><button class="lnew" data-act="livepin">📍 ここをメモ</button></div>
   <p class="lnote">画面を消しても大丈夫。戻ってきたとき、離れた2点の距離から歩いた分を推測して足すよ（点線の部分）。</p>
   <div class="lacts">
     <button class="btn" id="lPause">一時停止</button>
     <button class="btn primary" id="lStop">終了して保存</button>
   </div>
+</div>
+
+<!-- 足あとマップ -->
+<div class="mapv" id="mapv" hidden>
+  <div id="mapEl"></div>
+  <div class="mbar">
+    <button class="ib" data-act="mapclose" aria-label="閉じる"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 4l10 10M14 4L4 14"/></svg></button>
+    <div class="mseg" id="mseg" role="tablist" aria-label="地図の見え方">
+      <button data-mm="blank">白地図</button><button data-mm="mine">埋まった地図</button><button data-mm="all">答え合わせ</button>
+    </div>
+  </div>
+  <div class="mcross" id="mcross" hidden>📍</div>
+  <div class="mpick" id="mpick" hidden><button class="btn" data-act="pickcancel">やめる</button><button class="btn primary" data-act="pickok">ここを登録</button></div>
+  <div class="mfab">
+    <button class="ib" data-act="pinadd" aria-label="場所を登録"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M9 3v12M3 9h12"/></svg></button>
+    <button class="ib" data-act="pins" aria-label="お気に入りの場所の一覧"><svg width="18" height="18" viewBox="0 0 18 18" fill="currentColor"><path d="M9 1.5l2.2 4.6 5 .7-3.6 3.5.9 5L9 12.9l-4.5 2.4.9-5L1.8 6.8l5-.7z"/></svg></button>
+    <button class="ib" data-act="mapfit" aria-label="歩いた道の全体を表示"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6V2h4M12 2h4v4M16 12v4h-4M6 16H2v-4"/></svg></button>
+    <button class="ib" data-act="maploc" aria-label="現在地"><svg width="18" height="18" viewBox="0 0 18 18" fill="currentColor"><path d="M16.5 1.5 1.5 8l6 2.5L10 16.5z"/></svg></button>
+  </div>
+  <div class="minfo" id="minfo"></div>
 </div>
 
 <!-- 記録の追加 -->
@@ -279,6 +385,27 @@ label input:focus,label select:focus{outline:0;border-color:var(--accent-text)}
   <div class="acts"><button type="button" class="btn sm danger" data-act="wipe">全部消す</button><button class="btn primary" value="ok">保存</button></div>
 </form></dialog>
 
+<!-- 地点の豆知識 -->
+<dialog id="dInfo"><div class="sh" id="infoBody"></div></dialog>
+<dialog id="dList"><div class="sh"><h3 id="listT">地点の一覧</h3><ul class="cplist" id="cpList"></ul><div class="acts"><button class="btn sm" data-act="close">閉じる</button></div></div></dialog>
+
+<dialog id="dBadges"><div class="sh"><h3 id="bgT">バッジ</h3><p class="hint">気が向いたときに歩けばOK。一度取ったバッジは消えない。</p><div class="bggrid" id="bgGrid"></div><div class="acts"><button class="btn sm" data-act="close">閉じる</button></div></div></dialog>
+
+<dialog id="dPin"><form class="sh" method="dialog" id="fPin">
+  <h3 id="pinT">場所を登録</h3>
+  <label>名前<input name="name" maxlength="30" placeholder="例：川沿いのベンチ" autocomplete="off" required></label>
+  <div class="ptype" id="pinType">
+    <button type="button" data-t="fav">⭐ お気に入り</button><button type="button" data-t="often">🔁 よく行く</button><button type="button" data-t="cafe">☕ ごはん・カフェ</button>
+    <button type="button" data-t="park">🌳 公園・自然</button><button type="button" data-t="view">🌅 景色</button><button type="button" data-t="other">📍 その他</button>
+  </div>
+  <label>メモ<input name="memo" maxlength="200" placeholder="例：夕方がきれい" autocomplete="off"></label>
+  <p class="hint" id="pinMeta"></p>
+  <div class="acts"><button type="button" class="btn sm danger" id="pinDel" data-act="pindel">消す</button><button type="button" class="btn sm" id="pinGo" data-act="pingo">地図で見る</button></div>
+  <div class="acts"><button type="button" class="btn" data-act="close">やめる</button><button class="btn primary" value="ok">保存</button></div>
+</form></dialog>
+
+<dialog id="dPins"><div class="sh"><h3>お気に入りの場所</h3><p class="hint">右の数字は、計測した散歩でその場所を通った回数。</p><ul class="cplist" id="pinList"></ul><div class="acts"><button class="btn sm" data-act="close">閉じる</button></div></div></dialog>
+
 <!-- 記録の詳細 -->
 <dialog id="dWalk"><div class="sh" id="walkBody"></div></dialog>
 
@@ -299,12 +426,12 @@ const kmf = (k) => nf(k, k >= 1000 ? 0 : k >= 100 ? 1 : 2);
 const toNum = (v) => { const n = parseFloat(String(v).replace(/[,，\s]/g, '').replace(/[０-９．]/g, (c) => String.fromCharCode(c.charCodeAt(0) - 0xfee0))); return isFinite(n) ? n : NaN; };
 
 /* ================= データ ================= */
-const DEF = () => ({ v: 1, theme: 'auto', world: 'japan', profile: { weight: 60, height: 170, stride: 0, set: false }, walks: [] });
+const DEF = () => ({ v: 1, theme: 'auto', world: 'yamanote', profile: { weight: 60, height: 170, stride: 0, set: false }, walks: [], pins: [], badges: {} });
 let S = load();
 function load() {
   try {
     const d = JSON.parse(localStorage.getItem(KEY));
-    if (d && Array.isArray(d.walks)) return { ...DEF(), ...d, profile: { ...DEF().profile, ...d.profile } };
+    if (d && Array.isArray(d.walks)) return { ...DEF(), ...d, profile: { ...DEF().profile, ...d.profile }, pins: Array.isArray(d.pins) ? d.pins : [], badges: d.badges && typeof d.badges === 'object' ? d.badges : {} };
   } catch (e) {}
   return DEF();
 }
@@ -334,23 +461,203 @@ const NS = 'http://www.w3.org/2000/svg';
 const dotSVG = '<g id="wDot"><circle class="halo" r="7"/><circle class="dot" r="5.5"/></g>';
 
 // 日本縦断：都市をまっすぐ結んだ道のり
-const JP = [['宗谷岬', 45.522, 141.937], ['旭川', 43.771, 142.365], ['札幌', 43.062, 141.354], ['函館', 41.769, 140.729], ['青森', 40.822, 140.747], ['盛岡', 39.702, 141.154], ['仙台', 38.268, 140.870], ['福島', 37.750, 140.468], ['宇都宮', 36.555, 139.883], ['東京', 35.681, 139.767], ['横浜', 35.444, 139.638], ['静岡', 34.976, 138.383], ['浜松', 34.711, 137.726], ['名古屋', 35.171, 136.882], ['京都', 35.011, 135.768], ['大阪', 34.702, 135.496], ['神戸', 34.690, 135.196], ['姫路', 34.815, 134.685], ['岡山', 34.665, 133.918], ['福山', 34.489, 133.362], ['広島', 34.397, 132.475], ['下関', 33.957, 130.941], ['福岡', 33.590, 130.420], ['熊本', 32.790, 130.742], ['鹿児島', 31.596, 130.557], ['佐多岬', 30.994, 130.660]];
-const jp = (() => {
-  const cum = [0];
-  for (let i = 1; i < JP.length; i++) cum.push(cum[i - 1] + hav([JP[i - 1][1], JP[i - 1][2]], [JP[i][1], JP[i][2]]) / 1000);
-  const k = Math.cos(38 * Math.PI / 180);
-  const raw = JP.map((p) => [(p[2] - 136) * k, -(p[1] - 38)]);
-  const xs = raw.map((p) => p[0]), ys = raw.map((p) => p[1]);
-  const [x0, x1, y0, y1] = [Math.min(...xs), Math.max(...xs), Math.min(...ys), Math.max(...ys)];
-  const sc = Math.min(200 / (x1 - x0), 192 / (y1 - y0));
-  const ox = 160 - (x0 + x1) / 2 * sc, oy = 110 - (y0 + y1) / 2 * sc;
-  const P = raw.map((p) => [p[0] * sc + ox, p[1] * sc + oy]);
-  return { cum, P, L: cum[cum.length - 1] };
+const JP = [
+  ['宗谷岬', 45.522, 141.937, '北海道 稚内市', '日本本土のいちばん北の端。晴れた日は、約43km先のサハリン（ロシア）が見えることもある。'],
+  ['旭川', 43.771, 142.365, '北海道', '1902年に、日本の公式記録で最も低い気温 −41.0℃ を観測した町。旭山動物園も有名。'],
+  ['札幌', 43.062, 141.354, '北海道', '1972年にアジアで初めての冬季オリンピックが開かれた。'],
+  ['函館', 41.769, 140.729, '北海道', '1859年、横浜・長崎と並んで日本で最初に外国との貿易のために開かれた港のひとつ。'],
+  ['青森', 40.822, 140.747, '青森県', 'りんごの生産量が日本一。全国のりんごの半分以上が青森県産。'],
+  ['盛岡', 39.702, 141.154, '岩手県', 'わんこそば・盛岡冷麺・じゃじゃ麺の3つをまとめて「盛岡三大麺」と呼ぶ。'],
+  ['仙台', 38.268, 140.870, '宮城県', '伊達政宗がつくった城下町。緑が多くて「杜の都」と呼ばれる。'],
+  ['福島', 37.750, 140.468, '福島県', '桃の産地として有名。福島県は北海道・岩手県に次いで、全国で3番目に広い県。'],
+  ['宇都宮', 36.555, 139.883, '栃木県', '「餃子のまち」として知られていて、駅前には餃子の像まである。'],
+  ['東京', 35.681, 139.767, '東京都', '日本の首都。東京駅の赤レンガの駅舎は1914年に開業した。'],
+  ['横浜', 35.444, 139.638, '神奈川県', '人口は約370万人で、市町村の中で日本一多い。1859年に開港した港町。'],
+  ['静岡', 34.976, 138.383, '静岡県', 'お茶づくりが盛んな県。富士山は静岡県と山梨県にまたがっている。'],
+  ['浜松', 34.711, 137.726, '静岡県', 'ピアノなどの楽器や、オートバイの会社が生まれた「ものづくりのまち」。'],
+  ['名古屋', 35.171, 136.882, '愛知県', '名古屋城の屋根にある金のしゃちほこがシンボル。'],
+  ['京都', 35.011, 135.768, '京都府', '794年に平安京ができてから、1000年以上も日本の都だった。'],
+  ['大阪', 34.702, 135.496, '大阪府', '江戸時代は全国から米や物が集まり「天下の台所」と呼ばれた商人のまち。'],
+  ['神戸', 34.690, 135.196, '兵庫県', '1868年に開港した港町。神戸牛でも有名。'],
+  ['姫路', 34.815, 134.685, '兵庫県', '姫路城は1993年に、法隆寺とともに日本で初めて世界遺産になった。'],
+  ['岡山', 34.665, 133.918, '岡山県', '桃太郎の伝説で知られ、きびだんごが名物。'],
+  ['福山', 34.489, 133.362, '広島県', '「ばらのまち」と呼ばれ、まちの中にたくさんのばらが植えられている。'],
+  ['広島', 34.397, 132.475, '広島県', '原爆ドームと厳島神社、2つの世界遺産がある。'],
+  ['下関', 33.957, 130.941, '山口県', 'ふぐのまち。関門海峡をはさんで九州の北九州市と向かい合っている。'],
+  ['福岡', 33.590, 130.420, '福岡県', '博多ラーメン・もつ鍋・明太子が名物。九州でいちばん人口が多い都市。'],
+  ['熊本', 32.790, 130.742, '熊本県', '熊本城と阿蘇山が有名。阿蘇山には世界有数の大きさのカルデラ（火山のくぼ地）がある。'],
+  ['鹿児島', 31.596, 130.557, '鹿児島県', '目の前の桜島は、今も噴火をくり返している活火山。'],
+  ['佐多岬', 30.994, 130.660, '鹿児島県', '日本本土のいちばん南の端。ゴール！ここから2周目は、また宗谷岬からスタート。'],
+];
+const GEO_JP='M213.9 -46.0L216.2 -46.0L218.8 -46.0L220.9 -46.0L224.3 -46.0L227.6 -46.0L228.6 -44.2L229.2 -42.7L229.6 -41.1L230.0 -39.4L230.7 -37.7L231.7 -35.9L233.5 -34.4L234.6 -32.8L234.7 -30.4L233.7 -32.7L231.4 -35.1L230.1 -36.2L228.4 -38.1L226.7 -39.0L225.1 -39.4L220.5 -39.2L218.9 -38.8L217.5 -37.9L216.7 -36.7L216.1 -34.1L212.7 -25.1L211.9 -22.7L211.6 -20.2L211.7 -18.2L212.9 -15.5L214.3 -13.8L215.8 -12.6L216.5 -11.2L217.4 -8.2L218.3 -6.1L219.8 -5.6L221.6 -4.9L222.2 -2.5L222.6 -0.2L221.9 2.2L221.5 3.7L220.9 2.3L220.4 0.4L220.2 -1.1L216.9 -2.7L214.6 -2.9L213.2 -4.3L210.9 -3.4L209.5 -0.9L208.0 4.1L206.6 6.4L205.4 5.1L204.9 3.0L204.0 -0.8L204.3 -4.1L205.9 -8.6L206.2 -10.1L205.6 -12.9L205.4 -15.6L205.9 -17.7L206.6 -19.1L207.7 -21.9L207.2 -25.6L206.1 -28.2L204.7 -30.6L205.6 -34.8L206.0 -36.3L206.5 -39.4L206.9 -41.2L207.3 -42.9L207.4 -46.0L205.8 -46.0L203.3 -46.0L205.4 -46.0L207.3 -46.0L209.2 -46.0L211.4 -46.0L213.0 -46.0L210.7 -46.0L212.3 -46.0L213.9 -46.0ZM225.2 30.7L227.1 30.8L232.2 33.0L234.7 33.3L236.3 32.6L238.8 30.1L241.4 27.8L240.3 31.3L239.1 34.1L239.2 36.9L240.6 39.6L241.4 41.8L242.9 42.1L244.9 40.6L246.6 40.6L244.4 41.9L243.4 43.2L241.4 43.4L239.1 44.6L236.9 45.8L233.8 46.5L230.3 46.0L226.8 47.4L224.5 49.2L222.6 51.2L221.0 53.7L220.0 56.4L219.7 58.2L217.6 59.0L215.4 57.7L211.2 55.8L206.7 53.0L204.2 51.5L199.5 52.0L195.0 54.7L192.9 52.6L191.0 51.6L188.6 52.8L187.9 54.3L188.9 56.6L190.1 57.6L191.8 57.7L194.2 59.6L196.3 61.4L195.1 62.9L193.2 62.6L191.5 61.8L189.7 63.8L189.1 65.2L187.4 66.7L185.4 67.0L184.4 65.1L184.7 63.4L185.4 62.0L185.6 60.5L185.1 58.4L183.4 56.8L182.6 54.1L183.0 51.5L183.9 50.3L185.7 49.4L188.0 47.6L189.1 46.4L188.7 43.6L188.7 41.7L190.7 41.6L192.8 42.9L194.6 43.1L196.6 43.4L198.3 43.1L199.5 40.7L199.4 38.9L199.4 37.2L199.9 35.7L201.5 33.4L202.2 28.8L202.8 27.3L203.2 25.8L203.5 22.6L202.8 19.6L202.1 18.1L201.3 16.7L202.1 14.1L203.4 13.1L205.1 11.9L207.6 14.4L210.2 17.1L213.3 21.3L215.2 23.3L217.2 25.1L219.5 27.0L221.9 28.6L223.4 29.3L224.5 30.5ZM197.6 67.8L200.0 67.4L199.6 69.4L199.4 71.5L199.5 75.0L199.7 76.6L200.0 78.1L202.0 80.0L203.6 82.4L204.5 85.4L205.1 86.9L205.5 88.5L205.6 90.8L205.5 94.1L204.8 96.9L204.1 98.6L203.0 99.9L202.0 101.0L201.3 102.4L200.7 104.8L200.5 106.6L199.0 108.2L196.3 108.8L194.7 111.4L194.4 114.1L194.7 115.8L195.2 117.5L195.5 120.6L195.1 125.3L194.8 126.9L193.4 128.4L192.3 130.5L191.2 133.6L191.1 135.2L190.6 137.3L191.1 139.6L192.6 142.5L193.8 144.1L191.3 145.0L189.4 147.0L188.9 148.6L188.9 150.3L187.8 151.8L186.2 152.6L184.1 154.6L182.3 154.5L182.7 152.9L182.9 150.8L183.5 149.2L184.8 147.4L185.5 146.0L184.4 144.9L182.7 145.0L182.0 146.5L180.8 148.4L181.3 150.2L181.0 151.9L179.8 150.6L177.7 149.9L175.6 151.1L175.1 152.6L175.1 154.5L174.8 156.1L174.0 157.5L172.8 158.9L171.3 158.0L171.8 155.6L172.8 153.6L170.8 152.2L169.3 152.7L168.6 154.1L166.9 156.0L165.9 157.5L165.2 159.4L163.0 158.8L160.5 158.7L158.3 158.5L155.9 158.8L153.2 159.5L155.6 157.9L153.6 157.2L152.1 156.1L151.9 157.7L151.0 155.1L151.4 153.4L149.8 153.6L148.0 156.7L147.6 158.2L148.5 159.5L150.9 161.2L151.0 163.0L147.7 163.9L145.4 165.0L142.7 170.4L141.0 173.3L138.6 174.4L136.1 173.4L134.9 171.2L133.1 168.8L132.6 167.3L132.7 165.0L132.7 163.1L134.1 162.3L135.4 160.7L135.7 159.1L133.4 158.6L131.7 158.9L129.0 157.3L126.8 157.0L124.5 157.6L122.8 158.0L121.4 159.4L119.3 160.7L117.2 160.8L115.0 161.6L113.5 162.2L111.5 163.3L107.6 164.0L105.0 163.5L102.7 163.0L101.9 164.3L101.5 167.0L100.9 169.6L96.8 166.8L93.7 167.2L92.1 167.9L90.3 167.7L88.6 167.3L87.5 163.9L88.7 162.1L91.5 162.1L93.3 161.1L95.1 159.1L96.5 158.4L97.8 157.6L98.9 156.5L100.0 155.3L102.1 153.6L103.7 151.8L105.9 149.8L106.8 148.3L109.1 147.0L111.6 146.4L114.0 147.7L116.5 147.0L119.1 147.2L122.9 146.6L125.5 145.4L130.0 144.9L133.1 143.8L134.1 145.0L134.7 146.8L137.7 146.9L139.7 146.5L142.1 144.7L142.1 142.1L142.0 140.5L142.6 138.8L143.6 137.4L145.7 135.5L147.8 132.7L149.3 130.4L149.9 127.5L149.6 124.2L150.9 121.7L154.7 120.2L156.2 120.3L154.2 123.1L152.4 124.2L152.5 126.5L152.7 128.3L153.9 129.9L155.7 130.2L157.7 127.9L162.3 126.0L164.4 124.8L166.6 123.9L169.0 121.6L170.7 119.3L171.4 117.9L171.9 116.4L176.5 113.3L177.7 112.0L178.6 109.7L178.9 108.0L180.0 105.3L180.8 103.9L181.8 102.7L183.2 98.5L183.6 96.8L184.6 95.0L185.2 91.4L185.1 89.7L184.4 88.3L182.5 88.0L183.1 86.5L184.2 84.5L184.6 82.8L184.1 80.8L183.7 79.1L184.1 77.3L185.4 76.3L187.2 75.4L188.0 73.6L187.9 70.7L189.8 70.1L191.3 70.7L191.7 74.3L193.5 74.5L196.4 74.4L197.5 73.0L197.9 71.5L197.2 69.6L195.9 70.2L193.0 71.0L193.0 69.4L193.6 67.1L195.7 66.4L197.6 67.8ZM124.4 163.9L125.9 164.5L127.4 164.4L127.4 166.8L128.0 168.4L128.5 169.9L126.5 171.1L124.6 172.7L123.2 175.0L122.6 177.6L120.2 174.9L117.3 174.0L113.0 176.1L112.5 177.5L111.5 179.8L110.1 181.1L109.7 183.1L108.6 184.3L106.7 183.9L106.9 182.2L104.6 182.0L103.9 180.1L104.4 178.5L104.8 177.0L103.7 175.1L100.2 176.3L102.4 174.6L105.0 172.4L106.8 170.3L107.3 168.7L108.3 167.1L109.9 166.2L111.4 168.4L113.2 167.8L115.0 167.8L116.6 166.5L116.4 164.1L118.8 163.3L121.4 162.6L122.9 163.1L124.4 163.9ZM90.5 172.8L92.6 173.2L94.0 172.5L95.5 172.3L96.2 174.1L95.2 175.6L94.4 177.2L96.3 177.5L98.2 177.5L97.7 179.3L98.6 180.8L99.3 182.5L96.5 186.4L95.7 188.1L95.2 190.0L94.3 192.9L94.0 194.4L93.6 196.0L93.6 198.9L92.3 202.5L90.2 202.0L89.7 204.5L87.6 206.4L85.3 207.8L85.9 206.3L86.4 204.3L86.3 202.8L85.6 200.8L86.5 199.5L85.6 198.3L84.0 200.3L83.8 202.5L84.9 204.3L81.4 204.4L79.6 202.4L81.2 201.9L81.5 199.8L80.4 198.1L80.3 196.5L80.1 193.2L81.4 192.5L83.0 190.3L84.0 188.3L84.8 186.1L83.3 185.6L83.8 183.2L82.7 181.6L82.1 179.7L80.5 178.5L79.4 179.5L79.8 181.8L81.5 182.9L81.7 185.0L80.1 184.9L78.6 184.0L76.4 186.0L75.8 183.9L74.7 182.6L74.4 181.0L76.2 182.4L77.9 182.9L77.2 181.1L75.9 179.8L74.5 178.4L73.9 176.3L76.4 176.6L76.2 175.0L78.8 173.9L81.0 172.9L82.7 171.0L85.1 168.6L86.9 168.5L88.8 170.4L90.5 172.8ZM26.9 -46.0L293.1 -46.0L287.1 -46.0L284.8 -46.0L281.0 -46.0L278.2 -46.0L279.9 -46.0L277.4 -46.0L274.9 -46.0L272.4 -46.0L268.3 -46.0L266.3 -46.0L264.5 -46.0L259.5 -46.0L256.9 -46.0L254.1 -46.0L251.3 -46.0L248.9 -46.0L246.5 -46.0L243.6 -46.0L232.2 -46.0L228.4 -46.0L225.7 -46.0L222.0 -46.0L218.5 -46.0L212.0 -46.0L209.3 -46.0L206.1 -46.0L203.2 -46.0L201.5 -46.0L198.8 -46.0L195.0 -46.0L192.9 -46.0L189.8 -46.0L184.5 -46.0L182.4 -46.0L180.4 -46.0L178.6 -46.0L175.8 -46.0L173.5 -46.0L170.2 -46.0L165.5 -46.0L164.0 -46.0L159.9 -46.0L156.6 -46.0L154.6 -46.0L152.7 -46.0L150.3 -46.0L146.8 -46.0L143.8 -46.0L139.3 -46.0L137.0 -46.0L134.0 -46.0L135.9 -46.0L140.3 -46.0L144.4 -46.0L148.1 -46.0L150.4 -46.0L152.8 -46.0L155.3 -46.0L153.6 -46.0L156.6 -46.0L158.2 -46.0L156.2 -46.0L159.2 -46.0L161.5 -46.0L159.4 -46.0L155.9 -46.0L160.4 -46.0L162.7 -46.0L165.9 -46.0L168.5 -46.0L166.3 -46.0L168.0 -46.0L170.2 -46.0L174.9 -46.0L177.2 -46.0L181.4 -46.0L183.0 -46.0L186.4 -46.0L188.2 -46.0L191.8 -46.0L195.2 -46.0L197.4 -46.0L199.1 -46.0L197.1 -46.0L193.9 -46.0L196.1 -46.0L197.9 -46.0L199.5 -46.0L197.9 -46.0L194.4 -46.0L191.8 -46.0L190.0 -46.0L190.0 -43.3L189.1 -39.7L188.4 -38.2L187.8 -35.9L186.9 -32.2L186.3 -28.8L184.5 -26.1L182.0 -24.2L181.0 -22.9L179.4 -21.4L177.8 -20.2L175.6 -16.8L173.9 -13.4L169.4 -9.0L168.5 -6.7L167.4 -4.8L166.8 -2.0L165.4 -1.0L164.3 1.9L160.7 6.3L159.8 7.7L157.1 10.2L154.1 13.5L150.5 16.5L148.3 19.1L146.8 21.2L144.6 23.3L143.4 25.7L141.8 26.4L136.9 32.7L136.4 34.6L134.0 36.6L132.7 38.7L130.4 40.1L128.0 41.9L122.3 45.3L120.7 46.5L117.5 48.1L113.5 49.0L111.7 49.9L109.9 48.4L106.9 47.5L104.5 47.1L102.5 47.4L102.9 42.6L99.6 44.2L97.9 44.5L99.4 42.1L97.1 42.4L94.2 45.9L92.8 48.2L91.3 49.9L88.9 50.6L86.1 50.2L86.9 52.3L85.8 54.9L84.1 55.4L81.4 56.5L79.9 58.0L78.1 59.5L77.2 60.7L75.4 63.2L74.7 64.8L75.4 67.5L75.0 71.2L75.3 73.8L71.0 76.6L68.5 79.7L66.8 80.6L64.2 82.1L63.2 83.7L60.9 85.2L57.9 85.9L56.4 86.4L55.3 87.8L52.1 89.3L51.9 92.3L51.6 94.8L50.2 95.9L51.4 97.5L53.5 98.2L56.4 101.3L58.0 102.4L59.4 103.3L60.7 105.0L63.3 111.0L65.8 114.9L67.9 117.7L71.0 123.2L71.8 126.1L71.9 127.9L72.4 130.4L72.1 134.0L71.6 136.0L71.5 137.7L71.7 139.7L73.5 139.7L72.5 144.6L71.8 147.2L70.9 149.4L69.7 151.4L68.2 152.2L65.2 152.6L63.6 152.3L61.6 153.0L61.5 154.8L59.7 155.1L57.7 154.8L56.5 153.6L53.7 154.5L53.1 156.0L53.7 157.7L52.1 157.1L50.4 156.3L50.6 158.1L50.3 160.0L47.9 160.0L48.9 158.5L46.4 159.2L45.0 161.5L43.5 160.5L42.0 162.0L40.6 160.8L39.0 159.4L38.7 157.7L41.0 158.0L41.8 156.3L39.9 156.3L38.9 153.3L38.5 151.8L39.7 149.7L40.3 147.8L41.6 146.7L40.6 145.2L43.1 143.5L43.1 141.8L42.8 140.2L41.8 139.0L41.4 137.2L41.3 134.6L40.8 132.5L39.6 131.6L37.9 131.1L37.7 128.6L39.2 127.4L40.6 126.8L42.8 127.4L44.4 129.0L45.6 128.2L43.8 125.5L43.9 122.9L42.9 121.3L42.5 119.5L41.6 118.0L42.2 116.3L39.4 115.0L37.6 115.7L36.0 115.1L33.0 113.6L31.0 115.9L29.6 117.0L28.1 115.5L26.9 114.4L26.9 112.9L26.9 110.2L26.9 106.9L28.1 104.4L30.0 104.3L28.0 103.3L26.9 101.6L29.2 96.0L28.8 94.1L26.9 92.0L26.9 90.4L26.9 88.2L26.9 86.4L26.9 88.5L26.9 90.0L26.9 91.8L26.9 94.9L26.9 97.8L26.9 99.4L26.9 101.3L26.9 103.0L26.9 100.9L26.9 98.4L26.9 96.9L26.9 95.2L26.9 92.9L26.9 91.2L26.9 89.7L26.9 87.0L26.9 84.5L26.9 81.5L26.9 79.6L26.9 77.1L26.9 75.0L26.9 73.2L26.9 74.9L26.9 77.1L26.9 83.2L26.9 86.5L26.9 89.7L26.9 92.3L26.9 94.4L26.9 96.9L26.9 99.0L26.9 97.2L26.9 101.9L26.9 104.0L26.9 107.7L26.9 109.2L26.9 110.9L26.9 112.8L26.9 114.7L26.9 116.4L26.9 118.0L26.9 120.2L26.9 122.4L26.9 124.2L26.9 122.1L26.9 120.2L26.9 118.5L26.9 115.6L26.9 118.8L26.9 120.7L26.9 122.6L26.9 124.4L26.9 126.0L26.9 127.6L26.9 129.2L26.9 127.4L26.9 129.1L26.9 131.5L26.9 133.1L26.9 134.6L26.9 138.1L26.9 139.7L26.9 137.8L26.9 140.2L26.9 142.3L26.9 143.9L26.9 145.6L26.9 147.5L26.9 149.1L26.9 152.4L26.9 155.9L26.9 157.8L26.9 159.6L26.9 161.4L26.9 163.0L26.9 165.1L26.9 169.2L26.9 171.2L26.9 174.3L26.9 177.7L26.9 180.7L26.9 183.0L26.9 185.5L26.9 188.3L26.9 191.6L26.9 193.8L26.9 195.8L26.9 198.4L26.9 196.4L26.9 194.0L26.9 195.7L26.9 194.2L26.9 196.9L26.9 199.5L26.9 201.4L26.9 203.6L26.9 205.7L26.9 209.1L26.9 210.8L26.9 213.9L26.9 216.1L26.9 218.2L26.9 221.7L26.9 224.4L26.9 227.1L26.9 233.2L26.9 231.5L26.9 233.2L26.9 234.8L26.9 237.0L26.9 238.5L26.9 241.4L26.9 243.5L26.9 245.4L26.9 243.8L26.9 246.4L26.9 248.0L26.9 249.9L26.9 251.9L26.9 254.1L26.9 256.4L26.9 258.5L26.9 260.7L26.9 263.5L26.9 266.0L26.9 264.1L26.9 265.7L26.9 263.3L26.9 260.8L26.9 259.3L26.9 261.5L26.9 264.3L26.9 266.0L26.9 264.0L26.9 261.9L26.9 260.1L26.9 257.6L26.9 255.3L26.9 253.7L26.9 250.9L26.9 246.7L26.9 242.6L26.9 238.7L26.9 236.7L26.9 234.9L26.9 233.4L26.9 230.4L26.9 227.6L26.9 225.8L26.9 223.2L26.9 220.8L26.9 218.8L26.9 221.1L26.9 217.3L26.9 215.1L26.9 217.0L26.9 219.8L26.9 221.8L26.9 223.7L26.9 225.3L26.9 227.2L26.9 229.3L26.9 231.3L26.9 235.2L26.9 238.2L26.9 240.0L26.9 242.4L26.9 246.7L26.9 249.0L26.9 251.2L26.9 253.5L26.9 255.3L26.9 257.8L26.9 259.5L26.9 262.6L26.9 264.3L26.9 266.0L26.9 263.6L26.9 261.0L26.9 258.5L26.9 256.1L26.9 252.1L26.9 248.0L26.9 246.5L26.9 244.9L26.9 241.6L26.9 238.7L26.9 230.2L26.9 228.4L26.9 231.3L26.9 238.2L26.9 243.7L26.9 247.0L26.9 250.0L26.9 251.7L26.9 247.8L26.9 245.0L26.9 243.2L26.9 240.8L26.9 239.1L26.9 235.3L26.9 231.1L26.9 229.6L26.9 227.9L26.9 224.2L26.9 221.8L26.9 223.5L26.9 226.4L26.9 229.8L26.9 232.5L26.9 235.1L26.9 237.8L26.9 240.0L26.9 242.5L26.9 245.7L26.9 247.8L26.9 249.9L26.9 252.5L26.9 256.2L26.9 258.4L26.9 261.3L26.9 266.0L26.9 263.7L26.9 260.0L26.9 256.1L26.9 253.1L26.9 251.6L26.9 249.6L26.9 246.7L26.9 244.3L26.9 241.4L26.9 238.8L26.9 235.8L26.9 234.1L26.9 229.8L26.9 226.3L26.9 224.0L26.9 222.0L26.9 220.0L26.9 216.7L26.9 213.3L26.9 211.8L26.9 210.0L26.9 207.0L26.9 202.2L26.9 198.3L26.9 193.3L26.9 191.2L26.9 187.9L26.9 182.0L26.9 178.4L26.9 175.9L26.9 172.3L26.9 169.7L26.9 167.8L26.9 165.6L26.9 156.9L26.9 144.7L26.9 142.9L26.9 141.3L26.9 143.8L26.9 145.6L26.9 147.6L26.9 150.1L26.9 151.7L26.9 150.1L26.9 148.4L26.9 150.0L26.9 151.6L26.9 149.8L26.9 147.2L26.9 144.9L26.9 142.3L26.9 139.6L26.9 136.9L26.9 134.4L26.9 132.7L26.9 130.4L26.9 128.3L26.9 131.2L26.9 129.6L26.9 127.7L26.9 125.7L26.9 128.0L26.9 125.6L26.9 128.5L26.9 126.9L26.9 124.8L26.9 122.3L26.9 124.0L26.9 126.4L26.9 128.7L26.9 130.5L26.9 128.5L26.9 126.1L26.9 128.6L26.9 130.4L26.9 133.7L26.9 136.0L26.9 138.0L26.9 139.9L26.9 141.9L26.9 143.5L26.9 145.3L26.9 147.8L26.9 149.4L26.9 153.5L26.9 155.5L26.9 158.2L26.9 160.0L26.9 162.7L26.9 164.6L26.9 166.7L26.9 169.5L26.9 171.1L26.9 172.7L26.9 175.9L26.9 177.6L26.9 179.3L26.9 182.8L26.9 184.8L26.9 187.0L26.9 189.2L26.9 192.3L26.9 194.8L26.9 196.7L26.9 199.1L26.9 200.8L26.9 203.1L26.9 204.9L26.9 206.8L26.9 208.9L26.9 211.0L26.9 215.8L26.9 217.5L26.9 215.9L26.9 210.6L26.9 208.4L26.9 206.9L26.9 205.3L26.9 202.4L26.9 200.4L26.9 196.9L26.9 194.5L26.9 191.5L26.9 188.6L26.9 186.6L26.9 183.9L26.9 181.8L26.9 183.7L26.9 186.1L26.9 188.4L26.9 190.0L26.9 191.5L26.9 193.9L26.9 196.0L26.9 198.3L26.9 200.7L26.9 202.9L26.9 205.1L26.9 206.6L26.9 208.7L26.9 210.2L26.9 207.8L26.9 204.9L26.9 203.1L26.9 201.6L26.9 199.9L26.9 201.7L26.9 203.3L26.9 201.4L26.9 204.0L26.9 205.9L26.9 204.0L26.9 206.6L26.9 203.8L26.9 201.4L26.9 195.8L26.9 191.8L26.9 186.1L26.9 183.3L26.9 181.4L26.9 179.8L26.9 177.4L26.9 175.6L26.9 174.1L26.9 169.0L26.9 167.0L26.9 164.1L26.9 161.5L26.9 158.9L26.9 155.9L26.9 153.1L26.9 150.9L26.9 149.2L26.9 146.2L26.9 142.4L26.9 140.4L26.9 138.2L26.9 136.2L26.9 133.3L26.9 131.5L26.9 129.5L26.9 131.6L26.9 129.6L26.9 132.2L26.9 135.8L26.9 137.9L26.9 139.9L26.9 137.9L26.9 134.3L26.9 132.1L26.9 129.6L26.9 133.3L26.9 136.2L26.9 138.1L26.9 136.0L26.9 133.4L26.9 131.8L26.9 129.5L26.9 131.1L26.9 129.5L26.9 128.0L26.9 125.8L26.9 123.5L26.9 121.6L26.9 118.7L26.9 117.1L26.9 115.0L26.9 112.5L26.9 110.7L26.9 108.4L26.9 105.8L26.9 107.7L26.9 105.8L26.9 103.8L26.9 101.4L26.9 99.7L26.9 96.4L26.9 94.2L26.9 92.4L26.9 88.1L26.9 86.5L26.9 83.7L26.9 80.9L26.9 79.4L26.9 81.2L26.9 79.6L26.9 77.8L26.9 76.1L26.9 73.7L26.9 71.5L26.9 69.9L26.9 71.7L26.9 68.5L26.9 64.9L26.9 63.0L26.9 60.8L26.9 59.3L26.9 60.8L26.9 63.0L26.9 67.1L26.9 69.1L26.9 71.3L26.9 72.8L26.9 70.3L26.9 67.1L26.9 63.3L26.9 61.8L26.9 59.7L26.9 57.3L26.9 54.0L26.9 50.4L26.9 48.2L26.9 45.0L26.9 41.6L26.9 39.4L26.9 36.0L26.9 33.7L26.9 28.4L26.9 26.6L26.9 22.9L26.9 20.1L26.9 17.9L26.9 16.3L26.9 14.2L26.9 12.2L26.9 10.0L26.9 8.0L26.9 5.3L26.9 2.0L26.9 -0.0L26.9 -1.9L26.9 -4.0L26.9 -5.7L26.9 -8.5L26.9 -10.9L26.9 -9.3L26.9 -7.1L26.9 -4.4L26.9 0.1L26.9 2.5L26.9 0.3L26.9 2.0L26.9 4.3L26.9 6.9L26.9 9.3L26.9 12.8L26.9 14.5L26.9 12.7L26.9 14.7L26.9 16.7L26.9 18.5L26.9 20.2L26.9 22.6L26.9 25.1L26.9 26.6L26.9 24.8L26.9 23.1L26.9 20.1L26.9 17.5L26.9 14.1L26.9 10.8L26.9 8.7L26.9 6.0L26.9 4.0L26.9 1.8L26.9 0.1L26.9 -1.6L26.9 -3.4L26.9 -5.3L26.9 -8.0L26.9 -9.5L26.9 -11.1L26.9 -9.4L26.9 -7.2L26.9 -4.5L26.9 -2.2L26.9 0.4L26.9 3.9L26.9 7.1L26.9 8.6L26.9 10.7L26.9 14.2L26.9 16.2L26.9 19.1L26.9 20.9L26.9 19.1L26.9 21.4L26.9 23.7L26.9 25.5L26.9 27.3L26.9 32.5L26.9 35.0L26.9 39.1L26.9 40.6L26.9 42.2L26.9 45.6L26.9 49.2L26.9 53.0L26.9 54.6L26.9 56.5L26.9 58.7L26.9 61.3L26.9 63.0L26.9 65.3L26.9 69.5L26.9 72.0L26.9 75.0L26.9 77.1L26.9 78.7L26.9 82.8L26.9 84.7L26.9 83.0L26.9 81.1L26.9 79.0L26.9 77.1L26.9 75.0L26.9 72.9L26.9 74.8L26.9 76.6L26.9 79.0L26.9 80.7L26.9 83.1L26.9 81.5L26.9 83.6L26.9 86.0L26.9 83.3L26.9 85.4L26.9 86.9L26.9 85.1L26.9 83.4L26.9 81.0L26.9 79.3L26.9 81.4L26.9 84.7L26.9 89.1L26.9 91.4L26.9 93.2L26.9 95.0L26.9 97.5L26.9 95.4L26.9 97.6L26.9 99.4L26.9 101.2L26.9 103.4L26.9 106.3L26.9 108.6L26.9 110.3L26.9 114.0L26.9 115.8L26.9 117.7L26.9 114.9L26.9 113.2L26.9 115.0L26.9 117.2L26.9 118.8L26.9 120.6L26.9 122.2L26.9 120.4L26.9 123.0L26.9 126.7L26.9 128.9L26.9 131.7L26.9 134.3L26.9 131.1L26.9 132.7L26.9 134.4L26.9 131.7L26.9 128.5L26.9 126.5L26.9 128.3L26.9 130.4L26.9 128.7L26.9 125.8L26.9 124.2L26.9 121.7L26.9 119.6L26.9 117.8L26.9 115.7L26.9 113.0L26.9 110.7L26.9 108.9L26.9 110.8L26.9 112.7L26.9 111.0L26.9 109.5L26.9 107.4L26.9 109.0L26.9 107.0L26.9 108.7L26.9 106.6L26.9 104.5L26.9 102.9L26.9 100.9L26.9 99.0L26.9 96.4L26.9 92.5L26.9 90.3L26.9 88.1L26.9 85.8L26.9 83.5L26.9 81.7L26.9 80.0L26.9 78.0L26.9 75.7L26.9 73.7L26.9 71.4L26.9 69.7L26.9 67.1L26.9 65.3L26.9 62.2L26.9 60.0L26.9 58.5L26.9 56.0L26.9 54.2L26.9 52.2L26.9 48.6L26.9 46.3L26.9 47.8L26.9 46.3L26.9 44.3L26.9 40.5L26.9 38.5L26.9 37.0L26.9 34.9L26.9 30.0L26.9 28.4L26.9 24.2L26.9 21.3L26.9 19.2L26.9 15.8L26.9 14.2L26.9 16.7L26.9 18.8L26.9 21.0L26.9 18.9L26.9 17.3L26.9 15.7L26.9 12.3L26.9 10.3L26.9 8.4L26.9 10.2L26.9 12.1L26.9 13.8L26.9 15.6L26.9 18.3L26.9 20.2L26.9 22.6L26.9 26.5L26.9 29.3L26.9 32.4L26.9 36.6L26.9 38.1L26.9 40.6L26.9 43.4L26.9 47.8L26.9 50.0L26.9 52.5L26.9 56.0L26.9 58.6L26.9 60.2L26.9 61.9L26.9 63.4L26.9 65.9L26.9 69.7L26.9 72.0L26.9 75.0L26.9 77.5L26.9 81.3L26.9 83.4L26.9 85.0L26.9 86.5L26.9 88.8L26.9 87.2L26.9 82.6L26.9 81.0L26.9 79.4L26.9 81.9L26.9 84.5L26.9 88.3L26.9 89.8L26.9 92.1L26.9 94.7L26.9 98.0L26.9 99.9L26.9 102.6L26.9 106.7L26.9 110.0L26.9 112.2L26.9 114.2L26.9 111.0L26.9 109.3L26.9 106.8L26.9 105.1L26.9 103.4L26.9 100.7L26.9 98.0L26.9 95.1L26.9 91.4L26.9 88.1L26.9 86.5L26.9 83.1L26.9 81.2L26.9 78.9L26.9 77.3L26.9 75.4L26.9 71.1L26.9 69.4L26.9 67.3L26.9 61.9L26.9 60.1L26.9 58.2L26.9 55.4L26.9 53.6L26.9 52.1L26.9 49.3L26.9 47.2L26.9 44.9L26.9 43.1L26.9 40.8L26.9 38.9L26.9 34.3L26.9 32.0L26.9 28.0L26.9 30.5L26.9 33.4L26.9 35.0L26.9 36.9L26.9 39.9L26.9 42.3L26.9 44.0L26.9 41.2L26.9 39.7L26.9 38.0L26.9 39.6L26.9 43.2L26.9 44.7L26.9 47.0L26.9 51.3L26.9 53.1L26.9 54.7L26.9 57.1L26.9 60.1L26.9 62.5L26.9 66.5L26.9 68.5L26.9 70.2L26.9 72.0L26.9 74.3L26.9 76.6L26.9 82.0L26.9 84.9L26.9 88.0L26.9 92.9L26.9 99.0L26.9 101.3L26.9 103.1L26.9 105.5L26.9 107.5L26.9 109.1L26.9 110.6L26.9 113.5L26.9 115.4L26.9 117.3L26.9 118.8L26.9 121.7L26.9 123.7L26.9 127.6L26.9 129.9L26.9 131.9L26.9 133.5L26.9 135.4L26.9 137.2L26.9 139.4L26.9 137.9L26.9 135.9L26.9 133.3L26.9 131.8L26.9 129.0L26.9 124.3L26.9 126.8L26.9 125.2L26.9 121.1L26.9 118.9L26.9 117.0L26.9 115.1L26.9 110.9L26.9 109.3L26.9 107.3L26.9 104.5L26.9 102.5L26.9 99.9L26.9 102.1L26.9 103.7L26.9 101.9L26.9 98.3L26.9 96.5L26.9 94.6L26.9 92.5L26.9 88.8L26.9 84.8L26.9 82.9L26.9 78.2L26.9 76.2L26.9 74.0L26.9 72.5L26.9 70.8L26.9 69.0L26.9 65.3L26.9 63.4L26.9 61.6L26.9 60.0L26.9 57.9L26.9 55.6L26.9 53.8L26.9 51.7L26.9 49.0L26.9 47.0L26.9 45.3L26.9 43.5L26.9 41.3L26.9 39.1L26.9 37.3L26.9 35.5L26.9 37.8L26.9 40.2L26.9 38.2L26.9 32.0L26.9 24.7L26.9 23.0L26.9 16.6L26.9 14.2L26.9 11.6L26.9 13.7L26.9 17.5L26.9 13.6L26.9 11.5L26.9 9.5L26.9 7.9L26.9 6.3L26.9 2.5L26.9 0.9L26.9 -1.7L26.9 -4.0L26.9 -5.6L26.9 -7.1L26.9 -8.7L26.9 -10.4L26.9 -11.9L26.9 -13.8L26.9 -15.3L26.9 -17.6L26.9 -19.5L26.9 -21.3L26.9 -22.9L26.9 -24.7L26.9 -26.4L26.9 -29.0L26.9 -31.3L26.9 -33.1L26.9 -29.9L26.9 -32.6L26.9 -38.0L26.9 -39.5L26.9 -41.9L26.9 -43.8L26.9 -41.9L26.9 -40.1L26.9 -41.6L26.9 -43.4L26.9 -46.0L31.4 -46.0L33.3 -46.0L36.6 -46.0L38.2 -46.0L41.3 -46.0L44.4 -46.0L46.4 -46.0L54.0 -46.0L56.2 -46.0L58.2 -46.0L63.0 -46.0L64.5 -46.0L66.2 -46.0L68.0 -46.0L65.8 -46.0L63.1 -46.0L67.6 -46.0L69.8 -46.0L65.4 -46.0L63.5 -46.0L61.2 -46.0L68.6 -46.0L70.4 -46.0L66.7 -46.0L61.8 -46.0L58.8 -46.0L54.6 -46.0L57.0 -46.0L60.5 -46.0L66.4 -46.0L68.6 -46.0L70.5 -46.0L72.3 -46.0L69.9 -46.0L66.8 -46.0L68.8 -46.0L71.5 -46.0L75.5 -46.0L78.3 -46.0L81.0 -46.0L83.7 -46.0L86.1 -46.0L88.9 -46.0L91.5 -46.0L93.3 -46.0L96.9 -46.0L99.7 -46.0L101.7 -46.0L105.3 -46.0L107.0 -46.0L111.4 -46.0L114.5 -46.0L117.3 -46.0L121.7 -46.0L128.1 -46.0L131.5 -46.0L135.1 -46.0L137.2 -46.0L140.7 -46.0L142.9 -46.0L146.2 -46.0L153.8 -46.0L155.9 -46.0L159.5 -46.0L161.0 -46.0L162.6 -46.0L164.2 -46.0L166.5 -46.0L164.2 -46.0L162.3 -46.0L164.4 -46.0L166.6 -46.0L168.8 -46.0L170.3 -46.0L173.9 -46.0L176.1 -46.0L180.6 -46.0L184.3 -46.0L181.2 -46.0L177.7 -46.0L180.7 -46.0L182.9 -46.0L184.6 -46.0L186.5 -46.0L180.4 -46.0L178.4 -46.0L175.7 -46.0L178.9 -46.0L189.3 -46.0L192.0 -46.0L196.0 -46.0L191.4 -46.0L193.1 -46.0L198.4 -46.0L200.7 -46.0L206.4 -46.0L221.9 -46.0L223.7 -46.0L230.3 -46.0L233.1 -46.0L239.8 -46.0L242.9 -46.0L245.3 -46.0L249.3 -46.0L251.1 -46.0L242.7 -46.0L240.0 -46.0L236.6 -46.0L233.3 -46.0L230.9 -46.0L228.9 -46.0L232.1 -46.0L238.1 -46.0L254.7 -46.0L257.2 -46.0L254.7 -46.0L252.6 -46.0L249.6 -46.0L246.2 -46.0L242.1 -46.0L239.1 -46.0L246.3 -46.0L249.1 -46.0L252.3 -46.0L257.9 -46.0L260.4 -46.0L263.6 -46.0L273.9 -46.0L279.9 -46.0L285.6 -46.0L288.5 -46.0L290.5 -46.0L283.3 -46.0L280.8 -46.0L282.8 -46.0L285.6 -46.0L289.4 -46.0L291.2 -46.0L293.1 -46.0L26.9 -46.0ZM124.4 160.9L122.6 160.7L124.1 160.2ZM287.6 10.1L286.0 10.8L287.4 7.5L290.5 5.0L293.1 2.6L293.1 5.1L291.5 7.3L289.7 8.2L287.6 10.1ZM276.0 14.5L274.1 15.5L272.4 15.9L269.7 17.9L267.3 19.4L265.6 19.6L265.0 21.0L262.3 23.2L261.2 24.8L257.9 26.9L258.3 25.4L260.5 23.4L261.6 20.8L263.6 19.5L264.9 18.0L267.2 16.2L268.3 14.8L270.3 15.3L273.1 15.0L276.2 12.3L277.9 11.7L278.2 13.2L276.0 14.5ZM256.0 35.8L257.2 34.2L256.0 35.8ZM250.6 25.6L252.2 26.6L254.4 26.4L253.0 27.2L251.5 28.5L249.6 29.0L247.5 30.9L245.9 33.1L244.0 34.4L243.6 36.8L242.4 35.9L242.6 34.1L244.8 32.3L246.0 30.6L247.2 29.0L249.6 25.6ZM84.6 217.9L82.8 217.9L82.2 216.2L83.3 215.2L84.9 216.2L84.6 217.9ZM88.2 216.1L88.0 213.7L88.8 210.8L89.3 212.8L88.6 214.3L88.2 216.1ZM63.8 183.9L65.7 184.1L66.3 185.6L64.7 186.5L63.8 183.9ZM78.9 191.3L77.8 189.8L78.2 188.1L79.8 187.1L80.2 189.8L78.9 191.3ZM82.1 188.7L80.6 188.2L81.9 187.3ZM113.9 137.7L112.0 137.3L113.1 135.8L114.0 137.1ZM166.9 115.8L166.6 113.8L165.9 112.3L168.1 109.4L168.1 111.7L168.5 114.7L166.9 115.8ZM179.0 58.2L178.4 56.6L179.2 58.0ZM195.9 14.3L194.8 12.5L195.9 14.3ZM198.3 17.2L196.7 16.7L197.8 15.7L198.3 17.2ZM130.5 163.5L129.4 164.7L127.9 164.1L128.7 162.4L129.5 161.0L130.8 160.0L130.3 162.0L130.5 163.5ZM68.2 183.1L67.4 181.6L68.5 179.1L69.0 180.9L68.2 183.1ZM72.6 177.9L72.3 176.4L72.6 177.9ZM75.9 170.8L75.0 169.3L75.9 170.8ZM70.4 165.7L69.7 163.1L71.0 164.3L70.4 165.7ZM71.5 162.6L70.9 160.4L72.2 158.1L72.5 160.1L71.4 161.8ZM102.2 168.2L103.9 168.4L102.2 169.1ZM64.6 156.6L62.3 156.3L63.0 154.8L64.4 153.7L64.6 156.6ZM57.4 156.5L56.6 157.9L55.0 156.4L55.8 155.0L57.4 156.5ZM38.9 177.9L37.4 177.1L39.0 174.7L42.8 173.5L45.0 174.0L45.1 175.8L43.0 177.3L38.9 177.9ZM37.9 162.4L36.7 161.4L37.9 160.2L39.5 160.7L37.9 162.4ZM41.0 116.9L40.9 118.7L39.4 116.4L41.0 116.9ZM39.9 133.7L38.8 132.1L39.9 133.7ZM37.3 157.5L36.0 156.1L37.3 157.5Z';
+const GEO_TK='M395.9 -286.1L398.6 -286.1L411.4 -286.1L408.9 -286.1L407.7 -286.1L409.6 -286.1L411.8 -286.1L417.3 -286.1L424.4 -286.1L434.7 -286.1L440.4 -286.1L444.3 -286.1L447.0 -277.3L448.0 -272.9L448.0 -268.6L447.3 -262.6L448.2 -257.9L447.0 -242.7L442.3 -225.1L441.9 -216.2L437.9 -214.4L435.5 -210.2L433.2 -208.4L431.0 -206.9L427.6 -206.5L425.4 -204.9L424.4 -200.1L422.9 -195.6L420.0 -191.6L417.8 -187.1L415.8 -176.2L415.0 -165.1L412.3 -157.2L405.5 -155.2L397.6 -155.4L387.7 -151.7L385.5 -149.6L377.7 -136.0L375.5 -127.9L375.5 -119.3L377.7 -108.7L380.6 -98.3L382.8 -79.1L380.4 -49.7L378.2 -40.3L373.2 -33.9L369.3 -31.0L366.1 -27.4L361.9 -17.8L354.8 1.3L354.3 6.2L354.3 11.1L352.3 17.6L351.1 24.0L352.3 31.4L354.5 38.3L363.9 56.2L367.6 61.4L371.8 66.3L355.8 71.5L352.8 74.0L343.2 84.1L340.3 93.8L340.5 104.4L338.8 108.3L336.3 111.6L333.4 113.8L322.8 118.7L315.9 123.5L309.3 131.0L306.6 135.1L301.4 133.8L298.2 130.3L301.2 125.8L300.4 120.7L301.9 107.3L300.2 101.9L305.6 97.9L308.1 91.3L314.0 86.3L317.9 81.6L318.6 77.9L315.0 73.8L311.3 70.9L305.9 70.9L300.7 71.8L297.5 75.7L296.3 80.9L296.5 83.2L296.0 85.4L288.1 92.5L289.1 100.0L291.6 103.8L294.5 105.7L293.6 108.1L289.9 114.2L287.2 114.8L282.2 106.4L276.1 101.8L268.5 101.8L260.8 103.5L254.7 109.1L252.7 113.8L251.5 118.6L252.0 130.3L249.5 140.1L244.9 148.7L242.4 151.9L236.7 157.6L232.6 158.4L229.6 155.8L227.4 151.7L230.3 137.1L230.1 128.8L237.0 124.6L231.3 118.7L224.4 116.4L214.9 119.4L212.2 123.0L210.2 127.8L205.0 133.8L199.1 139.4L192.7 149.0L188.3 160.4L174.0 156.6L166.2 155.8L158.3 156.1L144.3 154.8L128.8 157.1L111.3 161.4L112.3 158.2L126.8 151.4L127.3 149.4L125.8 145.6L122.4 145.5L113.8 146.8L109.3 146.2L107.4 142.2L104.4 140.4L102.7 142.2L103.2 150.0L101.0 151.0L98.3 149.0L99.3 142.9L97.3 134.0L97.1 128.4L100.0 123.8L97.1 121.7L93.6 122.5L89.4 124.8L86.0 128.0L78.1 144.2L75.2 153.4L80.8 161.0L96.3 171.4L98.8 173.9L99.0 178.3L97.1 183.0L92.9 185.2L75.9 188.6L61.4 195.3L57.0 202.1L43.7 228.6L33.1 246.7L17.9 252.9L1.4 247.3L-2.6 241.0L-6.0 233.2L-12.1 226.3L-17.6 218.6L-20.8 209.5L-20.3 194.9L-22.7 186.0L-20.5 183.7L-11.4 178.3L-8.5 175.3L-3.3 168.4L-1.3 164.5L-1.1 158.5L-5.3 155.5L-16.1 155.6L-26.7 157.5L-34.3 154.9L-44.4 147.8L-47.3 146.2L-57.9 145.8L-65.5 147.1L-73.1 149.7L-81.0 150.6L-83.7 151.9L-92.8 160.5L-99.9 166.0L-106.3 168.8L-119.9 169.5L-126.7 171.3L-133.9 174.2L-135.8 174.0L-143.2 177.9L-151.8 181.4L-156.5 184.9L-164.9 182.5L-181.6 188.8L-189.7 189.5L-198.1 186.2L-205.7 180.7L-213.1 183.0L-218.2 191.1L-220.7 207.4L-223.6 214.7L-224.6 223.5L-228.3 222.1L-250.7 206.3L-252.2 205.7L-265.3 208.5L-265.3 209.8L-265.3 213.0L-265.3 214.4L-265.3 212.1L-265.3 208.3L-265.3 212.1L-265.3 188.2L-265.3 185.2L-265.3 181.0L-265.3 177.3L-265.3 176.0L-265.3 177.3L-265.3 175.6L-265.3 171.0L-265.3 164.2L-261.3 158.8L-252.7 154.5L-244.3 149.5L-236.9 142.6L-230.0 135.1L-223.6 129.4L-216.8 124.8L-206.2 113.6L-192.2 101.0L-186.8 91.8L-183.6 89.2L-171.5 84.1L-155.5 80.0L-147.9 80.3L-140.5 88.4L-136.3 87.3L-132.4 85.3L-124.0 84.1L-115.7 85.4L-107.3 85.4L-99.2 84.4L-83.2 81.6L-74.9 78.5L-66.7 74.3L-37.7 71.4L-17.6 64.4L-14.6 64.8L-11.4 66.4L-11.2 71.6L-13.6 77.3L-11.2 80.8L-7.2 82.8L11.5 83.5L16.9 84.7L24.7 80.9L32.1 76.1L39.7 69.8L45.2 62.7L40.2 53.8L39.3 44.1L43.4 33.6L49.3 24.6L56.7 19.2L63.4 13.2L76.6 -4.4L86.5 -18.5L89.9 -36.1L88.0 -56.6L96.3 -72.0L104.4 -74.6L120.7 -81.7L129.0 -83.7L130.3 -80.7L130.0 -76.6L117.5 -63.7L110.1 -58.5L105.9 -56.8L102.0 -54.5L100.2 -50.0L106.6 -42.3L108.4 -36.8L107.9 -31.4L108.1 -26.5L115.5 -21.3L123.9 -19.6L127.3 -19.6L130.5 -21.0L140.1 -33.9L142.1 -36.1L169.4 -45.5L182.9 -52.7L190.3 -54.6L197.1 -58.4L212.9 -72.8L218.5 -79.5L223.7 -86.9L228.1 -95.4L231.3 -104.7L235.8 -110.5L260.6 -124.2L268.5 -131.8L271.2 -135.4L274.1 -146.0L276.3 -156.8L279.3 -165.4L283.2 -173.5L288.6 -181.7L294.8 -189.2L298.5 -197.1L303.6 -215.6L306.1 -226.0L307.8 -229.6L310.5 -232.8L312.7 -236.7L314.5 -241.2L315.2 -245.6L316.4 -259.0L315.7 -269.4L311.8 -278.3L308.3 -280.7L304.6 -280.9L299.0 -280.2L294.3 -283.6L295.3 -286.1L300.2 -286.1L303.4 -286.1L305.6 -286.1L310.0 -286.1L312.7 -286.1L309.5 -286.1L306.8 -286.1L309.8 -286.1L314.0 -286.1L317.9 -286.1L322.1 -286.1L325.8 -286.1L329.2 -286.1L331.2 -286.1L334.4 -286.1L335.6 -286.1L338.3 -286.1L342.3 -286.1L345.9 -286.1L350.6 -286.1L354.8 -286.1L358.5 -286.1L360.0 -286.1L363.2 -286.1L366.6 -286.1L369.8 -286.1L371.8 -286.1L375.9 -286.1L388.5 -286.1L392.9 -286.1L395.6 -286.1L398.3 -286.1L397.1 -286.1L393.9 -286.1L390.9 -286.1L388.2 -286.1L385.0 -286.1L366.6 -286.1L370.8 -286.1L373.0 -286.1L375.9 -286.1L383.8 -286.1L387.5 -286.1L395.9 -286.1ZM274.9 149.5L274.1 153.4L270.4 152.6L268.7 150.0L269.0 145.3L272.9 145.3L274.9 149.5Z';
+const GEO_W='M129.2 122.9L130.6 123.1L131.8 123.0L131.6 124.4L130.6 125.5L129.3 124.6L128.6 123.3ZM153.8 123.0L154.9 123.4L154.0 124.9L153.2 125.7L152.2 126.6L151.0 127.9L149.7 128.1L148.2 127.8L149.6 125.9L150.8 125.4L152.1 124.5L152.8 123.6L153.6 122.7ZM155.2 118.8L155.9 119.7L157.1 120.3L158.2 120.1L158.2 121.5L157.2 122.3L156.5 123.4L155.2 123.4L155.5 122.1L154.5 121.5L155.3 120.5L154.9 119.3L153.8 118.0L155.0 118.0ZM148.6 106.4L147.1 105.9L145.9 104.8L147.1 105.2L148.1 106.0ZM-160.0 101.4L159.4 101.6L-160.0 100.9ZM44.5 98.7L44.9 100.2L44.3 101.3L43.9 102.6L43.2 104.9L42.6 106.6L42.3 107.8L41.9 108.8L40.4 109.4L39.1 108.9L38.8 107.6L38.4 106.3L39.0 105.2L39.5 103.9L39.1 102.1L39.5 101.1L40.8 100.7L42.4 99.6L43.4 98.3L44.5 98.7ZM127.6 98.9L128.8 99.6L129.3 101.1L129.9 102.5L131.1 104.0L132.3 104.8L133.0 106.5L134.1 107.5L135.2 108.4L136.1 109.8L136.5 111.7L136.3 112.9L136.1 114.2L135.5 115.6L134.5 116.7L134.0 117.9L133.4 119.0L132.8 120.2L131.0 120.6L130.1 121.4L128.8 120.8L127.7 121.2L126.4 120.8L125.0 120.5L124.3 119.2L122.8 118.3L121.6 118.0L122.2 117.0L122.5 115.9L121.2 117.0L119.7 116.2L118.2 115.1L116.7 114.7L115.1 114.7L114.0 115.1L112.1 115.3L110.4 116.0L109.2 116.8L107.8 116.7L106.6 116.9L105.3 117.6L104.3 117.8L102.7 117.2L102.8 115.9L102.8 114.8L102.2 113.4L101.9 112.3L101.4 111.0L100.7 109.9L101.0 108.6L101.2 107.2L101.5 106.0L102.6 105.8L103.7 105.1L105.1 104.8L106.5 104.4L107.9 103.8L108.7 102.8L109.3 101.2L110.5 101.2L111.0 100.1L112.1 99.4L113.6 99.4L114.7 99.9L115.5 98.8L116.1 97.8L117.8 97.4L119.5 97.4L120.8 97.3L121.2 98.5L120.4 99.7L121.8 100.8L122.9 101.6L124.6 102.4L125.6 101.2L126.0 100.0L125.8 98.8L125.9 97.7L126.3 96.5L127.2 97.2L127.6 98.6ZM110.6 95.7L111.1 94.6L112.6 94.1L111.2 95.0ZM104.8 93.9L105.9 94.4L104.2 94.7ZM109.2 93.9L107.8 94.6L106.6 94.5L107.9 94.3L109.2 93.9ZM96.6 92.7L98.3 92.8L100.1 92.8L101.8 93.6L102.9 94.1L100.9 94.1L99.1 94.0L97.3 93.5L94.6 93.2L94.3 91.9L96.1 92.3ZM135.1 91.5L134.0 92.1L132.3 92.0L133.3 91.1L134.8 90.9ZM116.0 89.4L114.8 89.7L113.7 89.7L115.0 89.2ZM136.1 90.7L135.1 89.7L133.9 89.1L135.3 89.5L136.1 90.7ZM119.2 87.7L119.5 89.1L121.1 88.7L122.2 88.2L123.7 88.5L125.3 89.0L126.9 89.6L128.5 90.1L129.6 91.0L131.2 92.1L130.8 93.2L132.2 94.8L133.4 95.3L132.4 95.8L130.8 95.1L129.8 93.8L128.7 93.4L127.4 94.0L126.8 95.0L125.4 94.8L123.7 93.9L122.3 94.1L123.3 93.2L122.6 91.5L120.9 90.7L118.8 89.8L117.3 89.2L118.9 88.9L117.5 88.6L116.4 87.9L117.7 87.0L119.1 87.4ZM111.3 85.4L110.6 86.3L109.1 86.3L107.6 86.3L106.7 87.1L107.5 87.9L109.6 87.2L108.8 88.0L108.8 89.5L109.5 90.8L108.2 91.0L107.5 89.9L107.0 91.6L106.4 90.6L105.6 89.2L106.1 87.9L106.5 86.5L107.5 85.5L109.3 85.9L111.2 85.2ZM114.4 85.7L113.7 86.9L113.2 85.8L113.7 84.7L114.4 85.7ZM94.1 91.9L92.3 91.1L91.2 90.4L90.1 89.2L89.0 87.2L88.0 85.7L86.8 84.5L85.7 83.2L84.8 82.2L86.7 82.0L87.4 82.9L88.6 83.8L89.5 84.8L91.1 85.4L92.3 86.6L92.8 87.6L93.2 88.7L94.3 89.4L94.1 90.5L94.1 91.9ZM104.8 85.0L105.8 85.9L104.4 86.6L103.6 88.0L103.2 90.2L102.1 90.3L101.1 89.7L99.6 89.8L98.0 89.3L97.8 88.1L97.0 87.1L96.9 85.5L98.1 85.2L99.0 84.3L100.4 83.9L101.5 82.6L102.6 81.8L103.8 80.5L104.6 81.3L105.9 81.9L104.8 83.0L104.9 84.6ZM112.3 79.2L112.2 81.1L110.4 81.2L109.9 79.7L108.5 80.5L109.3 79.3L110.8 79.1L111.5 78.0L112.3 78.9ZM72.2 81.2L71.0 80.7L70.8 79.4L71.2 77.9L72.3 79.1L72.6 80.9ZM105.3 78.4L104.2 79.2L105.2 78.1L106.2 76.6L105.8 77.8ZM111.6 75.9L111.1 76.9L110.5 75.5L111.6 75.9ZM107.8 70.2L108.9 71.5L108.1 72.5L108.2 73.9L110.2 74.4L110.3 75.5L109.3 74.6L107.7 74.5L106.7 73.4L106.6 72.1L107.0 71.0L107.8 70.2ZM98.1 70.1L96.6 70.2L97.0 69.0L98.5 68.8L98.1 70.1ZM107.7 66.4L106.8 65.7L108.0 64.2L107.7 66.4ZM119.7 56.3L118.5 57.1L119.0 56.1ZM30.7 55.0L29.3 55.9L30.7 55.0ZM21.1 54.9L22.2 55.2L23.4 55.3L22.0 55.6L20.9 55.3ZM13.8 52.7L13.4 54.1L12.3 53.7L11.1 53.2L12.2 52.9L13.8 52.7ZM8.2 50.0L8.6 51.8L7.5 51.8L7.3 50.3ZM125.3 53.7L125.1 54.8L123.5 55.9L122.0 55.9L120.7 56.9L120.1 55.9L118.5 56.1L117.5 56.5L116.7 58.7L116.0 57.9L115.0 57.1L116.3 56.2L117.9 55.2L119.7 54.9L121.5 53.5L123.4 53.0L124.5 51.6L124.7 50.0L126.1 51.1L125.3 52.7ZM127.9 47.4L129.2 47.2L128.1 48.5L127.3 49.3L125.9 48.7L124.4 49.7L124.7 48.1L125.9 46.9L127.2 47.1ZM127.7 41.6L128.6 43.1L127.3 42.8L126.7 44.1L127.6 45.0L126.3 45.8L126.2 44.2L126.3 42.6L126.4 41.4L125.9 39.3L126.8 38.3L127.3 39.8L127.7 41.6ZM-2.7 34.5L-3.6 35.5L-1.7 35.4L-2.8 36.9L-1.0 38.1L0.2 39.3L1.5 39.8L1.3 41.1L-0.7 41.5L-2.2 41.8L-4.0 41.9L-5.1 42.1L-3.8 41.1L-4.2 39.7L-2.7 39.2L-3.2 38.1L-4.5 37.7L-5.0 36.6L-5.1 35.3L-3.7 34.6ZM-160.0 25.4L-157.8 26.0L-155.5 26.9L-152.8 27.2L-151.0 28.0L-153.4 28.5L-153.7 29.6L-155.2 29.2L-156.4 29.0L-157.5 28.4L-159.0 28.2L-160.0 28.9L160.0 28.9L158.9 29.3L157.7 29.2L159.0 30.4L157.7 31.1L155.2 31.8L153.0 32.5L151.7 33.0L150.1 32.8L147.8 33.5L146.6 33.6L145.4 33.5L144.0 34.9L145.1 35.5L144.9 36.7L143.7 37.5L142.6 38.4L140.9 39.6L139.4 41.3L138.7 39.4L138.2 37.4L138.6 36.2L139.4 35.3L140.8 35.1L142.4 33.9L143.9 33.0L145.5 32.3L146.2 31.1L144.6 31.9L142.3 32.8L141.6 31.8L139.3 32.1L137.1 33.5L135.8 34.3L134.5 34.4L133.1 33.6L132.0 34.1L129.3 33.9L126.4 34.2L123.5 35.9L120.1 38.0L121.5 38.1L122.8 38.9L124.4 38.5L125.6 39.5L125.0 41.1L124.5 43.6L123.2 44.9L121.7 46.5L120.5 47.6L118.7 48.6L117.6 48.2L116.4 48.8L115.3 49.7L114.7 50.7L113.4 51.3L114.1 52.3L114.9 53.4L115.1 55.0L113.9 55.7L112.4 56.1L112.5 54.9L112.8 53.9L111.7 52.9L111.5 51.7L110.5 51.2L109.2 51.4L107.6 52.1L108.6 50.7L107.3 50.6L106.3 51.2L104.9 51.8L105.7 53.0L107.4 53.0L108.8 53.4L107.6 54.1L106.4 55.0L106.9 56.1L107.8 57.8L108.3 59.2L108.4 60.9L107.0 62.6L106.3 63.8L105.5 64.8L104.2 65.7L103.0 66.4L101.5 66.9L99.4 67.5L98.2 68.6L96.5 67.4L94.9 68.3L94.1 69.1L94.6 70.7L95.4 71.8L96.8 73.1L97.2 74.7L97.1 76.3L95.3 77.5L93.5 79.0L93.4 77.8L92.0 77.2L91.2 75.8L89.6 75.4L88.4 77.0L88.2 78.5L89.1 79.3L89.8 80.6L90.8 81.1L91.9 82.4L91.9 83.7L92.7 85.2L91.2 84.9L90.1 84.2L89.5 83.2L89.1 81.9L88.6 80.6L88.0 79.6L87.3 78.7L87.5 77.2L87.5 76.0L87.2 74.5L86.9 73.5L86.8 72.4L84.8 72.7L84.0 71.3L83.1 69.5L82.1 68.3L81.6 66.9L80.4 66.4L79.5 67.1L78.4 67.4L77.3 67.6L76.9 68.8L75.6 69.4L74.6 70.4L73.1 71.5L71.8 72.5L71.3 74.4L71.0 75.9L71.0 77.5L70.1 78.2L69.3 79.3L68.1 78.8L67.7 77.5L67.0 76.2L66.3 74.2L65.4 72.5L65.0 70.7L64.7 69.6L64.6 67.7L63.3 68.2L61.5 67.0L60.6 65.6L59.7 64.7L57.4 64.2L55.9 64.3L54.7 64.4L53.0 64.1L51.0 63.8L50.6 62.7L49.5 62.7L47.6 62.8L46.7 62.2L45.2 61.1L44.5 59.9L43.2 60.1L43.0 61.3L43.8 62.3L44.6 63.3L45.0 64.4L45.6 63.5L45.7 64.8L46.7 65.2L48.0 65.2L49.3 64.1L50.1 63.2L50.1 64.5L51.0 65.4L52.2 65.7L53.2 66.6L52.3 67.9L51.4 68.7L51.3 69.8L50.2 70.6L49.1 71.0L47.6 71.8L46.4 72.5L45.5 73.2L44.1 73.6L42.9 74.3L41.5 74.8L40.4 75.1L39.3 75.5L38.4 74.4L37.9 73.1L37.9 71.8L37.1 70.8L36.4 69.3L35.4 68.6L34.7 67.1L34.2 65.6L33.0 64.6L32.2 63.0L31.2 61.7L31.1 60.6L30.4 61.9L28.8 60.1L29.6 62.0L30.3 63.4L30.9 64.4L31.7 65.4L32.6 66.9L33.1 68.0L33.3 70.1L34.7 71.7L35.4 72.9L36.6 73.8L37.6 74.8L38.5 75.7L38.8 77.0L40.5 77.2L42.2 76.8L43.5 76.5L44.7 76.3L45.4 77.2L44.9 78.5L44.0 80.6L43.2 81.9L42.4 82.9L41.4 84.1L40.5 84.8L39.2 85.7L37.4 87.5L36.3 88.5L35.7 89.6L34.8 90.8L34.4 91.9L35.1 93.0L34.8 94.2L35.5 95.6L35.9 97.1L36.1 99.3L35.6 101.0L34.3 101.9L32.3 103.3L31.3 104.0L31.3 105.6L31.6 107.2L31.1 108.4L29.3 109.2L29.2 110.4L28.9 111.8L28.0 112.7L27.2 113.7L25.7 115.3L24.4 116.2L23.0 116.6L21.9 116.9L20.4 116.8L19.2 117.1L17.8 117.6L16.8 117.3L16.2 116.3L16.2 114.8L15.2 113.2L14.5 112.1L13.5 110.7L13.1 109.2L12.8 107.9L12.7 106.3L11.9 105.2L11.4 104.2L10.5 102.7L10.3 101.5L10.8 99.9L11.1 98.7L11.8 97.8L12.2 96.7L11.7 95.3L11.5 93.4L10.9 92.3L10.6 91.1L9.9 90.2L8.9 89.3L7.8 87.7L8.3 86.4L8.6 84.6L8.4 83.3L7.6 82.4L6.3 82.7L4.8 82.3L3.8 81.1L2.4 81.1L0.9 81.4L-0.5 81.9L-1.7 82.5L-2.9 82.2L-4.1 82.1L-5.8 82.5L-7.1 82.8L-8.8 81.7L-10.2 80.6L-11.5 79.7L-12.2 78.2L-13.1 77.2L-13.9 76.5L-14.8 75.7L-15.2 73.9L-14.8 72.8L-14.5 71.4L-14.4 69.7L-14.7 68.4L-15.1 67.2L-14.5 66.2L-13.7 65.0L-13.2 63.9L-12.2 63.0L-11.2 61.7L-9.7 61.0L-8.5 60.1L-8.7 59.0L-8.3 57.7L-6.8 56.7L-5.6 55.4L-4.1 55.3L-2.3 55.4L-1.1 54.9L0.4 54.4L2.8 54.0L4.3 53.9L5.6 53.7L6.9 53.9L8.5 53.5L9.8 53.7L9.7 54.9L9.0 56.2L9.9 57.1L11.3 57.5L12.4 57.6L13.6 58.0L14.8 58.9L16.0 59.3L17.4 59.5L17.6 58.4L18.5 57.6L20.4 57.7L22.2 58.3L23.6 58.6L25.3 59.1L26.4 58.9L27.5 58.6L28.6 58.9L30.0 59.1L30.9 58.2L31.5 56.5L31.9 55.2L32.1 54.1L30.9 54.0L28.9 54.6L27.2 54.1L25.5 54.1L24.0 53.2L23.8 52.0L24.2 50.7L25.6 50.7L27.7 50.1L28.8 49.6L31.3 49.3L32.8 49.9L34.1 50.3L35.9 50.2L36.9 49.7L36.3 48.4L34.4 47.3L32.6 46.4L34.0 45.6L34.8 44.7L33.3 44.9L31.8 45.2L31.1 46.1L32.5 46.2L31.3 46.7L30.1 47.2L28.8 46.4L29.9 45.9L28.2 45.5L27.0 45.7L26.3 46.6L25.4 47.8L24.6 48.8L25.8 50.0L24.5 50.2L23.4 51.0L22.2 50.3L21.2 51.1L20.1 50.9L20.8 51.8L21.4 53.2L20.2 53.5L18.9 53.2L18.4 52.2L17.7 51.2L17.2 49.9L16.4 48.9L15.0 48.3L13.5 47.3L12.7 46.5L11.0 46.3L11.2 47.5L12.5 48.7L13.5 49.4L14.9 50.1L16.3 50.8L15.0 50.7L15.2 52.1L14.3 52.9L14.0 51.5L13.1 50.6L11.5 50.0L9.9 49.0L9.1 47.6L7.9 47.2L6.6 47.8L4.0 48.1L2.8 48.4L1.9 50.0L0.7 50.2L-0.2 51.7L-0.6 53.2L-1.9 54.1L-3.0 54.1L-4.4 54.4L-5.5 54.3L-6.6 53.7L-7.9 53.9L-7.9 52.7L-8.4 51.7L-7.8 50.4L-8.0 48.8L-7.1 47.8L-4.8 47.9L-3.1 48.0L-1.7 48.1L-1.1 45.8L-2.0 44.8L-4.0 44.0L-2.9 43.2L-1.4 43.4L1.2 42.1L2.2 41.2L3.4 40.8L4.2 39.5L5.4 39.1L7.1 38.9L7.6 37.8L7.2 36.4L8.4 35.8L9.4 35.4L9.7 36.5L8.6 37.4L9.7 38.3L11.1 38.2L12.6 38.9L14.5 38.2L15.7 37.9L17.5 38.3L18.9 37.6L18.7 36.2L20.0 35.3L21.4 36.0L21.7 34.8L20.7 34.1L21.9 33.8L23.0 33.7L24.9 33.8L25.9 33.3L23.3 33.0L21.8 33.3L20.3 33.5L19.0 32.7L18.7 31.0L20.0 29.9L22.0 29.0L21.2 28.0L19.7 28.2L19.0 29.4L17.6 30.1L15.9 30.9L15.2 32.1L16.7 33.3L15.9 34.3L14.6 36.0L13.0 36.7L11.5 37.5L10.5 35.6L9.8 34.4L7.5 34.8L6.3 35.0L5.0 34.6L4.4 31.6L7.6 30.3L9.4 29.3L11.0 28.1L13.1 26.4L14.6 25.7L17.1 24.6L19.0 24.2L20.5 24.3L21.8 23.5L23.4 23.6L25.0 23.4L27.8 24.0L26.7 24.3L27.6 24.8L30.0 25.1L32.5 25.3L35.8 26.3L36.6 27.3L34.1 28.0L30.1 27.3L30.9 28.1L31.1 29.4L32.2 29.7L33.0 28.8L35.2 29.3L37.4 27.6L39.1 27.9L38.8 26.8L38.6 25.7L41.1 26.0L40.5 27.1L42.6 27.2L44.6 26.2L47.7 25.5L48.6 26.1L50.9 25.8L52.3 25.4L53.3 26.0L54.3 25.4L56.4 24.8L57.7 25.1L60.9 26.1L60.6 25.0L59.3 23.8L60.9 22.7L62.2 21.7L64.5 22.0L63.9 23.2L64.7 24.1L64.5 25.3L65.5 25.9L63.4 27.7L64.7 27.5L65.9 26.9L66.6 25.3L65.4 24.8L66.1 23.9L65.0 23.2L66.6 22.6L67.9 23.4L69.0 22.4L70.8 22.4L72.4 22.9L71.6 21.2L73.1 21.0L75.3 21.1L77.2 20.9L78.5 19.9L80.2 19.4L82.6 19.3L85.2 19.0L87.9 18.7L89.6 18.7L90.7 18.0L92.8 17.6L94.3 17.9L93.1 18.1L95.1 18.2L98.7 18.5L100.7 18.9L100.2 20.0L97.9 20.5L99.7 21.1L100.9 21.5L102.7 21.1L105.6 21.3L109.5 21.8L111.4 21.3L112.9 21.3L114.3 21.7L115.3 23.4L116.7 23.7L117.6 22.8L119.0 23.2L120.5 23.0L122.2 23.2L124.3 23.1L124.9 21.9L132.9 22.5L136.0 23.7L139.6 23.5L141.3 23.7L142.0 24.7L143.1 24.9L144.2 24.8L145.8 24.7L147.5 24.9L149.2 24.8L150.7 25.6L151.8 25.3L154.3 24.6L156.2 24.6L158.8 25.0L-160.0 25.4ZM43.7 50.0L44.8 50.9L43.9 51.6L43.7 53.3L45.2 53.9L46.5 54.0L47.8 53.8L47.9 52.0L46.8 51.1L47.9 50.6L47.8 49.2L46.9 50.1L46.8 48.9L45.6 48.3L44.7 47.3L45.6 46.4L47.1 46.4L47.1 45.0L45.5 44.8L43.6 45.4L42.4 46.1L41.5 47.0L42.3 47.9L43.2 49.5ZM-160.0 23.1L160.0 23.7L158.9 23.5L-160.0 23.1ZM127.6 21.6L126.3 21.6L124.5 21.5L126.3 21.0L127.5 21.4ZM134.0 19.9L131.5 20.2L129.9 19.8L131.8 19.7L134.0 19.9ZM129.0 19.5L125.0 20.1L123.5 20.3L121.8 19.8L123.4 19.0L125.8 19.0L129.0 19.5ZM51.1 23.8L47.7 23.8L45.9 23.1L46.6 22.0L48.4 21.2L49.7 20.3L51.4 19.5L54.4 18.9L57.3 18.7L58.9 18.4L60.6 18.3L57.5 19.3L54.7 19.8L52.0 20.6L50.7 21.5L49.3 22.3L51.1 23.8ZM22.0 17.5L20.0 17.8L18.4 17.6L20.3 16.9L22.0 17.5ZM93.4 17.1L88.4 17.4L90.0 16.2L91.4 16.2L93.7 16.7ZM16.2 15.8L19.2 16.5L16.9 16.8L15.6 17.7L14.1 18.4L12.2 17.9L10.0 16.6L11.7 15.5L13.5 15.8L15.1 15.5L16.2 15.8ZM22.6 15.2L24.4 15.5L23.0 16.0L20.5 16.1L17.8 15.9L16.4 15.7L18.2 15.0L19.5 15.2L22.6 15.2ZM45.5 15.1L44.3 15.2L42.3 15.5L39.9 15.0L41.6 14.9L42.9 14.9L44.5 14.7L45.8 14.9ZM88.8 16.6L86.9 16.7L84.4 16.4L82.9 16.1L81.0 15.3L83.4 14.6L85.3 14.4L87.0 14.9L89.1 15.8ZM259.8 134.5L260.9 135.1L262.2 135.3L260.9 135.8L259.4 136.1L257.8 135.7L255.8 135.1L253.6 133.6L255.6 134.4L256.8 134.7L257.5 133.7L259.0 133.5L259.8 134.5ZM268.0 132.1L267.2 133.1L266.0 133.2L266.7 132.2L268.0 132.1ZM160.0 101.4L479.4 101.6L160.0 100.9ZM255.5 69.0L257.1 69.0L258.5 69.5L257.7 70.4L256.5 71.0L255.2 70.5L253.8 70.4L255.4 70.3L254.7 69.2ZM249.2 66.4L250.4 66.7L251.4 67.4L252.8 68.0L254.1 68.6L252.8 69.0L250.9 69.0L250.2 68.0L248.7 67.3L247.3 66.9L245.8 67.0L244.5 67.2L245.5 66.4L246.7 66.2L248.3 66.1ZM263.4 45.3L264.9 45.4L263.0 45.4ZM265.1 43.0L263.5 42.8L265.0 42.9ZM210.2 43.5L208.3 43.3L207.2 42.6L206.2 42.2L207.4 41.9L208.5 42.3L209.8 43.1ZM270.1 41.6L271.2 42.8L272.5 42.9L273.2 44.4L272.4 45.2L271.8 44.2L270.8 45.0L269.0 44.4L267.3 44.4L268.1 43.0L269.0 41.6L270.3 40.8ZM314.0 40.2L312.4 40.7L311.1 40.6L311.9 39.7L312.6 38.1L314.0 37.6L315.0 38.2L314.6 39.4ZM184.0 35.9L182.7 36.0L183.8 35.1ZM317.3 34.5L316.4 35.5L318.3 35.4L317.2 36.9L319.0 38.1L320.2 39.3L321.5 39.8L321.3 41.1L319.3 41.5L317.8 41.8L316.0 41.9L314.9 42.1L316.2 41.1L315.8 39.7L317.3 39.2L316.8 38.1L315.5 37.7L315.0 36.6L314.9 35.3L316.3 34.6ZM167.4 30.0L168.5 30.0L170.1 30.4L168.6 30.5L167.5 30.4ZM244.3 28.3L245.4 28.8L247.4 29.4L248.8 30.0L246.6 30.1L245.2 30.2L244.0 30.6L242.5 30.2L243.4 29.0L244.3 28.3ZM307.1 27.6L307.9 28.8L306.7 29.5L304.2 30.1L302.2 30.1L299.8 29.8L298.7 29.0L300.3 28.8L298.4 28.3L300.3 27.6L301.7 28.2L303.1 27.8L304.2 28.0L305.6 27.5L307.1 27.6ZM160.0 25.4L162.2 26.0L164.5 26.9L167.2 27.2L169.0 28.0L166.6 28.5L166.3 29.6L164.8 29.2L163.6 29.0L162.5 28.4L161.0 28.2L160.0 28.9L480.0 28.9L478.9 29.3L477.7 29.2L479.0 30.4L477.7 31.1L475.2 31.8L473.0 32.5L471.7 33.0L470.1 32.8L467.8 33.5L466.6 33.6L465.4 33.5L464.0 34.9L465.1 35.5L464.9 36.7L463.7 37.5L462.6 38.4L460.9 39.6L459.4 41.3L458.7 39.4L458.2 37.4L458.6 36.2L459.4 35.3L460.8 35.1L462.4 33.9L463.9 33.0L465.5 32.3L466.2 31.1L464.6 31.9L462.3 32.8L461.6 31.8L459.3 32.1L457.1 33.5L455.8 34.3L454.5 34.4L453.1 33.6L452.0 34.1L449.3 33.9L446.4 34.2L443.5 35.9L440.1 38.0L441.5 38.1L442.8 38.9L444.4 38.5L445.6 39.5L445.0 41.1L444.5 43.6L443.2 44.9L441.7 46.5L440.5 47.6L438.7 48.6L437.6 48.2L436.4 48.8L435.3 49.7L434.7 50.7L433.4 51.3L434.1 52.3L434.9 53.4L435.1 55.0L433.9 55.7L432.4 56.1L432.5 54.9L432.8 53.9L431.7 52.9L431.5 51.7L430.5 51.2L429.2 51.4L427.6 52.1L428.6 50.7L427.3 50.6L426.3 51.2L424.9 51.8L425.7 53.0L427.4 53.0L428.8 53.4L427.6 54.1L426.4 55.0L426.9 56.1L427.8 57.8L428.3 59.2L428.4 60.9L427.0 62.6L426.3 63.8L425.5 64.8L424.2 65.7L423.0 66.4L421.5 66.9L419.4 67.5L418.2 68.6L416.5 67.4L414.9 68.3L414.1 69.1L414.6 70.7L415.4 71.8L416.8 73.1L417.2 74.7L417.1 76.3L415.3 77.5L413.5 79.0L413.4 77.8L412.0 77.2L411.2 75.8L409.6 75.4L408.4 77.0L408.2 78.5L409.1 79.3L409.8 80.6L410.8 81.1L411.9 82.4L411.9 83.7L412.7 85.2L411.2 84.9L410.1 84.2L409.5 83.2L409.1 81.9L408.6 80.6L408.0 79.6L407.3 78.7L407.5 77.2L407.5 76.0L407.2 74.5L406.9 73.5L406.8 72.4L404.8 72.7L404.0 71.3L403.1 69.5L402.1 68.3L401.6 66.9L400.4 66.4L399.5 67.1L398.4 67.4L397.3 67.6L396.9 68.8L395.6 69.4L394.6 70.4L393.1 71.5L391.8 72.5L391.3 74.4L391.0 75.9L391.0 77.5L390.1 78.2L389.3 79.3L388.1 78.8L387.7 77.5L387.0 76.2L386.3 74.2L385.4 72.5L385.0 70.7L384.7 69.6L384.6 67.7L383.3 68.2L381.5 67.0L380.6 65.6L379.7 64.7L377.4 64.2L375.9 64.3L374.7 64.4L373.0 64.1L371.0 63.8L370.6 62.7L369.5 62.7L367.6 62.8L366.7 62.2L365.2 61.1L364.5 59.9L363.2 60.1L363.0 61.3L363.8 62.3L364.6 63.3L365.0 64.4L365.6 63.5L365.7 64.8L366.7 65.2L368.0 65.2L369.3 64.1L370.1 63.2L370.1 64.5L371.0 65.4L372.2 65.7L373.2 66.6L372.3 67.9L371.4 68.7L371.3 69.8L370.2 70.6L369.1 71.0L367.6 71.8L366.4 72.5L365.5 73.2L364.1 73.6L362.9 74.3L361.5 74.8L360.4 75.1L359.3 75.5L358.4 74.4L357.9 73.1L357.9 71.8L357.1 70.8L356.4 69.3L355.4 68.6L354.7 67.1L354.2 65.6L353.0 64.6L352.2 63.0L351.2 61.7L351.1 60.6L350.4 61.9L348.8 60.1L349.6 62.0L350.3 63.4L350.9 64.4L351.7 65.4L352.6 66.9L353.1 68.0L353.3 70.1L354.7 71.7L355.4 72.9L356.6 73.8L357.6 74.8L358.5 75.7L358.8 77.0L360.5 77.2L362.2 76.8L363.5 76.5L364.7 76.3L365.4 77.2L364.9 78.5L364.0 80.6L363.2 81.9L362.4 82.9L361.4 84.1L360.5 84.8L359.2 85.7L357.4 87.5L356.3 88.5L355.7 89.6L354.8 90.8L354.4 91.9L355.1 93.0L354.8 94.2L355.5 95.6L355.9 97.1L356.1 99.3L355.6 101.0L354.3 101.9L352.3 103.3L351.3 104.0L351.3 105.6L351.6 107.2L351.1 108.4L349.3 109.2L349.2 110.4L348.9 111.8L348.0 112.7L347.2 113.7L345.7 115.3L344.4 116.2L343.0 116.6L341.9 116.9L340.4 116.8L339.2 117.1L337.8 117.6L336.8 117.3L336.2 116.3L336.2 114.8L335.2 113.2L334.5 112.1L333.5 110.7L333.1 109.2L332.8 107.9L332.7 106.3L331.9 105.2L331.4 104.2L330.5 102.7L330.3 101.5L330.8 99.9L331.1 98.7L331.8 97.8L332.2 96.7L331.7 95.3L331.5 93.4L330.9 92.3L330.6 91.1L329.9 90.2L328.9 89.3L327.8 87.7L328.3 86.4L328.6 84.6L328.4 83.3L327.6 82.4L326.3 82.7L324.8 82.3L323.8 81.1L322.4 81.1L320.9 81.4L319.5 81.9L318.3 82.5L317.1 82.2L315.9 82.1L314.2 82.5L312.9 82.8L311.2 81.7L309.8 80.6L308.5 79.7L307.8 78.2L306.9 77.2L306.1 76.5L305.2 75.7L304.8 73.9L305.2 72.8L305.5 71.4L305.6 69.7L305.3 68.4L304.9 67.2L305.5 66.2L306.3 65.0L306.8 63.9L307.8 63.0L308.8 61.7L310.3 61.0L311.5 60.1L311.3 59.0L311.7 57.7L313.2 56.7L314.4 55.4L315.9 55.3L317.7 55.4L318.9 54.9L320.4 54.4L322.8 54.0L324.3 53.9L325.6 53.7L326.9 53.9L328.5 53.5L329.8 53.7L329.7 54.9L329.0 56.2L329.9 57.1L331.3 57.5L332.4 57.6L333.6 58.0L334.8 58.9L336.0 59.3L337.4 59.5L337.6 58.4L338.5 57.6L340.4 57.7L342.2 58.3L343.6 58.6L345.3 59.1L346.4 58.9L347.5 58.6L348.6 58.9L350.0 59.1L350.9 58.2L351.5 56.5L351.9 55.2L352.1 54.1L350.9 54.0L348.9 54.6L347.2 54.1L345.5 54.1L344.0 53.2L343.8 52.0L344.2 50.7L345.6 50.7L347.7 50.1L348.8 49.6L351.3 49.3L352.8 49.9L354.1 50.3L355.9 50.2L356.9 49.7L356.3 48.4L354.4 47.3L352.6 46.4L354.0 45.6L354.8 44.7L353.3 44.9L351.8 45.2L351.1 46.1L352.5 46.2L351.3 46.7L350.1 47.2L348.8 46.4L349.9 45.9L348.2 45.5L347.0 45.7L346.3 46.6L345.4 47.8L344.6 48.8L345.8 50.0L344.5 50.2L343.4 51.0L342.2 50.3L341.2 51.1L340.1 50.9L340.8 51.8L341.4 53.2L340.2 53.5L338.9 53.2L338.4 52.2L337.7 51.2L337.2 49.9L336.4 48.9L335.0 48.3L333.5 47.3L332.7 46.5L331.0 46.3L331.2 47.5L332.5 48.7L333.5 49.4L334.9 50.1L336.3 50.8L335.0 50.7L335.2 52.1L334.3 52.9L334.0 51.5L333.1 50.6L331.5 50.0L329.9 49.0L329.1 47.6L327.9 47.2L326.6 47.8L324.0 48.1L322.8 48.4L321.9 50.0L320.7 50.2L319.8 51.7L319.4 53.2L318.1 54.1L317.0 54.1L315.6 54.4L314.5 54.3L313.4 53.7L312.1 53.9L312.1 52.7L311.6 51.7L312.2 50.4L312.0 48.8L312.9 47.8L315.2 47.9L316.9 48.0L318.3 48.1L318.9 45.8L318.0 44.8L316.0 44.0L317.1 43.2L318.6 43.4L321.2 42.1L322.2 41.2L323.4 40.8L324.2 39.5L325.4 39.1L327.1 38.9L327.6 37.8L327.2 36.4L328.4 35.8L329.4 35.4L329.7 36.5L328.6 37.4L329.7 38.3L331.1 38.2L332.6 38.9L334.5 38.2L335.7 37.9L337.5 38.3L338.9 37.6L338.7 36.2L340.0 35.3L341.4 36.0L341.7 34.8L340.7 34.1L341.9 33.8L343.0 33.7L344.9 33.8L345.9 33.3L343.3 33.0L341.8 33.3L340.3 33.5L339.0 32.7L338.7 31.0L340.0 29.9L342.0 29.0L341.2 28.0L339.7 28.2L339.0 29.4L337.6 30.1L335.9 30.9L335.2 32.1L336.7 33.3L335.9 34.3L334.6 36.0L333.0 36.7L331.5 37.5L330.5 35.6L329.8 34.4L327.5 34.8L326.3 35.0L325.0 34.6L324.4 31.6L327.6 30.3L329.4 29.3L331.0 28.1L333.1 26.4L334.6 25.7L337.1 24.6L339.0 24.2L340.5 24.3L341.8 23.5L343.4 23.6L345.0 23.4L347.8 24.0L346.7 24.3L347.6 24.8L350.0 25.1L352.5 25.3L355.8 26.3L356.6 27.3L354.1 28.0L350.1 27.3L350.9 28.1L351.1 29.4L352.2 29.7L353.0 28.8L355.2 29.3L357.4 27.6L359.1 27.9L358.8 26.8L358.6 25.7L361.1 26.0L360.5 27.1L362.6 27.2L364.6 26.2L367.7 25.5L368.6 26.1L370.9 25.8L372.3 25.4L373.3 26.0L374.3 25.4L376.4 24.8L377.7 25.1L380.9 26.1L380.6 25.0L379.3 23.8L380.9 22.7L382.2 21.7L384.5 22.0L383.9 23.2L384.7 24.1L384.5 25.3L385.5 25.9L383.4 27.7L384.7 27.5L385.9 26.9L386.6 25.3L385.4 24.8L386.1 23.9L385.0 23.2L386.6 22.6L387.9 23.4L389.0 22.4L390.8 22.4L392.4 22.9L391.6 21.2L393.1 21.0L395.3 21.1L397.2 20.9L398.5 19.9L400.2 19.4L402.6 19.3L405.2 19.0L407.9 18.7L409.6 18.7L410.7 18.0L412.8 17.6L414.3 17.9L413.1 18.1L415.1 18.2L418.7 18.5L420.7 18.9L420.2 20.0L417.9 20.5L419.7 21.1L420.9 21.5L422.7 21.1L425.6 21.3L429.5 21.8L431.4 21.3L432.9 21.3L434.3 21.7L435.3 23.4L436.7 23.7L437.6 22.8L439.0 23.2L440.5 23.0L442.2 23.2L444.3 23.1L444.9 21.9L452.9 22.5L456.0 23.7L459.6 23.5L461.3 23.7L462.0 24.7L463.1 24.9L464.2 24.8L465.8 24.7L467.5 24.9L469.2 24.8L470.7 25.6L471.8 25.3L474.3 24.6L476.2 24.6L478.8 25.0L160.0 25.4ZM235.0 25.2L233.2 25.3L231.3 25.0L232.7 24.3L234.2 24.7ZM160.0 23.1L480.0 23.7L478.9 23.5L160.0 23.1ZM160.0 23.1L162.2 23.3L160.0 23.7ZM239.5 24.9L240.7 25.1L241.8 25.7L242.4 26.9L243.3 26.3L244.0 24.6L245.2 24.6L246.6 24.7L247.8 25.2L247.8 26.6L245.9 27.6L244.7 27.8L243.5 28.0L242.6 28.7L241.3 29.7L240.1 29.7L239.3 30.7L237.2 31.5L236.2 32.5L235.8 34.3L237.1 34.4L238.0 35.9L239.2 35.7L240.9 36.1L242.4 36.9L243.5 37.1L245.9 37.6L246.7 38.4L247.6 40.3L249.0 41.1L250.1 39.9L249.7 38.5L250.5 37.7L251.5 37.0L251.9 35.8L250.2 34.4L251.3 33.5L250.6 31.3L252.7 31.3L254.4 31.2L256.3 32.0L258.1 32.4L258.4 34.3L259.9 34.9L261.2 34.4L262.0 33.4L263.3 33.8L264.4 35.0L265.4 36.0L266.3 37.1L268.5 37.8L269.4 38.9L270.4 39.3L269.9 40.6L267.8 41.3L266.6 42.0L265.1 42.2L263.2 42.0L261.9 42.0L260.2 42.7L259.1 43.1L257.8 44.2L256.8 45.0L259.0 43.7L260.8 43.0L262.2 42.9L262.4 44.9L263.8 46.0L265.3 45.9L266.2 44.9L266.8 45.8L265.7 46.4L263.8 47.0L261.9 48.0L262.7 46.4L261.3 46.4L259.5 47.3L257.7 47.8L257.0 49.0L256.1 49.9L254.5 50.3L255.8 50.1L254.2 50.6L253.4 52.1L252.5 53.6L252.1 51.9L252.2 53.8L252.7 55.1L251.2 56.0L250.2 56.6L248.6 57.8L247.7 58.7L247.7 60.0L248.4 61.4L248.8 62.8L248.6 64.3L247.4 63.7L246.5 62.2L246.3 60.8L245.2 59.9L244.2 60.3L243.2 59.6L241.4 59.7L240.5 60.5L239.2 60.8L237.8 60.4L236.6 60.3L235.0 61.1L233.7 61.9L233.5 63.4L233.2 65.1L233.1 66.3L233.4 67.6L234.2 69.0L235.7 70.2L236.8 70.3L238.2 70.0L239.3 69.5L239.6 68.3L241.3 67.6L242.6 67.5L242.3 68.7L241.9 70.4L241.6 71.5L241.0 72.5L242.1 72.6L243.5 72.5L244.9 72.6L245.9 73.1L245.9 74.2L245.8 75.6L245.5 76.8L246.2 77.8L246.9 78.7L248.0 78.8L249.3 78.1L250.6 78.4L251.7 79.0L252.7 78.3L253.4 76.8L254.7 76.7L255.8 76.0L256.3 77.4L256.3 78.6L256.5 76.9L257.6 76.6L258.8 76.5L260.2 77.3L261.6 77.6L262.8 77.4L263.9 77.2L265.3 77.9L266.1 79.0L267.5 79.6L268.0 80.6L269.2 81.4L270.4 81.4L272.0 81.5L273.9 82.6L275.1 85.0L274.9 86.5L276.8 86.9L278.6 87.5L280.1 88.0L281.4 88.8L283.1 89.3L284.5 89.2L285.8 90.0L286.9 91.0L288.4 91.2L289.0 92.7L288.8 94.7L287.1 96.5L286.5 97.5L285.6 98.3L285.4 100.6L285.2 102.0L284.7 104.1L283.8 105.2L282.9 106.6L281.7 107.1L280.3 107.4L278.7 108.1L277.6 108.8L276.9 109.7L276.9 110.8L276.5 112.2L274.9 114.2L273.5 115.3L272.6 116.7L271.2 117.7L270.0 117.7L268.6 117.3L269.0 118.6L268.7 120.6L267.3 121.1L265.6 121.3L264.6 122.4L263.3 123.3L262.1 123.2L262.8 124.3L262.1 125.3L261.7 126.7L260.2 127.2L260.8 128.5L261.3 129.5L260.3 130.0L259.7 131.0L258.5 131.8L259.4 133.2L258.3 133.1L257.0 133.7L255.5 134.3L254.5 133.6L253.4 133.1L252.9 131.4L252.8 129.9L254.1 128.4L252.8 128.1L253.6 127.3L253.9 125.9L255.4 124.3L254.5 125.2L254.2 123.8L254.5 122.2L254.7 120.7L255.5 118.2L256.1 116.8L256.5 115.5L256.3 114.2L256.5 112.3L257.0 111.2L257.1 109.5L257.4 107.7L257.7 105.7L257.6 104.2L257.4 103.0L256.5 102.1L254.7 101.2L253.1 100.2L252.1 99.0L251.5 97.5L250.6 95.9L249.7 94.1L249.1 93.1L247.8 92.1L247.6 90.9L248.6 89.7L248.0 88.7L248.4 87.5L248.9 86.3L249.9 85.4L250.3 84.3L251.4 83.2L251.1 81.7L250.8 80.2L250.3 79.2L249.3 78.7L248.5 79.5L247.4 79.5L246.3 79.4L245.4 78.4L244.5 77.7L243.6 77.0L242.9 75.9L242.2 74.8L241.0 74.9L239.9 74.5L238.5 74.1L237.0 72.8L235.8 72.3L234.6 72.7L232.9 72.3L231.4 71.8L229.6 71.0L228.0 70.4L226.7 69.5L226.0 68.5L226.1 67.2L225.0 65.5L224.1 64.8L222.9 63.9L221.9 62.5L220.7 61.4L219.7 60.0L218.8 58.6L218.1 59.9L219.0 60.8L219.8 62.0L220.8 63.0L221.3 64.2L222.1 65.1L222.7 66.1L221.4 65.3L220.3 64.7L220.2 63.5L219.1 62.9L217.7 62.0L217.8 60.6L217.0 59.8L216.2 58.5L215.7 57.3L214.7 56.7L213.0 56.0L211.8 54.5L211.1 53.3L210.0 52.0L209.4 50.8L209.6 49.3L209.7 47.8L209.9 46.2L209.7 45.0L209.2 43.8L210.6 44.0L209.0 42.2L206.7 41.5L206.4 40.2L205.2 39.8L204.0 38.4L202.7 37.3L201.3 35.8L200.0 34.9L198.6 34.9L195.7 33.7L193.3 33.3L192.0 33.3L190.3 32.9L189.2 32.5L188.4 33.4L186.9 33.6L185.1 34.1L185.4 32.7L184.4 33.3L183.1 33.9L181.9 35.4L180.8 36.0L179.4 36.5L178.1 37.3L176.7 37.5L175.0 38.1L173.5 38.3L175.2 37.5L177.3 36.9L178.9 36.0L180.0 34.8L178.6 34.7L177.5 34.2L176.0 34.5L175.5 33.3L174.4 33.5L173.0 32.9L172.3 32.0L173.4 31.0L174.4 30.5L175.8 30.2L177.1 30.0L175.6 29.3L173.4 29.4L172.1 29.2L170.6 28.3L171.8 27.9L173.8 27.5L176.3 27.9L174.5 27.0L173.0 26.2L171.8 25.9L173.8 25.4L175.0 25.0L176.1 24.1L178.6 23.7L180.8 23.2L182.2 23.4L184.7 23.7L186.0 24.1L188.8 24.3L190.5 24.3L192.4 24.3L193.7 24.6L196.3 24.9L197.7 25.3L199.4 25.1L200.5 24.8L201.8 24.9L203.2 24.5L204.6 24.3L205.9 24.4L208.2 24.9L209.4 24.3L210.6 24.8L212.0 24.6L213.4 25.0L215.5 25.3L216.7 25.5L218.8 25.9L217.5 26.3L219.1 26.5L221.5 26.4L223.2 26.8L223.9 25.6L225.6 25.5L227.3 26.2L229.8 26.5L231.2 26.4L232.5 26.4L234.6 26.0L235.8 26.2L235.3 24.7L234.3 23.4L235.4 22.7L236.5 22.9L238.7 24.3ZM218.5 21.7L220.1 21.8L221.3 22.3L222.3 21.8L223.8 23.0L223.6 21.7L225.3 21.7L226.9 22.9L228.6 24.0L230.2 24.4L228.7 24.9L227.3 25.4L225.8 25.2L223.1 25.5L220.5 25.7L219.3 25.7L217.6 25.1L215.7 24.5L217.7 24.2L218.9 24.3L220.1 24.1L218.4 23.9L216.5 24.0L215.2 24.0L216.8 23.3L215.4 23.3L213.9 23.1L215.2 22.0L217.6 21.5ZM227.1 21.4L224.9 21.4L226.4 21.2ZM252.1 21.7L250.3 21.9L249.1 22.0L248.1 21.2L250.6 21.2L252.1 21.7ZM243.1 21.6L244.6 21.5L246.8 21.1L248.4 22.0L250.0 22.4L252.8 22.4L254.0 22.9L255.8 23.1L258.9 24.0L260.5 25.2L258.8 25.6L260.9 26.2L262.3 26.4L263.6 27.2L265.0 27.2L263.2 28.9L262.1 28.5L260.7 27.7L259.5 27.8L260.4 28.8L261.6 29.2L262.5 30.3L261.1 30.7L258.9 30.0L260.1 30.8L261.2 31.6L258.8 31.3L256.9 30.7L255.8 30.3L254.8 29.6L253.5 29.2L250.9 29.6L252.4 28.6L254.3 28.5L255.4 26.9L253.5 25.7L251.7 25.4L250.5 24.6L249.3 24.6L247.7 24.7L244.5 24.5L242.6 24.2L241.2 24.1L240.1 23.4L240.5 21.7L243.7 21.1ZM230.8 21.0L233.4 21.1L234.2 22.2L232.6 23.3L231.1 22.9L228.9 22.2L230.7 22.0L229.7 21.5L230.8 21.0ZM237.2 22.0L236.2 22.6L234.6 21.8L236.0 20.8L237.9 20.8L239.5 21.0L238.2 21.8ZM212.9 23.2L210.6 23.6L208.1 22.8L209.1 21.8L209.0 20.6L212.0 20.5L213.2 20.7L215.5 20.7L217.3 21.4L216.2 21.6L214.0 22.2L212.9 22.8ZM236.8 20.0L235.0 20.3L233.9 20.1L235.7 19.4L236.8 20.0ZM232.4 18.5L233.2 19.3L231.3 20.1L230.3 19.4L228.9 19.5L229.8 18.8L231.1 18.5L232.4 18.6ZM223.8 18.9L225.0 19.1L226.0 19.6L222.5 20.1L220.2 20.5L218.9 20.5L220.6 19.9L216.6 20.0L215.4 19.8L216.6 18.9L219.9 19.0L221.5 19.5L223.1 19.6L221.8 18.7L223.5 18.5ZM235.8 18.1L238.6 18.4L240.2 19.2L241.9 19.5L243.2 19.6L244.6 19.4L246.4 19.3L247.9 19.4L249.0 20.1L247.2 20.5L246.0 20.4L243.5 20.5L241.6 20.5L240.2 20.4L237.8 20.1L236.5 18.8L234.7 18.7L235.8 18.1ZM216.7 17.6L215.9 18.6L213.4 19.1L212.0 19.2L210.8 19.0L212.3 18.3L214.1 17.8L215.5 17.8L216.7 17.6ZM236.6 17.8L234.5 17.7L236.1 17.5ZM222.1 17.6L220.4 17.9L219.1 17.6L221.1 17.2L222.4 17.3ZM222.5 16.8L220.0 17.0L221.4 16.6L222.5 16.8ZM234.8 17.3L233.5 17.5L232.4 16.9L233.5 16.6L235.1 17.0ZM231.1 17.0L230.0 17.3L228.5 17.0L226.5 17.0L228.0 16.3L230.4 16.6ZM242.7 15.9L243.7 16.1L242.5 16.4L240.9 17.1L239.3 17.1L237.4 17.0L236.5 16.3L234.6 15.8L235.3 14.7L237.9 14.4L239.0 14.9L240.5 15.1L241.9 15.3ZM259.1 12.8L261.5 12.9L263.4 13.0L265.0 13.2L262.8 13.8L260.7 14.0L261.8 14.2L259.7 14.8L258.3 15.0L256.7 15.7L254.9 15.9L251.6 16.2L252.9 16.3L252.1 17.2L250.8 17.4L249.1 18.0L250.7 18.2L248.4 19.0L246.1 18.7L243.5 18.8L242.1 18.7L240.5 18.7L242.0 18.1L244.5 17.7L243.3 17.2L241.8 17.0L244.1 16.4L243.1 15.8L245.2 15.4L247.2 15.1L245.2 15.0L242.1 15.1L240.6 14.8L238.8 14.2L239.9 13.7L242.7 13.5L244.0 13.2L245.1 13.2L246.7 13.0L247.9 12.9L249.5 12.8L252.2 12.7L255.3 12.7L257.2 12.7L259.1 12.8ZM295.9 12.4L301.5 13.1L299.8 13.5L296.4 13.5L291.6 13.6L295.2 13.7L297.9 14.0L299.6 13.7L301.7 14.2L306.0 13.9L308.6 14.0L305.5 15.0L302.2 15.4L304.2 15.4L303.2 16.1L302.5 17.7L303.6 18.2L302.2 18.3L300.7 18.6L302.4 19.0L301.6 19.9L302.8 20.6L300.8 20.7L299.1 21.5L300.2 22.1L298.4 22.1L300.3 23.1L299.1 24.0L297.3 23.2L296.6 24.2L298.9 24.3L300.1 24.3L297.8 25.1L295.3 25.8L292.7 26.1L290.8 26.5L289.6 27.4L287.7 28.0L285.9 28.3L284.6 28.5L283.8 29.7L281.9 30.9L281.9 32.4L280.2 33.3L278.9 32.6L277.1 32.6L275.6 31.2L274.1 30.1L273.5 28.7L272.3 27.9L272.9 25.9L274.2 25.6L274.8 24.5L273.3 25.0L271.4 24.8L271.7 23.7L274.3 23.9L272.8 23.4L271.1 23.2L270.8 21.8L269.0 20.3L267.9 19.9L265.5 19.0L263.7 19.0L261.3 19.0L259.1 19.1L256.5 18.2L258.9 17.9L260.7 17.9L256.9 17.7L254.8 17.3L258.3 16.5L261.6 16.1L259.5 15.5L263.4 14.5L264.7 14.4L266.4 13.7L269.1 13.6L271.9 13.6L275.2 13.4L277.3 13.7L278.6 13.8L280.4 14.1L278.3 13.6L281.4 12.7L284.5 12.7L285.7 12.4L288.8 12.3L295.9 12.4Z';
+
+// 共通：緯度経度 → マップの座標（320×220）
+function mkProj(b, kLat) {
+  const k = Math.cos(kLat * Math.PI / 180), sc = Math.min(304 / ((b[1] - b[0]) * k), 204 / (b[3] - b[2])), cx = (b[0] + b[1]) / 2, cy = (b[2] + b[3]) / 2;
+  return (la, lo) => [(lo - cx) * k * sc + 160, -(la - cy) * sc + 110];
+}
+const cumOf = (ll) => { const c = [0]; for (let i = 1; i < ll.length; i++) c.push(c[i - 1] + hav(ll[i - 1], ll[i]) / 1000); return c; };
+// 道のりタイプのマップ
+function routeWorld(o) {
+  const P = o.P, cum = o.cum, st = o.stops;
+  const at = (km) => {
+    let i = 1; while (i < cum.length - 1 && cum[i] < km) i++;
+    const a = P[i - 1], b = P[i], t = Math.min(1, Math.max(0, (km - cum[i - 1]) / ((cum[i] - cum[i - 1]) || 1)));
+    return { x: a[0] + (b[0] - a[0]) * t, y: a[1] + (b[1] - a[1]) * t, i };
+  };
+  const f1 = (v) => v.toFixed(1);
+  return {
+    name: o.name, L: o.L, note: o.note,
+    cps: st.slice(1).map((s) => [s.km, s.n, s.a, s.t]), start: [0, st[0].n, st[0].a, st[0].t],
+    svg() {
+      let h = o.land ? `<path d="${o.land}" fill="var(--land)" opacity=".6"/>` : '';
+      h += (o.deco || '') + `<path class="route" d="M${P.map((p) => f1(p[0]) + ' ' + f1(p[1])).join('L')}"/><path class="trail" id="wTrail"/>`;
+      st.forEach((s, i) => { const p = at(s.km); h += `<circle class="cp" data-k="${s.km}" cx="${f1(p.x)}" cy="${f1(p.y)}" r="${i === 0 || i === st.length - 1 ? 3.6 : 2.6}"/>`; });
+      st.forEach((s) => { if (!s.lbl) return; const p = at(s.km), [dx, dy, an] = s.lbl; h += `<text x="${f1(p.x + dx)}" y="${f1(p.y + dy)}" text-anchor="${an || 'start'}">${esc(s.short || s.n)}</text>`; });
+      st.forEach((s, i) => { const p = at(s.km); h += `<circle class="cphit" data-i="${i}" cx="${f1(p.x)}" cy="${f1(p.y)}" r="9"/>`; });
+      return h + `<text class="lbl" id="wLbl"></text>` + dotSVG;
+    },
+    place(km) {
+      const p = at(km), pts = P.slice(0, p.i).concat([[p.x, p.y]]);
+      let where = '';
+      if (o.where) where = o.where(km);
+      else if (km > o.L * 0.0005) {
+        const prev = [...st].reverse().find((s) => s.km <= km + 1e-9), next = st.find((s) => s.km > km + 1e-9);
+        if (next) where = `${prev.short || prev.n}→${next.short || next.n} の間`;
+      }
+      return { x: p.x, y: p.y, trail: 'M' + pts.map((q) => f1(q[0]) + ' ' + f1(q[1])).join('L'), where };
+    },
+    lbl(x, y, where) { return { x: x < 160 ? x + 11 : x - 11, y: y < 30 ? y + 16 : y - 9, a: x < 160 ? 'start' : 'end', t: where }; },
+  };
+}
+
+// 山手線（東京駅から外回りで1周）
+const YM = [
+  ['東京', 35.6812, 139.7671, '千代田区', '赤レンガの丸の内駅舎は、2012年に開業当時（1914年）の姿に復元された。'],
+  ['有楽町', 35.6750, 139.7630, '千代田区', '駅のすぐ横に、ガラスの建物が目立つ東京国際フォーラムがある。'],
+  ['新橋', 35.6663, 139.7583, '港区', '1872年、日本で最初の鉄道が新橋〜横浜の間で開業した（当時の新橋駅は今の汐留あたり）。'],
+  ['浜松町', 35.6555, 139.7570, '港区', '東京タワーの最寄り駅のひとつ。羽田空港へ行くモノレールもここから出ている。'],
+  ['田町', 35.6457, 139.7476, '港区', ''],
+  ['高輪ゲートウェイ', 35.6355, 139.7407, '港区', '2020年に開業した、山手線でいちばん新しい駅。'],
+  ['品川', 35.6285, 139.7388, '港区', '名前は品川だけど、駅があるのは品川区じゃなくて港区。'],
+  ['大崎', 35.6197, 139.7286, '品川区', ''],
+  ['五反田', 35.6262, 139.7236, '品川区', ''],
+  ['目黒', 35.6339, 139.7158, '品川区', '品川駅とは逆に、目黒駅は目黒区じゃなくて品川区にある。'],
+  ['恵比寿', 35.6467, 139.7101, '渋谷区', '駅の名前は「ヱビスビール」から。もともとビールを運ぶための貨物駅だった。'],
+  ['渋谷', 35.6580, 139.7016, '渋谷区', '駅前に忠犬ハチ公の像がある。'],
+  ['原宿', 35.6702, 139.7027, '渋谷区', '明治神宮の最寄り駅。'],
+  ['代々木', 35.6830, 139.7020, '渋谷区', ''],
+  ['新宿', 35.6896, 139.7006, '新宿区', '1日に乗り降りする人の数が世界一の駅として、ギネス世界記録に認定されている。'],
+  ['新大久保', 35.7013, 139.7000, '新宿区', '韓国料理のお店が多く並ぶコリアンタウンとして有名。'],
+  ['高田馬場', 35.7126, 139.7038, '新宿区', '発車メロディは「鉄腕アトム」。アトムは物語の中で高田馬場で生まれた設定。'],
+  ['目白', 35.7212, 139.7065, '豊島区', '学習院大学の最寄り駅。'],
+  ['池袋', 35.7295, 139.7109, '豊島区', 'サンシャイン60がある。'],
+  ['大塚', 35.7318, 139.7286, '豊島区', '東京に残る路面電車・都電荒川線（東京さくらトラム）が駅前を走っている。'],
+  ['巣鴨', 35.7334, 139.7394, '豊島区', '「おばあちゃんの原宿」と呼ばれる、とげぬき地蔵の商店街がある。'],
+  ['駒込', 35.7365, 139.7470, '豊島区', '桜のソメイヨシノは、このあたりにあった「染井村」で生まれたとされる。'],
+  ['田端', 35.7381, 139.7608, '北区', '芥川龍之介などの作家や芸術家が住んだ「田端文士村」があった。'],
+  ['西日暮里', 35.7320, 139.7668, '荒川区', ''],
+  ['日暮里', 35.7278, 139.7707, '荒川区', '布やボタンのお店が集まる「日暮里繊維街」がある。'],
+  ['鶯谷', 35.7206, 139.7781, '台東区', ''],
+  ['上野', 35.7138, 139.7773, '台東区', '1882年に開園した、日本で最初の動物園・上野動物園がある。'],
+  ['御徒町', 35.7074, 139.7746, '台東区', '上野駅からこの駅にかけて、アメ横商店街が続いている。'],
+  ['秋葉原', 35.6984, 139.7731, '千代田区', '電気街として発展し、今はアニメやゲームの街としても世界的に有名。'],
+  ['神田', 35.6918, 139.7709, '千代田区', ''],
+  ['東京（1周）', 35.6812, 139.7671, '千代田区', '山手線を1周した！電車で1周すると、だいたい1時間ちょっと。ここから2周目。'],
+];
+const YM_LBL = { 0: [7, 4], 6: [7, 5], 11: [-7, 3, 'end'], 14: [-7, 3, 'end'], 18: [-7, -3, 'end'], 26: [7, 3] };
+
+// 東海道五十三次（宿場をまっすぐ結んで、全体を約490kmに合わせた目安）
+const TK = [
+  ['日本橋', 35.6840, 139.7745, '東京都中央区（スタート）', '五街道のスタート地点。今も日本の道路の距離の基準「日本国道路元標」が埋めこまれている。'],
+  ['品川宿', 35.6190, 139.7400, '東京都品川区（1番目の宿場）', '東海道でいちばん最初の宿場。'],
+  ['川崎宿', 35.5310, 139.7020, '神奈川県川崎市', '川崎大師へお参りする人たちでにぎわった。'],
+  ['神奈川宿', 35.4750, 139.6310, '神奈川県横浜市', ''],
+  ['戸塚宿', 35.3980, 139.5340, '神奈川県横浜市', '日本橋を出た旅人が、最初の夜に泊まることが多かった宿場。'],
+  ['藤沢宿', 35.3410, 139.4900, '神奈川県藤沢市', '遊行寺（清浄光寺）の門前町としても栄えた。'],
+  ['平塚宿', 35.3300, 139.3500, '神奈川県平塚市', ''],
+  ['小田原宿', 35.2500, 139.1550, '神奈川県小田原市', '小田原城の城下町。かまぼこが名物。'],
+  ['箱根宿', 35.1900, 139.0260, '神奈川県箱根町', '東海道いちばんの難所・箱根峠。箱根の関所では「入鉄砲に出女」を厳しく調べた。'],
+  ['三島宿', 35.1190, 138.9180, '静岡県三島市', '富士山の湧き水が町の中を流れる「水の都」。'],
+  ['沼津宿', 35.0950, 138.8600, '静岡県沼津市', ''],
+  ['吉原宿', 35.1600, 138.6800, '静岡県富士市', '東海道でめずらしく、進む方向の左側に富士山が見える「左富士」の場所がある。'],
+  ['由比宿', 35.1050, 138.5590, '静岡県静岡市', '歌川広重の浮世絵で、薩埵峠から見た富士山が有名。'],
+  ['府中宿（駿府）', 34.9760, 138.3830, '静岡県静岡市', '徳川家康が最後の年月を過ごした駿府城があった。'],
+  ['島田宿', 34.8370, 138.1760, '静岡県島田市', '大井川には橋がなく、旅人は人に担がれて渡った。「越すに越されぬ大井川」と歌われた。'],
+  ['金谷宿', 34.8200, 138.1250, '静岡県島田市', '大井川を渡りきった先の宿場。'],
+  ['掛川宿', 34.7690, 137.9980, '静岡県掛川市', ''],
+  ['浜松宿', 34.7080, 137.7300, '静岡県浜松市', '徳川家康が若いころ、約17年間を過ごした浜松城がある。'],
+  ['新居宿', 34.6930, 137.5600, '静岡県湖西市', '新居関所は、建物が今も残っている全国で唯一の関所。'],
+  ['吉田宿', 34.7690, 137.3900, '愛知県豊橋市', ''],
+  ['岡崎宿', 34.9550, 137.1680, '愛知県岡崎市', '徳川家康が生まれた岡崎城がある。'],
+  ['宮宿', 35.1220, 136.9060, '愛知県名古屋市（熱田）', 'ここから次の桑名宿までは「七里の渡し」という船で海を渡った。'],
+  ['桑名宿', 35.0650, 136.6990, '三重県桑名市', '「その手は桑名の焼きはまぐり」ということわざがあるほど、はまぐりが名物。'],
+  ['四日市宿', 34.9650, 136.6240, '三重県四日市市', ''],
+  ['亀山宿', 34.8560, 136.4520, '三重県亀山市', ''],
+  ['関宿', 34.8510, 136.3930, '三重県亀山市', '江戸時代の町並みが今もたくさん残っていて、国の重要伝統的建造物群保存地区になっている。'],
+  ['土山宿', 34.9390, 136.2770, '滋賀県甲賀市', '険しい鈴鹿峠を越えた先の宿場。'],
+  ['水口宿', 34.9670, 136.1670, '滋賀県甲賀市', ''],
+  ['石部宿', 35.0000, 136.0600, '滋賀県湖南市', ''],
+  ['草津宿', 35.0200, 135.9600, '滋賀県草津市', '東海道と中山道が合流する宿場。'],
+  ['大津宿', 35.0050, 135.8600, '滋賀県大津市（53番目）', '東海道五十三次の53番目、最後の宿場。'],
+  ['三条大橋', 35.0090, 135.7720, '京都府京都市（ゴール）', '東海道のゴール！ここから2周目は、また日本橋から。'],
+];
+const TK_LBL = { 0: [0, 17, 'middle'], 8: [0, 13, 'middle'], 17: [0, 13, 'middle'], 21: [0, -7, 'middle'], 31: [6, -8, 'start'] };
+
+// フルマラソン
+const MR = (() => {
+  const P = [];
+  for (let i = 0; i <= 120; i++) { const t = i / 120; P.push([26 + 268 * t, 112 + 56 * Math.sin(t * Math.PI * 3)]); }
+  const c = [0]; for (let i = 1; i < P.length; i++) c.push(c[i - 1] + Math.hypot(P[i][0] - P[i - 1][0], P[i][1] - P[i - 1][1]));
+  return { P, cum: c.map((v) => v / c.at(-1) * 42.195) };
 })();
+const MR_ST = [
+  [0, 'スタート', 'スタート地点', 'マラソンという名前は、古代ギリシャの「マラトンの戦い」で勝ったことを知らせるために走った兵士の伝説から。'],
+  [5, '5km', '5km地点', 'まずは5km。歩くとだいたい1時間くらいの距離。'],
+  [10, '10km', '10km地点', 'フルマラソンのおよそ4分の1。'],
+  [15, '15km', '15km地点', '42.195kmのうち、まだ約3分の1。'],
+  [20, '20km', '20km地点', 'もうすぐ半分。ハーフマラソンの距離は21.0975km。'],
+  [21.0975, '中間点', 'ちょうど半分', 'ちょうど半分！ここまでの距離はハーフマラソンと同じ。'],
+  [25, '25km', '25km地点', '残りは17.195km。'],
+  [30, '30km', '30km地点', 'マラソンには、疲れが一気に来やすい「30kmの壁」という言葉がある。'],
+  [35, '35km', '35km地点', '残り7.195km。もうひとふんばり。'],
+  [40, '40km', '40km地点', '残り2.195km。'],
+  [42.195, 'ゴール', '42.195km', '42.195kmという中途半端な距離は、1908年のロンドンオリンピックのコースがもとになって決まったと言われている。完走！'],
+];
+
+const jpProj = mkProj([129.2, 146.2, 30.7, 45.8], 38), tkProj = mkProj([135.55, 140.0, 34.45, 35.95], 35), ymProj = mkProj([139.69, 139.785, 35.612, 35.745], 35.68);
+const JP_LL = JP.map((p) => [p[1], p[2]]), JP_CUM = cumOf(JP_LL);
+const JP_LBL = { 0: [8, 3], 2: [-7, 3, 'end'], 6: [7, 3], 9: [7, 7], 13: [0, 12, 'middle'], 15: [-3, -7, 'end'], 20: [0, -7, 'middle'], 22: [-7, 3, 'end'], 25: [-8, 4, 'end'] };
+const YM_LL = YM.map((p) => [p[1], p[2]]), YM_RAW = cumOf(YM_LL), YM_CUM = YM_RAW.map((v) => v / YM_RAW.at(-1) * 34.5);
+const TK_LL = TK.map((p) => [p[1], p[2]]), TK_RAW = cumOf(TK_LL), TK_CUM = TK_RAW.map((v) => v / TK_RAW.at(-1) * 490);
+const fromList = (list, cum, lbl) => list.map((p, i) => ({ km: cum[i], n: p[0], a: p[3], t: p[4], lbl: lbl[i], short: p[0].replace(/（.*）/, '') }));
 
 // 赤道一周：経度0°から東回り
 const EQ_LAND = [[9.3, 42.5], [99.0, 104.0], [109.0, 118.0], [119.6, 123.0], [127.3, 128.5], [268.4, 270.7], [279.9, 310.0]];
-const EQ_CP = [[6.5, 'サントメ・プリンシペ'], [9.3, 'ガボン'], [14.0, 'コンゴ共和国'], [17.7, 'コンゴ民主共和国'], [30.0, 'ウガンダ'], [32.3, 'ビクトリア湖'], [34.0, 'ケニア'], [41.0, 'ソマリア'], [73.4, 'モルディブ近く'], [99.5, 'スマトラ島'], [109.0, 'ボルネオ島'], [120.0, 'スラウェシ島'], [127.5, 'ハルマヘラ島'], [173.5, 'キリバス近く'], [269.0, 'ガラパゴス諸島'], [280.0, 'エクアドル'], [285.0, 'コロンビア'], [290.0, 'ブラジル（アマゾン）'], [309.0, 'マカパ（アマゾン河口）'], [360, '経度0°に帰還']];
+const EQ_CP = [
+  [6.5, 'サントメ・プリンシペ', 'アフリカ西岸・ギニア湾の島国', 'アフリカで2番目に小さい国。チョコレートの原料のカカオづくりが盛ん。赤道が国の南の小さな島を通っている。'],
+  [9.3, 'ガボン', 'アフリカ中部の国', '国土のほとんどが熱帯雨林におおわれている、森の国。'],
+  [14.0, 'コンゴ共和国', 'アフリカ中部の国', '首都ブラザビルは、大きな川をはさんでとなりの国の首都キンシャサと向かい合っている。'],
+  [17.7, 'コンゴ民主共和国', 'アフリカ中部の国', 'アフリカで2番目に面積が大きい国。大河・コンゴ川が流れている。'],
+  [30.0, 'ウガンダ', 'アフリカ東部の国', '自然の美しさから「アフリカの真珠」と呼ばれる。'],
+  [32.3, 'ビクトリア湖', 'アフリカ東部の湖', 'アフリカでいちばん大きい湖。ナイル川の源のひとつ。'],
+  [34.0, 'ケニア', 'アフリカ東部の国', 'マラソンの強い選手がたくさん生まれている国。サバンナの野生動物でも有名。'],
+  [41.0, 'ソマリア', 'アフリカの東の端（アフリカの角）', 'アフリカ大陸の国の中で、いちばん長い海岸線を持っている。'],
+  [73.4, 'モルディブの近く', 'インド洋の島国', '約1,200の島からなる国。国全体がとても低くて、ほとんどの土地が海面から数メートルしかない。'],
+  [99.5, 'スマトラ島', 'インドネシア', '世界で6番目に大きい島。野生のオランウータンが暮らしている。'],
+  [109.0, 'ボルネオ島', 'インドネシア・マレーシア・ブルネイ', '世界で3番目に大きい島。1つの島が3つの国に分かれている。'],
+  [120.0, 'スラウェシ島', 'インドネシア', 'アルファベットの「K」のような、くねくねした変わった形の島。'],
+  [127.5, 'ハルマヘラ島', 'インドネシア', 'スパイス（香辛料）で有名な「モルッカ諸島」でいちばん大きい島。'],
+  [173.5, 'キリバスの近く', '太平洋の島国', '北半球・南半球・東半球・西半球の4つすべてにまたがっている、世界で唯一の国。'],
+  [269.0, 'ガラパゴス諸島', 'エクアドル領・太平洋の島々', 'ダーウィンが進化論を考えるヒントを得た島々。ゾウガメが暮らしている。'],
+  [280.0, 'エクアドル', '南アメリカ', '国の名前は、スペイン語で「赤道」という意味。'],
+  [285.0, 'コロンビア', '南アメリカ', 'コーヒーの産地として世界的に有名。'],
+  [290.0, 'ブラジル（アマゾン）', '南アメリカ', 'アマゾン川は、流れこむ範囲（流域）の広さが世界一の川。'],
+  [309.0, 'マカパ', 'ブラジル・アマゾン川の河口の町', '赤道が町の中を通っていて、センターラインがちょうど赤道の上にあるサッカー場がある。'],
+  [360, '経度0°に帰還', 'アフリカ西岸・ギニア湾の海の上', '経度0°・緯度0°が交わる点は海の上で、地図の世界では冗談で「ヌル島」と呼ばれる。ここから2周目！'],
+];
 const EQ_L = 40075;
 function eqWhere(deg) {
   for (const [a, b] of EQ_LAND) if (deg >= a && deg <= b) {
@@ -365,7 +672,18 @@ function eqWhere(deg) {
 
 // 地球を貫通：足もとから地球の裏側まで
 const CORE_L = 12742;
-const CORE_CP = [[35, '地殻の底（モホ面）'], [660, '上部マントルの終わり'], [2890, '外核の入り口'], [5150, '内核の入り口'], [6371, '地球の中心'], [7592, '内核を抜ける'], [9852, '外核を抜ける'], [12082, '上部マントルへ'], [12707, '地殻へ'], [12742, '地球の裏側に到着']];
+const CORE_CP = [
+  [35, '地殻の底（モホ面）', '深さ 約35km', '地殻とマントルの境目。見つけたクロアチアの学者モホロビチッチの名前から「モホ面」と呼ばれる。人類が実際に掘った最も深い穴でも約12kmなので、もうその3倍。'],
+  [660, '上部マントルの終わり', '深さ 約660km', 'このあたりで、強い圧力によって岩石のつくりが変わる境目がある。'],
+  [2890, '外核の入り口', '深さ 約2,900km', 'ここから先はドロドロにとけた鉄。この鉄の流れが、方位磁石が北を指す地球の磁場を生み出している。'],
+  [5150, '内核の入り口', '深さ 約5,150km', '内核は固体の鉄とニッケルのかたまり。温度は太陽の表面と同じくらい（約5,000〜6,000℃）。'],
+  [6371, '地球の中心', '深さ 約6,371km', '地球のど真ん中、ちょうど折り返し地点。ここからは来たときと逆の順番で層をぬけていく。'],
+  [7592, '内核をぬける', '中心から約1,220km', '内核の大きさは月の約7割くらい。'],
+  [9852, '外核をぬける', '中心から約3,480km', 'ふたたびマントルの中へ。外核は液体なので、地震の波の一部（S波）は通りぬけられない。'],
+  [12082, '上部マントルへ', '地表まで あと約660km', 'マントルは固い岩石だけど、何万年という長い時間でみると、ゆっくり動いている。'],
+  [12707, '地殻へ', '地表まで あと約35km', 'もうすぐ地球の裏側に出る。'],
+  [12742, '地球の裏側に到着', '日本の真裏はブラジル沖の大西洋あたり', '地球をまっすぐ貫通した！ここから2周目は、また足もとから掘りはじめる。'],
+];
 function coreLayer(d) {
   const x = d <= 6371 ? d : 12742 - d;
   return x < 35 ? '地殻' : x < 660 ? '上部マントル' : x < 2890 ? '下部マントル' : x < 5150 ? '外核（液体の鉄）' : '内核（固体の鉄）';
@@ -373,52 +691,54 @@ function coreLayer(d) {
 
 // 宇宙：真上へ、月まで
 const SPACE_L = 384400;
-const SPACE_CP = [[8.8, 'エベレストの高さ'], [11, '旅客機の高さ'], [25, 'オゾン層'], [50, '成層圏の上端'], [100, 'カーマン・ライン（宇宙の入り口）'], [400, '国際宇宙ステーション'], [540, 'ハッブル宇宙望遠鏡'], [20200, 'GPS衛星'], [35786, '静止軌道（気象衛星）'], [384400, '月に到着']];
+const SPACE_CP = [
+  [8.8, 'エベレストの高さ', '高さ 約8.8km', '世界でいちばん高い山。標高は8,849m（2020年の測量）。'],
+  [11, '旅客機の高さ', '高さ 約10〜12km', 'ジェット旅客機はだいたいこの高さを飛んでいる。外の気温はマイナス50℃くらい。'],
+  [25, 'オゾン層', '高さ 約25km', '太陽から来る有害な紫外線を吸収してくれる、地球のバリア。'],
+  [50, '成層圏の上端', '高さ 約50km', '成層圏は、上に行くほど気温が上がるという不思議な層。'],
+  [100, 'カーマン・ライン（宇宙の入り口）', '高さ 100km', '国際的に「ここから先が宇宙」とされることが多い高さ。'],
+  [400, '国際宇宙ステーション', '高さ 約400km', '約90分で地球を1周している。中の宇宙飛行士は1日に十数回、日の出を見る。'],
+  [540, 'ハッブル宇宙望遠鏡', '高さ 約500km台', '1990年に打ち上げられた宇宙望遠鏡。遠い銀河の写真をたくさん撮ってきた。'],
+  [20200, 'GPS衛星', '高さ 約20,200km', 'スマホの現在地は、この高さを回る衛星から届く電波で計算している。このアプリの計測も実はこれのおかげ。'],
+  [35786, '静止軌道（気象衛星）', '高さ 約35,786km', 'ここを回る衛星は地球の自転と同じ速さで回るので、地上から見ると止まって見える。天気予報の「ひまわり」もここ。'],
+  [384400, '月に到着', '平均 約38万4,400km', '光なら約1.3秒で届く距離。歩いてきたのは本当にすごい。ここから2周目は、また地上から。'],
+];
 const spY = (km) => 196 - Math.log10(1 + km) / Math.log10(1 + SPACE_L) * 172;
 
 const WORLDS = {
-  japan: {
-    name: '日本縦断', L: jp.L, note: '宗谷岬→佐多岬（都市をまっすぐ結んだ道のり）',
-    cps: JP.slice(1).map((p, i) => [jp.cum[i + 1], p[0]]),
-    svg() {
-      const d = 'M' + jp.P.map((p) => p.map((v) => v.toFixed(1)).join(' ')).join('L');
-      return `<path class="route" d="${d}"/><path class="trail" id="wTrail"/>` +
-        jp.P.map((p, i) => `<circle class="cp" data-k="${jp.cum[i]}" cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="${i === 0 || i === jp.P.length - 1 ? 3.6 : 2.6}"/>`).join('') +
-        `<text x="${(jp.P[0][0] + 8).toFixed(0)}" y="${(jp.P[0][1] + 3).toFixed(0)}">宗谷岬</text><text x="${(jp.P.at(-1)[0] - 8).toFixed(0)}" y="${(jp.P.at(-1)[1] + 3).toFixed(0)}" text-anchor="end">佐多岬</text>` +
-        `<text class="lbl" id="wLbl"></text>` + dotSVG;
-    },
-    place(km) {
-      let i = 1; while (i < jp.cum.length - 1 && jp.cum[i] < km) i++;
-      const a = jp.P[i - 1], b = jp.P[i], t = Math.min(1, Math.max(0, (km - jp.cum[i - 1]) / (jp.cum[i] - jp.cum[i - 1])));
-      const x = a[0] + (b[0] - a[0]) * t, y = a[1] + (b[1] - a[1]) * t;
-      const pts = jp.P.slice(0, i).concat([[x, y]]);
-      return { x, y, trail: 'M' + pts.map((p) => p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join('L'), where: km <= 0.05 ? '宗谷岬' : `${JP[i - 1][0]}→${JP[i][0]} の間` };
-    },
-    lbl(x, y, where) { return { x: x < 160 ? x + 12 : x - 12, y: y + 4, a: x < 160 ? 'start' : 'end', t: where }; },
-  },
+  yamanote: routeWorld({ name: '山手線一周', L: 34.5, note: '東京駅から外回りで1周（約34.5km）', P: YM_LL.map(([la, lo]) => ymProj(la, lo)), cum: YM_CUM, stops: fromList(YM, YM_CUM, YM_LBL) }),
+  marathon: routeWorld({ name: 'フルマラソン', L: 42.195, note: 'スタートからゴールまで42.195km', P: MR.P, cum: MR.cum,
+    stops: MR_ST.map(([km, n, a, t], i) => ({ km, n, a, t, lbl: i === 5 ? null : i === 9 ? [0, 16, 'middle'] : i === 10 ? [0, -10, 'middle'] : [0, (MR.P[Math.round(km / 42.195 * 120)][1] < 112 ? -9 : 16), 'middle'] })), where: (km) => `スタートから ${kmf(km)} km`,
+    deco: '<text x="26" y="96" text-anchor="middle">🏁</text>' }),
+  tokaido: routeWorld({ name: '東海道五十三次', L: 490, note: '日本橋→京都・三条大橋（宿場を結んで約490kmにした目安）', P: TK_LL.map(([la, lo]) => tkProj(la, lo)), cum: TK_CUM, stops: fromList(TK, TK_CUM, TK_LBL), land: GEO_TK }),
+  japan: routeWorld({ name: '日本縦断', L: JP_CUM.at(-1), note: '宗谷岬→佐多岬（都市をまっすぐ結んだ道のり）', P: JP_LL.map(([la, lo]) => jpProj(la, lo)), cum: JP_CUM, stops: fromList(JP, JP_CUM, JP_LBL), land: GEO_JP }),
   world: {
     name: '世界一周', L: EQ_L, note: '赤道にそって東回り（1周 約40,075km）',
-    cps: EQ_CP.map(([d, n]) => [d / 360 * EQ_L, n]),
+    cps: EQ_CP.map(([d, n, a, t]) => [d / 360 * EQ_L, n, a, t]), start: [0, 'スタート（経度0°・緯度0°）', 'アフリカ西岸・ギニア湾の海の上', '赤道にそって東へ進む。最初に出会う陸地は、アフリカの小さな島国。'],
     svg() {
-      const cx = 160, cy = 110, r = 84;
-      const arc = (a, b, rr = r) => { const p = (d) => [cx + rr * Math.sin(d * Math.PI / 180), cy - rr * Math.cos(d * Math.PI / 180)]; const [s, e] = [p(a), p(b)]; return `M${s[0].toFixed(1)} ${s[1].toFixed(1)}A${rr} ${rr} 0 ${b - a > 180 ? 1 : 0} 1 ${e[0].toFixed(1)} ${e[1].toFixed(1)}`; };
-      this.arc = arc;
-      return `<circle cx="${cx}" cy="${cy}" r="${r}" class="route"/>` +
-        EQ_LAND.map(([a, b]) => `<path d="${arc(a, b)}" fill="none" stroke="var(--land)" stroke-width="11" stroke-linecap="round"/>`).join('') +
-        `<path class="trail" id="wTrail"/>` +
-        EQ_CP.slice(0, -1).map(([d]) => `<circle class="cp" data-k="${d / 360 * EQ_L}" cx="${(cx + r * Math.sin(d * Math.PI / 180)).toFixed(1)}" cy="${(cy - r * Math.cos(d * Math.PI / 180)).toFixed(1)}" r="2.4"/>`).join('') +
-        `<text x="160" y="16" text-anchor="middle">経度0°</text><text x="160" y="104" text-anchor="middle">いまいるのは</text><text class="lbl" id="wWhere" x="160" y="122" text-anchor="middle" style="font-size:14px"></text>` + dotSVG;
+      const k = 320 / 360, ey = 20 + 75 * k, H = 135 * k, f1 = (v) => v.toFixed(1);
+      const lab = [[17, 18, 'アフリカ'], [13, 54, 'ヨーロッパ'], [90, 52, 'アジア'], [134, -25, 'オーストラリア'], [258, 46, '北アメリカ'], [298, -16, '南アメリカ'], [72, -24, 'インド洋'], [195, -18, '太平洋'], [325, 22, '大西洋']];
+      return `<defs><clipPath id="wclip"><rect x="0" y="20" width="320" height="${f1(H)}"/></clipPath></defs>` +
+        `<path d="${GEO_W}" fill="var(--land)" clip-path="url(#wclip)"/>` +
+        lab.map(([lo, la, n]) => `<text x="${f1(Math.max(lo * k, n.length * 4.2 + 2))}" y="${f1(20 + (75 - la) * k)}" text-anchor="middle" style="font-size:8px;opacity:.85">${n}</text>`).join('') +
+        `<line x1="0" x2="320" y1="${f1(ey)}" y2="${f1(ey)}" class="route" style="stroke-width:2" stroke-dasharray="3 4"/><path class="trail" id="wTrail"/>` +
+        EQ_CP.slice(0, -1).map(([d]) => `<circle class="cp" data-k="${d / 360 * EQ_L}" cx="${f1(d * k)}" cy="${f1(ey)}" r="2.4"/>`).join('') +
+        EQ_CP.slice(0, -1).map(([d], j) => `<circle class="cphit" data-i="${j + 1}" cx="${f1(d * k)}" cy="${f1(ey)}" r="7"/>`).join('') +
+        `<circle class="cphit" data-i="0" cx="2" cy="${f1(ey)}" r="8"/>` +
+        `<text x="3" y="15">経度0°（スタート）</text><text x="317" y="${f1(ey - 5)}" text-anchor="end">赤道</text>` +
+        `<text x="160" y="170" text-anchor="middle">いまいるのは</text><text class="lbl" id="wWhere" x="160" y="190" text-anchor="middle" style="font-size:15px"></text><text id="wWhereA" x="160" y="207" text-anchor="middle"></text>` + dotSVG;
     },
     place(km) {
-      const deg = Math.min(359.99, km / EQ_L * 360), cx = 160, cy = 110, r = 84;
-      const x = cx + r * Math.sin(deg * Math.PI / 180), y = cy - r * Math.cos(deg * Math.PI / 180);
+      const deg = Math.min(359.99, km / EQ_L * 360), k = 320 / 360, ey = 20 + 75 * k, x = deg * k;
       const w = $('#wWhere'); if (w) w.textContent = eqWhere(deg);
-      return { x, y, trail: deg > 0.2 ? this.arc(0, deg) : '' };
+      const c = [...EQ_CP].reverse().find(([d]) => d <= deg), wa = $('#wWhereA');
+      if (wa) wa.textContent = c && eqWhere(deg) === c[1] ? c[2] : '';
+      return { x, y: ey, trail: deg > 0.1 ? `M0 ${ey.toFixed(1)}L${x.toFixed(1)} ${ey.toFixed(1)}` : '' };
     },
   },
   core: {
     name: '地球の中心', L: CORE_L, note: '足もとから真下へ、地球の裏側まで（約12,742km）',
-    cps: CORE_CP,
+    cps: CORE_CP, start: [0, '足もと', '深さ 0km', 'ここから真下へ掘りすすめる。最初は地殻（地面の固い岩の層）。'],
     svg() {
       const cx = 160, cy = 110, R = 100, s = (rk) => (R * rk / 6371).toFixed(1);
       return `<circle cx="${cx}" cy="${cy}" r="${R}" fill="#7a5a3c"/><circle cx="${cx}" cy="${cy}" r="${R - 2.5}" fill="#b5502a"/>` +
@@ -438,7 +758,7 @@ const WORLDS = {
   },
   space: {
     name: '宇宙', L: SPACE_L, note: '真上へまっすぐ、月まで（平均 約38万4,400km）',
-    cps: SPACE_CP,
+    cps: SPACE_CP, start: [0, '地上', '高さ 0km', 'ここから真上へ。まずは世界でいちばん高い山の高さを目指す。'],
     svg() {
       let st = '', seed = 7;
       const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
@@ -446,13 +766,14 @@ const WORLDS = {
       let last = -99, labels = '';
       for (const [k, n] of SPACE_CP.slice(0, -1)) {
         const y = spY(k);
+        labels += `<rect class="cphit" data-i="${SPACE_CP.findIndex((c) => c[0] === k) + 1}" x="0" y="${(y - 6).toFixed(1)}" width="118" height="12"/>`;
         labels += `<line x1="104" x2="112" y1="${y.toFixed(1)}" y2="${y.toFixed(1)}" stroke="#4a5272"/>`;
         if (Math.abs(y - last) >= 11) { labels += `<text x="100" y="${(y + 3).toFixed(1)}" text-anchor="end">${n.replace(/（.*）/, '')}</text>`; last = y; }
       }
       return `<g class="space"><rect width="320" height="220" fill="#0b0d1a"/>${st}` +
         `<defs><radialGradient id="eg" cx=".5" cy=".2" r=".8"><stop offset="0" stop-color="#4aa3ff"/><stop offset="1" stop-color="#123a7a"/></radialGradient></defs>` +
         `<circle cx="160" cy="430" r="232" fill="url(#eg)"/><circle cx="160" cy="430" r="236" fill="none" stroke="#7cc4ff" stroke-opacity=".35" stroke-width="4"/>` +
-        `<circle cx="108" cy="18" r="9" fill="#d9d6cc"/><circle cx="105" cy="16" r="2" fill="#bdb9ad"/><circle cx="111" cy="21" r="1.4" fill="#bdb9ad"/>` +
+        `<circle cx="108" cy="18" r="9" fill="#d9d6cc"/><circle class="cphit" data-i="${SPACE_CP.length}" cx="108" cy="18" r="12"/><circle cx="105" cy="16" r="2" fill="#bdb9ad"/><circle cx="111" cy="21" r="1.4" fill="#bdb9ad"/>` +
         `<line x1="108" y1="28" x2="108" y2="196" class="route" stroke-dasharray="1 5"/>${labels}` +
         `<path id="wTrail" class="trail"/><text class="lbl" id="wLbl"></text>${dotSVG}</g>`;
     },
@@ -463,7 +784,7 @@ const WORLDS = {
     lbl(x, y, where) { return { x: 124, y: Math.max(14, y + 4), a: 'start', t: where }; },
   },
 };
-const ORDER = ['japan', 'world', 'core', 'space'];
+const ORDER = ['yamanote', 'marathon', 'tokaido', 'japan', 'world', 'core', 'space'];
 const lapInfo = (W, D) => { const lap = Math.floor(D / W.L) + 1; return { lap, km: D - (lap - 1) * W.L }; };
 
 /* ================= 描画 ================= */
@@ -483,15 +804,15 @@ function buildWorld() {
   const W = WORLDS[S.world], v = $('#wview');
   v.innerHTML = `<svg viewBox="0 0 320 220" xmlns="${NS}" aria-label="${W.name}のマップ">${W.svg()}</svg>`;
   v.classList.remove('swap'); void v.offsetWidth; v.classList.add('swap');
-  $('#wLen').textContent = nf(W.L, 0);
+  $('#wLen').textContent = (+W.L.toFixed(3)).toLocaleString('ja-JP', { maximumFractionDigits: W.L < 100 ? 3 : 0 });
   shownKm = null;
 }
 function placeWorld(km) {
   const W = WORLDS[S.world], p = W.place(km);
   $('#wDot')?.setAttribute('transform', `translate(${p.x.toFixed(1)} ${p.y.toFixed(1)})`);
   $('#wTrail')?.setAttribute('d', p.trail || 'M0 0');
-  if (W.lbl && p.where) {
-    const l = W.lbl(p.x, p.y, p.where), t = $('#wLbl');
+  if (W.lbl) {
+    const l = W.lbl(p.x, p.y, p.where || ''), t = $('#wLbl');
     if (t) { t.setAttribute('x', l.x); t.setAttribute('y', l.y); t.setAttribute('text-anchor', l.a); t.textContent = l.t; }
   }
   $$('#wview .cp').forEach((c) => c.classList.toggle('done', +c.dataset.k <= km + 1e-6 && +c.dataset.k > 0));
@@ -513,7 +834,9 @@ function renderWorld(animFromZero) {
   $('#wBar').style.width = (km / W.L * 100).toFixed(2) + '%';
   const next = W.cps.find(([k]) => k > km + 1e-9) || W.cps.at(-1);
   const passed = W.cps.filter(([k]) => k <= km + 1e-9).length;
-  $('#wNext').innerHTML = `次は <b>${esc(next[1])}</b> まで あと <b class="num">${kmf(next[0] - km)}</b> km`;
+  const ni = W.cps.indexOf(next) + 1;
+  $('#wNext').dataset.i = ni;
+  $('#wNext').innerHTML = `<span>次は <b>${esc(next[1])}</b> まで あと <b class="num">${kmf(next[0] - km)}</b> km<small>${esc(next[2] || '')}・タップで豆知識</small></span><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3l5 5-5 5"/></svg>`;
   const pace = recentPace();
   $('#wEta').textContent = `${W.note}・通過 ${passed}/${W.cps.length}` + (pace > 0 ? `・今のペースだと1周まで あと${eta((W.L - km) / pace)}` : '');
   const from = animFromZero || shownKm == null || shownKm > km ? 0 : shownKm;
@@ -539,8 +862,7 @@ function renderStats() {
   const m = dayMap(), days = Object.keys(m);
   const D = totalKm(), steps = S.walks.reduce((a, w) => a + stepsOf(w), 0), kcal = S.walks.reduce((a, w) => a + (w.kcal || 0), 0);
   let w7 = 0; for (let i = 0; i < 7; i++) { const d = new Date(); d.setDate(d.getDate() - i); w7 += m[ymd(d)]?.km || 0; }
-  let streak = 0; const d = new Date(); if (!m[ymd(d)]) d.setDate(d.getDate() - 1);
-  while (m[ymd(d)]) { streak++; d.setDate(d.getDate() - 1); }
+  const ym = ymd().slice(0, 7), month = days.filter((k) => k.startsWith(ym)).length;
   const best = days.reduce((b, k) => (!b || m[k].km > m[b].km ? k : b), null);
   const T = [
     ['big', '合計距離', kmf(D), 'km'],
@@ -549,10 +871,11 @@ function renderStats() {
     ['', '1日平均（歩いた日）', days.length ? kmf(D / days.length) : '0', 'km'],
     ['', '直近7日の1日平均', kmf(w7 / 7), 'km'],
     ['', '歩いた日数', nf(days.length), '日'],
-    ['', '連続', nf(streak), '日'],
+    ['', '今月歩いた日', nf(month), '日'],
+    ['', '開拓した道', kmf(totalNew()), 'km'],
   ];
   $('#bento').innerHTML = T.map(([c, l, v, u], i) => `<div class="tile ${c}" style="--i:${i}"><span>${l}</span><b class="num">${v}</b><small>${u}</small></div>`).join('') +
-    (best ? `<div class="tile" style="--i:7;grid-column:span 4"><span>いちばん歩いた日</span><b class="num">${kmf(m[best].km)}</b><small>km（${best.slice(5).replace('-', '/')}）</small></div>` : '');
+    (best ? `<div class="tile" style="--i:8"><span>いちばん歩いた日</span><b class="num">${kmf(m[best].km)}</b><small>km（${best.slice(5).replace('-', '/')}）</small></div>` : '');
   const today = m[ymd()];
   $('#today').innerHTML = `${new Date().toLocaleDateString('ja-JP', { month: 'long', day: 'numeric', weekday: 'short' })}・今日 <b class="num">${kmf(today?.km || 0)} km</b>`;
 }
@@ -612,25 +935,320 @@ function renderHist() {
   }).join('') : '<li class="empty">まだ記録がない。<br>下のボタンから歩きはじめるか、歩数を記録してみて。</li>';
 }
 function renderAll(animFromZero) {
-  applyTheme(); renderWorld(animFromZero); renderStats(); renderChart(); renderHist();
+  applyTheme(); renderWorld(animFromZero); renderStats(); renderChart(); renderHist(); renderMapCard(); renderBadgeCard();
   $('#banner').hidden = S.profile.set;
 }
 function applyTheme() {
   if (S.theme === 'auto') document.documentElement.removeAttribute('data-theme'); else document.documentElement.dataset.theme = S.theme;
 }
 
+/* 地点と豆知識 */
+const allCps = () => { const W = WORLDS[S.world]; return [W.start, ...W.cps]; };
+function openInfo(i, passed) {
+  const W = WORLDS[S.world], all = allCps(), c = all[i]; if (!c) return;
+  const { lap, km } = lapInfo(W, totalKm()), done = c[0] <= km + 1e-9;
+  $('#infoBody').innerHTML =
+    `<div><span class="info-k${done ? ' done' : ''}${passed ? ' pass' : ''}">${passed ? '通過！' : done ? (i === 0 ? 'スタート地点' : `${lap}周目 通過ずみ`) : `あと ${kmf(c[0] - km)} km`}</span>` +
+    `<h3 class="info-name">${esc(c[1])}</h3><p class="info-area">${esc(c[2] || '')}${i ? `・スタートから ${kmf(c[0])} km` : ''}</p></div>` +
+    (c[3] ? `<div class="trivia">${esc(c[3])}</div>` : '') +
+    `<div class="acts"><button class="btn sm" data-info="${i - 1}"${i <= 0 ? ' disabled' : ''}>‹ 前の地点</button><button class="btn sm" data-info="${i + 1}"${i >= all.length - 1 ? ' disabled' : ''}>次の地点 ›</button></div>` +
+    `<div class="acts"><button class="btn sm" data-act="list">一覧を見る</button><button class="btn sm primary" data-act="close">閉じる</button></div>`;
+  const d = $('#dInfo'); if (!d.open) d.showModal();
+  if (c[3] && !S.readTrivia) { S.readTrivia = true; save(); checkBadges(); }
+}
+function openList() {
+  const W = WORLDS[S.world], all = allCps(), { km } = lapInfo(W, totalKm());
+  const nx = all.findIndex((c) => c[0] > km + 1e-9);
+  $('#listT').textContent = `${W.name}の地点（${all.length}か所）`;
+  $('#cpList').innerHTML = all.map((c, i) => {
+    const cls = c[0] <= km + 1e-9 ? 'done' : i === nx ? 'nx' : '';
+    return `<li><button class="${cls}" data-info="${i}"><span class="mk">${cls === 'done' ? '✓' : i}</span><span><b>${esc(c[1])}</b><small>${esc(c[2] || '')}</small></span><span class="km num">${i ? kmf(c[0]) + ' km' : 'スタート'}</span></button></li>`;
+  }).join('');
+  $('#dInfo').close(); const d = $('#dList'); if (!d.open) d.showModal();
+  setTimeout(() => $('#cpList .nx')?.scrollIntoView({ block: 'center' }), 50);
+}
+
+/* 開拓：これまでの記録で通ってない道 */
+const CELL_LA = 0.0003, CELL_LO = 0.00037; // だいたい33m四方
+const cellKey = (la, lo) => Math.floor(la / CELL_LA) + ':' + Math.floor(lo / CELL_LO);
+function addTrackCells(set, tr) {
+  for (let i = 0; i < tr.length; i++) {
+    const p = tr[i]; set.add(cellKey(p[0], p[1]));
+    if (i && !tr[i][2]) { // 長い区間は途中も埋める
+      const q = tr[i - 1], d = hav(q, p), n = Math.floor(d / 15);
+      for (let k = 1; k < n; k++) set.add(cellKey(q[0] + (p[0] - q[0]) * k / n, q[1] + (p[1] - q[1]) * k / n));
+    }
+  }
+}
+function nearCell(set, la, lo) {
+  const a = Math.floor(la / CELL_LA), b = Math.floor(lo / CELL_LO);
+  for (let i = -1; i <= 1; i++) for (let j = -1; j <= 1; j++) if (set.has((a + i) + ':' + (b + j))) return true;
+  return false;
+}
+function cellsBefore(t0) { // t0より前の記録で通った場所
+  const set = new Set();
+  for (const w of S.walks) if (w.src === 'gps' && w.track && w.start < t0) addTrackCells(set, w.track);
+  return set;
+}
+function newOfTrack(tr, set) {
+  let m = 0;
+  for (let i = 1; i < tr.length; i++) if (!tr[i][2] && !nearCell(set, tr[i][0], tr[i][1])) m += hav(tr[i - 1], tr[i]);
+  return m / 1000;
+}
+function recomputeNew() {
+  const set = new Set();
+  for (const w of S.walks.filter((x) => x.src === 'gps' && x.track?.length > 1).sort((a, b) => a.start - b.start)) {
+    w.newKm = +newOfTrack(w.track, set).toFixed(3); addTrackCells(set, w.track);
+  }
+}
+const totalNew = () => S.walks.reduce((a, w) => a + (w.newKm || 0), 0);
+
+/* お気に入りの場所 */
+const PIN_T = { fav: ['⭐', 'お気に入り'], often: ['🔁', 'よく行く'], cafe: ['☕', 'ごはん・カフェ'], park: ['🌳', '公園・自然'], view: ['🌅', '景色'], other: ['📍', 'その他'] };
+function pinVisits(pin) {
+  let n = 0;
+  for (const w of S.walks) if (w.src === 'gps' && w.track && w.track.some((p) => hav(p, [pin.lat, pin.lng]) < 60)) n++;
+  return n;
+}
+let pinDraft = null;
+function openPin(id, ll) {
+  const pin = id ? S.pins.find((x) => x.id === id) : null;
+  if (!pin && !ll) return;
+  pinDraft = pin ? { ...pin } : { id: null, lat: ll[0], lng: ll[1], name: '', type: 'fav', memo: '' };
+  const f = $('#fPin');
+  f.name.value = pinDraft.name; f.memo.value = pinDraft.memo || '';
+  $('#pinT').textContent = pin ? '場所のメモ' : '場所を登録';
+  $$('#pinType button').forEach((b) => b.classList.toggle('on', b.dataset.t === pinDraft.type));
+  $('#pinMeta').textContent = pin ? `計測した散歩でここを通った回数：${pinVisits(pin)}回・登録 ${new Date(pin.at).toLocaleDateString('ja-JP')}` : '名前だけでもOK。メモは空でもいい';
+  $('#pinDel').hidden = !pin; $('#pinGo').hidden = !pin;
+  $('#dPin').showModal();
+}
+function openPins() {
+  const list = S.pins.map((p) => ({ p, v: pinVisits(p) })).sort((a, b) => b.v - a.v || b.p.at - a.p.at);
+  $('#pinList').innerHTML = list.length ? list.map(({ p, v }) => `<li><button data-pin="${esc(p.id)}"><span class="mk" style="border:0;font-size:18px">${PIN_T[p.type]?.[0] || '📍'}</span><span><b>${esc(p.name)}</b><small>${esc(PIN_T[p.type]?.[1] || '')}${p.memo ? '・' + esc(p.memo.slice(0, 30)) : ''}</small></span><span class="km">${v}回</span></button></li>`).join('')
+    : '<li class="empty">まだ登録した場所がない。<br>足あとマップの「＋」か、散歩中の「ここをメモ」から登録できる。</li>';
+  $('#dPins').showModal();
+}
+
+/* バッジ（積み上げ型だけ。一度取ったら消えない） */
+const BADGES = [
+  ['first', '👣', 'はじめの一歩', '初めて記録した', (x) => x.n >= 1],
+  ['gps', '📡', '計測デビュー', '「歩きはじめる」で歩いた', (x) => x.gpsN >= 1],
+  ['k1', '🌱', '1km', '合計1km歩いた', (x) => x.km >= 1],
+  ['k5', '🍀', '5km', '合計5km歩いた', (x) => x.km >= 5],
+  ['k10', '🌿', '10km', '合計10km歩いた', (x) => x.km >= 10],
+  ['yamanote', '🚃', '山手線一周', '合計34.5km歩いた', (x) => x.km >= 34.5],
+  ['marathon', '🏅', 'フルマラソン完走', '合計42.195km歩いた', (x) => x.km >= 42.195],
+  ['k100', '🚀', '宇宙の入り口', '合計100km（真上に歩けば宇宙）', (x) => x.km >= 100],
+  ['k400', '🛰️', '宇宙ステーション', '合計400km歩いた', (x) => x.km >= 400],
+  ['tokaido', '🏯', '東海道を歩ききった', '合計490km歩いた', (x) => x.km >= 490],
+  ['k1000', '🌏', '1,000km', '合計1,000km歩いた', (x) => x.km >= 1000],
+  ['japan', '🗾', '日本縦断', '合計で宗谷岬から佐多岬まで', (x) => x.km >= JP_CUM.at(-1)],
+  ['one2', '🚶', 'ぶらっと散歩', '1回で2km歩いた', (x) => x.maxOne >= 2],
+  ['one5', '🎒', 'がっつり散歩', '1回で5km歩いた', (x) => x.maxOne >= 5],
+  ['one10', '🗺️', '大冒険', '1回で10km歩いた', (x) => x.maxOne >= 10],
+  ['s5k', '✨', '5,000歩の日', '1日で5,000歩', (x) => x.maxSteps >= 5000],
+  ['s10k', '🌟', '1万歩の日', '1日で1万歩', (x) => x.maxSteps >= 10000],
+  ['d5', '📅', '5日歩いた', '歩いた日が合計5日（連続じゃなくてOK）', (x) => x.days >= 5],
+  ['d30', '🗓️', '30日歩いた', '歩いた日が合計30日（連続じゃなくてOK）', (x) => x.days >= 30],
+  ['d100', '💯', '100日歩いた', '歩いた日が合計100日（連続じゃなくてOK）', (x) => x.days >= 100],
+  ['new1', '🧭', '開拓者', '初めて通る道を合計1km', (x) => x.newKm >= 1],
+  ['new10', '⛺', '冒険家', '初めて通る道を合計10km', (x) => x.newKm >= 10],
+  ['new50', '📜', '地図職人', '初めて通る道を合計50km', (x) => x.newKm >= 50],
+  ['pin1', '⭐', 'お気に入り発見', '場所を1つ登録', (x) => x.pins >= 1],
+  ['pin5', '🏠', 'なじみの場所', '場所を5つ登録', (x) => x.pins >= 5],
+  ['trivia', '📖', '物知り', '地点の豆知識を読んだ', (x) => x.trivia],
+  ['morning', '🌅', '朝の散歩', '朝6時より前に歩きはじめた', (x) => x.morning],
+  ['night', '🌙', '夜の散歩', '夜9時以降に歩きはじめた', (x) => x.night],
+];
+function badgeStats() {
+  const m = dayMap(), gps = S.walks.filter((w) => w.src === 'gps');
+  return {
+    n: S.walks.length, gpsN: gps.length, km: totalKm(), maxOne: Math.max(0, ...S.walks.map((w) => w.km)),
+    maxSteps: Math.max(0, ...Object.values(m).map((d) => d.steps)), days: Object.keys(m).length, newKm: totalNew(), pins: S.pins.length,
+    trivia: !!S.readTrivia, morning: gps.some((w) => new Date(w.start).getHours() < 6), night: gps.some((w) => new Date(w.start).getHours() >= 21),
+  };
+}
+function checkBadges(silent) {
+  const x = badgeStats(), got = [];
+  for (const [id, , name, , ok] of BADGES) if (!S.badges[id] && ok(x)) { S.badges[id] = Date.now(); got.push(id); }
+  if (!got.length) return;
+  save(); renderBadgeCard();
+  if (silent) return;
+  setTimeout(() => {
+    const busy = $('dialog[open]') || !$('#live').hidden || !$('#mapv').hidden;
+    const nm = BADGES.find((b) => b[0] === got[0])[2];
+    if (busy) return toast(got.length === 1 ? `バッジ「${nm}」ゲット！` : `バッジを${got.length}個ゲット！`);
+    if (got.length === 1) openBadge(got[0], true); else { toast(`バッジを${got.length}個ゲット！`); openBadges(); }
+  }, 2200);
+}
+function openBadge(id, isNew) {
+  const b = BADGES.find((x) => x[0] === id); if (!b) return;
+  const at = S.badges[id];
+  $('#infoBody').innerHTML = `<div style="text-align:center"><div class="bgbig${at ? '' : ' off'}">${b[1]}</div>${isNew ? '<span class="info-k done pass">バッジゲット！</span>' : ''}<h3 class="info-name">${esc(b[2])}</h3><p class="info-area">${esc(b[3])}${at ? '・' + new Date(at).toLocaleDateString('ja-JP') + 'にゲット' : '・まだ'}</p></div><div class="acts"><button class="btn sm" data-act="badges">バッジ一覧</button><button class="btn sm primary" data-act="close">閉じる</button></div>`;
+  $('#dBadges').close(); const d = $('#dInfo'); if (!d.open) d.showModal();
+}
+function openBadges() {
+  $('#dInfo').close();
+  const n = Object.keys(S.badges).length;
+  $('#bgT').textContent = `バッジ ${n} / ${BADGES.length}`;
+  $('#bgGrid').innerHTML = BADGES.map(([id, ic, name, cond]) => `<button class="bg${S.badges[id] ? '' : ' off'}" data-badge="${id}"><span>${ic}</span><b>${esc(name)}</b><small>${esc(cond)}</small></button>`).join('');
+  const d = $('#dBadges'); if (!d.open) d.showModal();
+}
+function renderBadgeCard() {
+  const got = BADGES.filter((b) => S.badges[b[0]]).sort((a, b) => S.badges[b[0]] - S.badges[a[0]]);
+  $('#bgCount').textContent = `${got.length} / ${BADGES.length}`;
+  $('#bgRecent').innerHTML = got.length ? got.slice(0, 6).map((b) => `<span title="${esc(b[2])}">${b[1]}</span>`).join('') : '<small>記録するとすぐ取れるバッジもあるよ</small>';
+}
+
+/* 足あとマップ */
+const REVEAL_M = 25; // 歩いた道の左右これだけ（m）を「埋まった」ことにする
+let M = null;
+function trackSegs() {
+  const segs = [];
+  for (const w of S.walks) {
+    if (w.src !== 'gps' || !w.track || w.track.length < 2) continue;
+    let run = [];
+    w.track.forEach((p, i) => {
+      if (i === 0 || p[2] === 2) { if (run.length > 1) segs.push({ id: w.id, pts: run }); run = [[p[0], p[1]]]; return; }
+      if (p[2] === 1) { const prev = w.track[i - 1]; if (run.length > 1) segs.push({ id: w.id, pts: run }); segs.push({ id: w.id, pts: [[prev[0], prev[1]], [p[0], p[1]]], est: true }); run = [[p[0], p[1]]]; return; }
+      run.push([p[0], p[1]]);
+    });
+    if (run.length > 1) segs.push({ id: w.id, pts: run });
+  }
+  return segs;
+}
+function gpsStats() {
+  const g = S.walks.filter((w) => w.src === 'gps' && w.track?.length > 1);
+  return { n: g.length, km: g.reduce((a, w) => a + w.km - (w.est || 0), 0), last: g.sort((a, b) => b.start - a.start)[0] };
+}
+function renderMapCard() {
+  const st = gpsStats();
+  $('#mapSum').textContent = (st.n ? `歩いた道 ${kmf(st.km)} km・開拓 ${kmf(totalNew())} km` : '計測すると、ここに道が残っていく') + `・お気に入り ${S.pins.length}か所`;
+  $('#mapThumb').innerHTML = st.last ? trailSVG(st.last.track, { w: 52, h: 52, pad: 8, sw: 2.6, ends: false }) : '<svg viewBox="0 0 52 52"><path d="M14 38c6-14 10 0 16-12s8-6 8-12" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-dasharray="1 6"/></svg>';
+}
+function loadLeaflet() {
+  if (window.L) return Promise.resolve();
+  return new Promise((res, rej) => {
+    const l = document.createElement('link'); l.rel = 'stylesheet'; l.href = 'leaflet.css'; document.head.append(l);
+    const sc = document.createElement('script'); sc.src = 'leaflet.js'; sc.onload = res; sc.onerror = rej; document.head.append(sc);
+  });
+}
+async function openMap(focusId, mode) {
+  $('#mapv').hidden = false;
+  try { await loadLeaflet(); } catch (e) { $('#mapv').hidden = true; return toast('地図の部品（leaflet.js）が読み込めなかった'); }
+  if (!M) initMap();
+  M.segs = trackSegs(); M.focus = focusId || null; drawPins();
+  setMapMode(mode || S.mapMode || 'blank', true);
+  M.map.invalidateSize();
+  fitMap();
+  updMapInfo();
+}
+function initMap() {
+  const map = window.L.map('mapEl', { zoomControl: false, minZoom: 3, maxZoom: 19, zoomSnap: 0.25, wheelPxPerZoomLevel: 90 }).setView([36.2, 138.2], 5);
+  map.attributionControl.setPrefix(false);
+  const tiles = window.L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19, referrerPolicy: 'strict-origin-when-cross-origin',
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors',
+  });
+  tiles.on('tileerror', () => { if (!M.warned) { M.warned = true; toast(navigator.onLine ? '地図の一部が読み込めなかった' : 'オフラインなので地図は出ない（白地図は見られる）'); } });
+  const cv = document.createElement('canvas'); cv.className = 'fog';
+  const fp = map.createPane('fog'); fp.style.zIndex = 350; fp.style.pointerEvents = 'none'; fp.append(cv);
+  M = { map, tiles, cv, mode: 'blank', segs: [], focus: null, me: null, raf: 0, pinLayer: window.L.layerGroup().addTo(map) };
+  map.on('contextmenu', (e) => openPin(null, [e.latlng.lat, e.latlng.lng]));
+  const req = () => { if (!M.raf) M.raf = requestAnimationFrame(() => { M.raf = 0; drawFog(); }); };
+  map.on('move zoom resize viewreset', req);
+  map.on('zoomanim', () => { cv.style.opacity = M.mode === 'all' ? 1 : 0; });
+  map.on('zoomend', () => { drawFog(); cv.style.opacity = 1; });
+  addEventListener('resize', () => M && !$('#mapv').hidden && map.invalidateSize());
+}
+function setMapMode(m, silent) {
+  M.mode = m; S.mapMode = m; save();
+  $$('#mseg button').forEach((b) => b.classList.toggle('on', b.dataset.mm === m));
+  if (m === 'blank') M.map.removeLayer(M.tiles); else if (!M.map.hasLayer(M.tiles)) { M.tiles.addTo(M.map); if (!navigator.onLine && !silent) toast('オフラインなので地図は出ない（白地図は見られる）'); }
+  drawFog(); updMapInfo();
+}
+function fitMap() {
+  const pts = M.segs.filter((g) => !M.focus || g.id === M.focus).flatMap((g) => g.pts);
+  if (pts.length) M.map.fitBounds(window.L.latLngBounds(pts), { padding: [70, 70], maxZoom: 17, animate: false });
+  drawFog();
+}
+function updMapInfo() {
+  const st = gpsStats(), f = M.focus && S.walks.find((w) => w.id === M.focus);
+  const head = f ? `<b>${esc(new Date(f.start).toLocaleDateString('ja-JP', { month: 'long', day: 'numeric' }))}の道</b>（${kmf(f.km)} km・開拓 ${kmf(f.newKm || 0)} km）` : st.n ? `歩いた道 <b class="num">${kmf(st.km)} km</b>・開拓 <b class="num">${kmf(totalNew())} km</b>・${st.n}回分` : 'まだ歩いた道がない';
+  const sub = { blank: '白地図：自分の歩いた線だけ。オフラインでも見られる', mine: '埋まった地図：歩いたところだけ本物の地図が見える', all: '答え合わせ：本物の地図に自分の線を重ねてる' }[M.mode];
+  $('#minfo').innerHTML = `${head}<small>${st.n ? sub : '「歩きはじめる」で計測すると、ここに道ができていく'}</small>`;
+}
+function drawFog() {
+  if (!M) return;
+  const { map, cv } = M, sz = map.getSize(), dpr = Math.min(2, devicePixelRatio || 1);
+  if (cv.width !== Math.round(sz.x * dpr) || cv.height !== Math.round(sz.y * dpr)) { cv.width = Math.round(sz.x * dpr); cv.height = Math.round(sz.y * dpr); cv.style.width = sz.x + 'px'; cv.style.height = sz.y + 'px'; }
+  window.L.DomUtil.setPosition(cv, map.containerPointToLayerPoint([0, 0]));
+  const ctx = cv.getContext('2d'), cs = getComputedStyle(document.documentElement), col = (n) => cs.getPropertyValue(n).trim();
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.globalCompositeOperation = 'source-over'; ctx.globalAlpha = 1; ctx.setLineDash([]);
+  ctx.clearRect(0, 0, sz.x, sz.y);
+  const P = (ll) => map.latLngToContainerPoint(ll);
+  const path = (pts) => { ctx.beginPath(); pts.forEach((ll, i) => { const p = P(ll); i ? ctx.lineTo(p.x, p.y) : ctx.moveTo(p.x, p.y); }); };
+  const mpp = 156543.03392 * Math.cos(map.getCenter().lat * Math.PI / 180) / Math.pow(2, map.getZoom());
+  if (M.mode !== 'all') {
+    ctx.fillStyle = col('--paper'); ctx.globalAlpha = M.mode === 'blank' ? 1 : 0.97; ctx.fillRect(0, 0, sz.x, sz.y); ctx.globalAlpha = 1;
+    // 方眼（地図と一緒に動く）
+    const o = map.containerPointToLayerPoint([0, 0]).add(map.getPixelOrigin()), g = 40;
+    ctx.strokeStyle = col('--paperline'); ctx.lineWidth = 1; ctx.beginPath();
+    for (let x = -((o.x % g) + g) % g; x < sz.x; x += g) { ctx.moveTo(x + .5, 0); ctx.lineTo(x + .5, sz.y); }
+    for (let y = -((o.y % g) + g) % g; y < sz.y; y += g) { ctx.moveTo(0, y + .5); ctx.lineTo(sz.x, y + .5); }
+    ctx.stroke();
+    if (M.mode === 'mine') {
+      ctx.globalCompositeOperation = 'destination-out'; ctx.strokeStyle = '#000'; ctx.lineCap = ctx.lineJoin = 'round';
+      ctx.lineWidth = Math.max(14, 2 * REVEAL_M / mpp);
+      for (const s of M.segs) if (!s.est) { path(s.pts); ctx.stroke(); }
+      ctx.globalCompositeOperation = 'source-over';
+    }
+  }
+  ctx.lineCap = ctx.lineJoin = 'round';
+  for (const s of M.segs) {
+    const f = !M.focus || s.id === M.focus;
+    ctx.globalAlpha = f ? 1 : 0.35;
+    if (M.mode === 'all') { ctx.strokeStyle = col('--surface'); ctx.lineWidth = f ? 8 : 6; ctx.setLineDash(s.est ? [2, 9] : []); path(s.pts); ctx.stroke(); }
+    ctx.strokeStyle = col('--accent'); ctx.lineWidth = f ? 4.5 : 3.5; ctx.setLineDash(s.est ? [2, 9] : []); path(s.pts); ctx.stroke();
+  }
+  ctx.setLineDash([]); ctx.globalAlpha = 1;
+  if (M.me) {
+    const p = P(M.me);
+    ctx.fillStyle = 'rgba(74,163,255,.22)'; ctx.beginPath(); ctx.arc(p.x, p.y, 18, 0, 7); ctx.fill();
+    ctx.fillStyle = '#4aa3ff'; ctx.strokeStyle = '#fff'; ctx.lineWidth = 3; ctx.beginPath(); ctx.arc(p.x, p.y, 7, 0, 7); ctx.fill(); ctx.stroke();
+  }
+}
+function drawPins() {
+  if (!M) return;
+  M.pinLayer.clearLayers();
+  for (const p of S.pins) {
+    const icon = window.L.divIcon({ className: '', html: `<div class="pinmk"><span>${PIN_T[p.type]?.[0] || '📍'}</span></div>`, iconSize: [34, 34], iconAnchor: [17, 38] });
+    window.L.marker([p.lat, p.lng], { icon, title: p.name }).on('click', () => openPin(p.id)).addTo(M.pinLayer);
+  }
+}
+function mapLocate() {
+  if (!navigator.geolocation || !window.isSecureContext) return toast('ここでは現在地が使えない');
+  toast('現在地を探してる…');
+  navigator.geolocation.getCurrentPosition((p) => {
+    M.me = [p.coords.latitude, p.coords.longitude];
+    M.map.setView(M.me, Math.max(M.map.getZoom(), 16)); drawFog();
+  }, (e) => toast(e.code === 1 ? '位置情報が許可されてない' : '現在地を取れなかった'), { enableHighAccuracy: true, timeout: 15000, maximumAge: 30000 });
+}
+
 /* 記録を足したときの通過チェック */
 function celebrate(before, after) {
   const W = WORLDS[S.world], a = lapInfo(W, before), b = lapInfo(W, after);
   const crossed = [];
-  for (let l = a.lap; l <= b.lap; l++) for (const [k, n] of W.cps) { const abs = (l - 1) * W.L + k; if (abs > before && abs <= after) crossed.push(n); }
-  if (b.lap > a.lap) return toast(`${W.name} ${b.lap}周目に突入！`);
-  if (crossed.length) return toast(`${crossed.at(-1)} を通過！`);
+  for (let l = a.lap; l <= b.lap; l++) W.cps.forEach(([k, n], j) => { const abs = (l - 1) * W.L + k; if (abs > before && abs <= after) crossed.push([n, j + 1]); });
+  if (b.lap > a.lap) toast(`${W.name} ${b.lap}周目に突入！`);
+  else if (crossed.length) toast(`${crossed.at(-1)[0]} を通過！`);
+  if (crossed.length && b.lap === a.lap) setTimeout(() => openInfo(crossed.at(-1)[1], true), 1500);
 }
 function addWalk(w) {
   const before = totalKm();
-  S.walks.push(w); save();
-  renderAll(); celebrate(before, totalKm());
+  S.walks.push(w); recomputeNew(); save();
+  renderAll(); celebrate(before, totalKm()); checkBadges();
 }
 
 /* ================= 計測（GPS） ================= */
@@ -640,6 +1258,7 @@ function startWalk() {
   if (!navigator.geolocation || !window.isSecureContext) {
     return toast('ここでは現在地が使えない（https:// で公開したページで開いたときだけ使える）');
   }
+  L.cells = cellsBefore(Date.now() + 1); L.newM = 0;
   Object.assign(L, { on: true, paused: false, t0: Date.now(), acc0: 0, run: Date.now(), m: 0, est: 0, pts: [], last: null, gap: false, cut: false, accuracy: null });
   $('#live').hidden = false; $('#live').classList.remove('paused'); $('#lPause').textContent = '一時停止';
   drawLive();
@@ -673,7 +1292,7 @@ function onPos(p) {
   }
   if (d < Math.max(6, acc * 0.6)) return; // 誤差の揺れは無視
   if (d / dt > 8) { L.last = { pt, t }; L.pts.push([+la.toFixed(6), +lo.toFixed(6), 2]); return drawLive(); } // 速すぎ＝乗り物か飛び
-  L.m += d; L.last = { pt, t }; L.pts.push([+la.toFixed(6), +lo.toFixed(6), 0]);
+  L.m += d; if (!nearCell(L.cells, la, lo)) L.newM += d; L.last = { pt, t }; L.pts.push([+la.toFixed(6), +lo.toFixed(6), 0]);
   drawLive();
 }
 function drawLiveNums() {
@@ -683,6 +1302,7 @@ function drawLiveNums() {
   $('#lTime').textContent = s >= 3600 ? `${Math.floor(s / 3600)}:${String(Math.floor(s / 60) % 60).padStart(2, '0')}:${String(s % 60).padStart(2, '0')}` : `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
   $('#lSteps').textContent = nf(Math.round(L.m / stride()));
   $('#lKcal').textContent = nf(kcalOf(km, ms / 60000));
+  $('#lNew').textContent = (L.newM / 1000).toFixed(2);
 }
 function drawLive() {
   drawLiveNums();
@@ -773,8 +1393,9 @@ function openWalk(id) {
   $('#walkBody').innerHTML = `<h3>${esc(when)}</h3>` +
     (w.src === 'gps' ? `<div class="trailbox">${trailSVG(w.track, { id: 'd', empty: '道の記録がない' })}</div>` : '') +
     `<div class="stats3"><div><span>距離</span><b class="num">${kmf(w.km)}</b> km</div><div><span>歩数</span><b class="num">${nf(stepsOf(w))}</b></div><div><span>消費</span><b class="num">${nf(w.kcal || 0)}</b> kcal</div></div>` +
+    (w.src === 'gps' ? `<p class="hint">開拓：初めて通った道 <b class="num">${kmf(w.newKm || 0)} km</b>（開拓率 ${Math.round((w.newKm || 0) / Math.max(0.001, w.km - (w.est || 0)) * 100)}%）</p>` : '') +
     (w.est > 0 ? `<p class="hint">うち約${kmf(w.est)}kmは、画面オフ中を推測で足した分（点線）。</p>` : '') +
-    (w.src === 'gps' ? '<p class="hint">本物の地図を重ねる「答え合わせ」は次のバージョンで入れる予定。</p>' : '') +
+    (w.src === 'gps' && w.track?.length > 1 ? `<button class="btn sm primary" data-map="${esc(w.id)}">地図で答え合わせ</button>` : '') +
     `<div class="acts"><button class="btn sm danger" data-del="${esc(w.id)}">この記録を消す</button><button class="btn sm" data-act="close">閉じる</button></div>`;
   $('#dWalk').showModal();
 }
@@ -789,7 +1410,7 @@ $('#fSet').addEventListener('submit', (e) => {
   S.profile = { weight: wt, height: ht, stride: st >= 20 && st <= 150 ? st : 0, set: true };
   S.theme = f.theme.value; save(); renderAll(); toast('設定を保存した');
 });
-$('#fSet').theme.addEventListener('change', (e) => { S.theme = e.target.value; applyTheme(); });
+$('#fSet').theme.addEventListener('change', (e) => { S.theme = e.target.value; applyTheme(); drawFog(); });
 
 function doExport() {
   const a = document.createElement('a');
@@ -804,7 +1425,8 @@ async function doImport(file) {
     const have = new Set(S.walks.map((w) => w.id)); let n = 0;
     for (const w of d.walks) if (w && w.id && !have.has(w.id) && +w.km >= 0 && /^\d{4}-\d\d-\d\d$/.test(w.date)) { S.walks.push(w); n++; }
     if (d.profile && !S.profile.set) S.profile = { ...S.profile, ...d.profile };
-    save(); renderAll(true); toast(`${n}件の記録を戻した`);
+    if (Array.isArray(d.pins)) { const hp = new Set(S.pins.map((x) => x.id)); for (const q of d.pins) if (q && q.id && !hp.has(q.id) && isFinite(q.lat) && isFinite(q.lng)) S.pins.push(q); }
+    recomputeNew(); checkBadges(true); save(); renderAll(true); toast(`${n}件の記録を戻した`);
   } catch (e) { toast('読み込めなかった（みちのりのバックアップじゃないかも）'); }
 }
 
@@ -818,9 +1440,16 @@ document.addEventListener('click', (e) => {
     return;
   }
   const hi = e.target.closest('.hi'); if (hi) return openWalk(hi.dataset.id);
+  const pb = e.target.closest('[data-pin]'); if (pb) { $('#dPins').close(); return openPin(pb.dataset.pin); }
+  const bd = e.target.closest('[data-badge]'); if (bd) return openBadge(bd.dataset.badge);
+  const pt = e.target.closest('#pinType [data-t]'); if (pt) { pinDraft.type = pt.dataset.t; $$('#pinType button').forEach((b) => b.classList.toggle('on', b === pt)); return; }
+  const mm = e.target.closest('[data-mm]'); if (mm) return setMapMode(mm.dataset.mm);
+  const mp = e.target.closest('[data-map]'); if (mp) { $('#dWalk').close(); return openMap(mp.dataset.map, 'all'); }
+  const cph = e.target.closest('.cphit'); if (cph) return openInfo(+cph.dataset.i);
+  const inf = e.target.closest('[data-info]'); if (inf) { if ($('#dList').open) $('#dList').close(); return openInfo(+inf.dataset.info); }
   const del = e.target.closest('[data-del]');
   if (del) {
-    if (confirm('この記録を消す？')) { S.walks = S.walks.filter((w) => w.id !== del.dataset.del); save(); $('#dWalk').close(); renderAll(); toast('消した'); }
+    if (confirm('この記録を消す？')) { S.walks = S.walks.filter((w) => w.id !== del.dataset.del); recomputeNew(); save(); $('#dWalk').close(); renderAll(); toast('消した'); }
     return;
   }
   const a = e.target.closest('[data-act]'); if (!a) return;
@@ -828,6 +1457,25 @@ document.addEventListener('click', (e) => {
     case 'walk': startWalk(); break;
     case 'add': openAdd(); break;
     case 'settings': openSet(); break;
+    case 'info': openInfo(+a.dataset.i); break;
+    case 'list': openList(); break;
+    case 'map': openMap(); break;
+    case 'badges': openBadges(); break;
+    case 'pins': openPins(); break;
+    case 'pinadd': $('#mcross').hidden = $('#mpick').hidden = false; $('#minfo').hidden = true; break;
+    case 'pickcancel': $('#mcross').hidden = $('#mpick').hidden = true; $('#minfo').hidden = false; break;
+    case 'pickok': { const c = M.map.getCenter(); $('#mcross').hidden = $('#mpick').hidden = true; $('#minfo').hidden = false; openPin(null, [c.lat, c.lng]); break; }
+    case 'livepin':
+      if (!L.last) toast('まだ現在地が取れてない');
+      else openPin(null, L.last.pt);
+      break;
+    case 'pindel':
+      if (pinDraft?.id && confirm('この場所を消す？')) { S.pins = S.pins.filter((x) => x.id !== pinDraft.id); save(); $('#dPin').close(); drawPins(); renderMapCard(); toast('消した'); }
+      break;
+    case 'pingo': { const pd = pinDraft; $('#dPin').close(); $('#dPins').close(); openMap().then(() => { M.map.setView([pd.lat, pd.lng], 17); }); break; }
+    case 'mapclose': $('#mapv').hidden = true; break;
+    case 'mapfit': M.focus = null; fitMap(); updMapInfo(); break;
+    case 'maploc': mapLocate(); break;
     case 'close': a.closest('dialog').close(); break;
     case 'export': doExport(); break;
     case 'import': $('#imp').click(); break;
@@ -838,6 +1486,14 @@ document.addEventListener('click', (e) => {
 });
 // シートの外側タップで閉じる
 $$('dialog').forEach((d) => d.addEventListener('click', (e) => { if (e.target === d) d.close(); }));
+$('#fPin').addEventListener('submit', (e) => {
+  const f = e.target, name = f.name.value.trim();
+  if (!name) { e.preventDefault(); return toast('名前を入れてね'); }
+  const v = { name, memo: f.memo.value.trim(), type: pinDraft.type };
+  if (pinDraft.id) Object.assign(S.pins.find((x) => x.id === pinDraft.id), v);
+  else S.pins.push({ id: uid(), lat: +pinDraft.lat.toFixed(6), lng: +pinDraft.lng.toFixed(6), at: Date.now(), ...v });
+  save(); drawPins(); renderMapCard(); toast(pinDraft.id ? '更新した' : `「${name}」を登録した`); checkBadges();
+});
 $('#imp').addEventListener('change', (e) => { if (e.target.files[0]) doImport(e.target.files[0]); e.target.value = ''; });
 $('#lPause').addEventListener('click', pauseWalk);
 $('#lStop').addEventListener('click', () => stopWalk(true));
@@ -860,6 +1516,8 @@ addEventListener('resize', () => moveInd(false));
 window.addEventListener('beforeunload', (e) => { if (L.on) { e.preventDefault(); e.returnValue = ''; } });
 
 /* ================= 起動 ================= */
+if (!WORLDS[S.world]) S.world = 'yamanote';
+recomputeNew(); checkBadges(true);
 drawWorldTabs(); buildWorld(); renderAll(true);
 if ('serviceWorker' in navigator && window.isSecureContext && location.protocol !== 'file:') navigator.serviceWorker.register('sw.js').catch(() => {});
 if (navigator.storage?.persist) navigator.storage.persist().catch(() => {});

@@ -1,6 +1,6 @@
 // オフラインで動かすための仕組み（一度開いたら、次からは保存した中身で起動。裏で新しい版を取りに行く）
-const CACHE = 'michinori-v1';
-const FILES = ['./', './index.html', './manifest.webmanifest', './icon.png'];
+const CACHE = 'michinori-v3';
+const FILES = ['./', './index.html', './manifest.webmanifest', './icon.png', './leaflet.js', './leaflet.css'];
 
 self.addEventListener('install', (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => c.addAll(FILES)).then(() => self.skipWaiting()));
